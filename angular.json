@@ -5,7 +5,11 @@
   "projects": {
     "slash-strapi-frontend": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "css"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -20,6 +24,7 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+
             "assets": [
               {
                 "glob": "**/*",
@@ -27,7 +32,6 @@
               }
             ],
             "styles": [
-              "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -37,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -86,7 +90,6 @@
               }
             ],
             "styles": [
-              "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],
             "scripts": []

@@ -1,4 +1,10 @@
+
 /* You can add global styles to this file, and also import other style files  saul.consuegra.moran.26@gmail.com*/
-:root {
-  color-scheme: light !important;
+@import './tailwind.css';
+@import './assets/layout/layout.scss';
+@import 'primeicons/primeicons.css';
+@import './assets/demo/demo.scss';
+
+html {
+  font-size: 105%
 }
