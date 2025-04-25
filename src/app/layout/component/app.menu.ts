@@ -147,7 +147,7 @@ export class AppMenu {
                     {
                         label: 'Contactos',
                         icon: 'pi pi-fw pi-github',
-                        url: 'https://github.com/primefaces/sakai-ng',
+                        url: 'https://github.com/Gabrieledevx',
                         target: '_blank'
                     }
                 ]
