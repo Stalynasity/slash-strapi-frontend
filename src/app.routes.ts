@@ -7,23 +7,15 @@ export const routes: Routes = [
     path: '',
     component: AppLayout,
     children: [
-      {path: '', component: Dashboard }
+      {path: '', component: Dashboard },
+      {path : 'pages', loadChildren: () => import('./app/pages/pages.routes')},
     ]
   },
+  { path: 'error', loadComponent: () => import('./app/shared/components/error.component').then(m => m.ErrorComponent), },
+  { path: 'denegado', loadComponent: () => import('./app/shared/components/access-denied.component').then(m => m.AccessDeniedComponent), },
+  { path: 'auth', loadChildren: () => import('./app/pages/auth/login.route') },
+
   {
-    path: 'error',
-    loadComponent: () => import('./app/shared/components/error.component').then(m => m.ErrorComponent),
-  },
-  {
-    path: 'denegado',
-    loadComponent: () => import('./app/shared/components/access-denied.component').then(m => m.AccessDeniedComponent),
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./app/pages/auth/login.route')
-  },
-  {
-    path: '**',
-    redirectTo: 'login' // o puedes redirigir a un componente de error
+    path: '**', redirectTo: 'login' // o puedes redirigir a un componente de error
   }
 ];

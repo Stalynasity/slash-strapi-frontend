@@ -27,12 +27,11 @@ export class AppMenu {
             {
                 label: 'Data',
                 items: [
-                    { label: 'Bug Report', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
-                    { label: 'Code smells', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
-                    { label: 'Incidents', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
-                    { label: 'Gestión de Usuarios', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] },
-                    { label: 'Parametrización', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
-                    { label: 'Base de Conocimiento', icon: 'pi pi-fw pi-globe', routerLink: ['/uikit/tree'] },
+                    { label: 'Bug Report', icon: 'pi pi-fw pi-id-card', routerLink: ['/pages/bug_reports'] },
+                    { label: 'Code smells', icon: 'pi pi-fw pi-check-square', routerLink: ['/pages/code_smells'] },
+                    { label: 'Incidents', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/pages/incidents'] },
+                    { label: 'Gestión', icon: 'pi pi-fw pi-table', routerLink: ['/pages/gestion'] },
+                    { label: 'Parametrización', icon: 'pi pi-fw pi-list', routerLink: ['/pages/parametrizacion'] },
                     // { label: 'Base de conocimiento', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
                     // { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
                     // { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
@@ -50,46 +49,46 @@ export class AppMenu {
                 routerLink: ['/pages'],
                 items: [
                     {
-                        label: 'Not Found',
+                        label: 'Landing',
                         icon: 'pi pi-fw pi-globe',
                         routerLink: ['/landing']
                     },
-                    // {
-                    //     label: 'Auth',
-                    //     icon: 'pi pi-fw pi-user',
-                    //     items: [
-                    //         {
-                    //             label: 'Login',
-                    //             icon: 'pi pi-fw pi-sign-in',
-                    //             routerLink: ['/auth/login']
-                    //         },
-                    //         {
-                    //             label: 'Error',
-                    //             icon: 'pi pi-fw pi-times-circle',
-                    //             routerLink: ['/auth/error']
-                    //         },
-                    //         {
-                    //             label: 'Access Denied',
-                    //             icon: 'pi pi-fw pi-lock',
-                    //             routerLink: ['/auth/access']
-                    //         }
-                    //     ]
-                    // },
                     {
-                        label: 'Not Found',
+                        label: 'Gestión de Usuarios',
+                        icon: 'pi pi-fw pi-user',
+                        items: [
+                            {
+                                label: 'Usuarios',
+                                icon: 'pi pi-fw pi-sign-in',
+                                routerLink: ['/pages/user']
+                            },
+                            // {
+                            //     label: 'Error',
+                            //     icon: 'pi pi-fw pi-times-circle',
+                            //     routerLink: ['/auth/error']
+                            // },
+                            {
+                                label: 'Time access',
+                                icon: 'pi pi-fw pi-clock',
+                                routerLink: ['/auth/access']
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Modificación',
                         icon: 'pi pi-fw pi-pencil',
                         routerLink: ['/pages/crud']
                     },
-                    {
-                        label: 'Not Found',
-                        icon: 'pi pi-fw pi-exclamation-circle',
-                        routerLink: ['/pages/notfound']
-                    },
-                    {
-                        label: 'Not Found',
-                        icon: 'pi pi-fw pi-circle-off',
-                        routerLink: ['/pages/empty']
-                    }
+                    // {
+                    //     label: 'Auth',
+                    //     icon: 'pi pi-fw pi-exclamation-circle',
+                    //     routerLink: ['/pages/notfound']
+                    // },
+                    // {
+                    //     label: 'Not Found',
+                    //     icon: 'pi pi-fw pi-circle-off',
+                    //     routerLink: ['/pages/empty']
+                    // }
                 ]
             },
             // {
@@ -139,6 +138,10 @@ export class AppMenu {
             {
                 label: 'Get Started',
                 items: [
+                    {
+                      label: 'Base de Conocimiento',
+                      icon: 'pi pi-fw pi-globe',
+                      routerLink: ['/uikit/tree'] },
                     {
                         label: 'Documentation',
                         icon: 'pi pi-fw pi-book',
