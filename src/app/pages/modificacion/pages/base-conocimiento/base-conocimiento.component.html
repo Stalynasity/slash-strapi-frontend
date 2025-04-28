@@ -1,0 +1,20 @@
+<div class="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800 ">
+  <div class="font-bold text-xl mb-2 text-surface-900 dark:text-white">
+    Base de Conocimiento
+  </div>
+  <div class="text-sm text-gray-500 mb-6">
+    Configura los párametros relacionados con la base de conocimiento
+  </div>
+
+  <component-togglesetting
+    title="Modo solo lectura para ciertos usuarios"
+    description="Habilita el modo de solo lectura apra usuarios con permisos limitados"
+    [(enabled)]="enabledReadOnly">
+  </component-togglesetting>
+
+  <component-togglesetting
+    title="Ciclo de validacíon y aprobación"
+    description="Habilita el proceso de validación y aprobación para nuevas entradas"
+    [(enabled)]="enabledApprovalCycle">
+  </component-togglesetting>
+</div>

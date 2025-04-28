@@ -1,0 +1,28 @@
+<div class="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800">
+  <div class="font-bold text-xl mb-2 text-surface-900 dark:text-white">
+    Respaldo y Mantenimiento
+  </div>
+  <div class="text-sm text-gray-500 mb-6">
+    Configura los parámetros para respaldos y mantenimientos del sistema
+  </div>
+
+
+  <component-selector-opciones
+    label="Frecuencia de respaldo"
+    description="Define la frecuencias con la que se realizarán los respaldos"
+    [options]="frecuencias"
+    [(selected)]="frecuenciaSeleccionada">
+  </component-selector-opciones>
+
+  <component-campo-input
+    label="Ruta de almacenamiento"
+    description="Establece la ruta donde se guardarán los respaldos"
+    [(value)]="apiDailyLimit">
+  </component-campo-input>
+
+  <component-togglesetting
+    title="Notificaciones de fallos"
+    description="Recibe notificaciones cuando ocurra un fallo en el respaldo"
+    [(enabled)]="notificacionesFallos">
+  </component-togglesetting>
+</div>
