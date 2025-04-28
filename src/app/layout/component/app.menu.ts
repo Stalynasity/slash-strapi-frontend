@@ -141,11 +141,11 @@ export class AppMenu {
                     {
                       label: 'Base de Conocimiento',
                       icon: 'pi pi-fw pi-globe',
-                      routerLink: ['/uikit/tree'] },
+                      routerLink: ['/pages/base_conocimiento'] },
                     {
                         label: 'Documentation',
                         icon: 'pi pi-fw pi-book',
-                        routerLink: ['/documentation']
+                        routerLink: ['/pages/documentation']
                     },
                     {
                         label: 'Contactos',
