@@ -8,3 +8,6 @@
 /* html {
   font-size: 105%
 } */
+html {
+  scroll-behavior: smooth;
+}

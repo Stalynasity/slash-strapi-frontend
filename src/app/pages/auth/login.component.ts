@@ -93,4 +93,11 @@ export class Login {
             this.error = 'Credenciales incorrectas';
         }
     }
+
+  //   if (user.role === 'admin') {
+  //     this.router.navigate(['/dashboard']);
+  //     } else {
+  //     this.router.navigate(['/landing/home']);
+  //     }
+
 }

@@ -6,6 +6,7 @@ import { parametrizacion } from './parametrizacion/parametrizacion';
 import { incidents } from './incidents/incidents';
 import { bug_reports } from './bug_reports/bug_reports';
 import { modificación } from './modificacion/modificacion';
+import { base_conocimiento } from './base_conocimiento/base_conocimiento';
 
 export default [
     { path: 'user', component: user_management },
@@ -14,5 +15,6 @@ export default [
     { path: 'parametrizacion', component: parametrizacion },
     { path: 'bug_reports', component: bug_reports },
     { path: 'bug_reports', component: modificación },
-    { path: 'incidents', component: incidents }
+    { path: 'incidents', component: incidents },
+    { path: 'base_conocimiento', component: base_conocimiento }
 ] as Routes;
