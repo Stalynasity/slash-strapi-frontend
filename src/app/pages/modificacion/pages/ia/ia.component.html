@@ -1,0 +1,38 @@
+<div class="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800 ">
+  <div class="font-bold text-xl mb-2 text-surface-900 dark:text-white">
+    Inteligencia Artificial
+  </div>
+  <div class="text-sm text-gray-500 mb-6">
+    Configura los párametros relacionados con las funcionalidades de IA
+  </div>
+
+  <component-togglesetting
+    title="Modo solo lectura para ciertos usuarios"
+    description="Habilita el modo de solo lectura apra usuarios con permisos limitados"
+    [(enabled)]="enabledReadOnly"
+    >
+  </component-togglesetting>
+
+  <component-selector-opciones
+    label="Motor de IA"
+    description="Selecciona el motor de IA que se utilizará para las sugerencias"
+    [options]="iaEngines"
+    [(selected)]="selectedEngine"
+    >
+  </component-selector-opciones>
+
+  <component-selector-opciones
+  label="Frecuencia de actualización sugerencias"
+  description="Define cada cuánto tiempo se actualizarán las sugerencias"
+  [options]="frecuencias"
+  [(selected)]="frecuenciaSeleccionada"
+  >
+</component-selector-opciones>
+
+<component-campo-input
+  label="Limite de llamadas diarias a la API"
+  description="Establece el limite de llamdas diarias a la API externa (por usuario o global)"
+  [(value)]="usuario"
+></component-campo-input>
+
+</div>

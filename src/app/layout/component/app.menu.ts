@@ -75,9 +75,9 @@ export class AppMenu {
                         ]
                     },
                     {
-                        label: 'Modificación',
+                        label: 'Configuración Global',
                         icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/crud']
+                        routerLink: ['/pages/modifications']
                     },
                     // {
                     //     label: 'Auth',
