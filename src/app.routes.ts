@@ -6,11 +6,10 @@ import { LandingHomePage } from './app/landing/home/home';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: AppLayout,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: Dashboard },
+      { path: '', component: Dashboard },{ path: '', component: Dashboard },
       {path : 'pages', loadChildren: () => import('./app/pages/pages.routes')},
     ]
   },
