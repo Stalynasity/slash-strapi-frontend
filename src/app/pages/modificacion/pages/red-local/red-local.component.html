@@ -1,1 +1,26 @@
-<p>red-local works!</p>
+<div class="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800">
+  <div class="font-bold text-xl mb-2 text-surface-900 dark:text-white">
+    Infraestructura de Red Local
+  </div>
+  <div class="text-sm text-gray-500 mb-6">
+    Configura los parámetros relacionados con la red local
+  </div>
+
+  <component-campo-input
+      label="IP del servidor Strapi / localhost"
+      description="Establece la dirección IP o localhost del servidor Strapi"
+      [(value)]="strapiIPAddress">
+  </component-campo-input>
+
+  <component-togglesetting
+      title="Acceso a Internet"
+      description="Habilita o deshabilita el acceso a Internet (método cerrado)"
+      [(enabled)]="activeInternet">
+  </component-togglesetting>
+
+  <component-campo-input
+      label="Lista blanca de IPs"
+      description="Direcciones IP permitidas para acceder al sistema (separadas por comas)"
+      [(value)]="IPList">
+  </component-campo-input>
+</div>

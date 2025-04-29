@@ -12,6 +12,7 @@ import { AmbienteComponent } from '../pages/ambiente/ambiente.component';
 import { UsuariosComponent } from '../pages/usuarios/usuarios.component';
 import { ReseteoClavesComponent } from '../pages/reseteo-claves/reseteo-claves.component';
 import { BaseConocimientoComponent } from '../pages/base-conocimiento/base-conocimiento.component';
+import { QrAccesoComponent } from '../pages/qr-acceso/qr-acceso.component';
 
 @Component({
     selector: 'component-menubar',
@@ -33,6 +34,7 @@ export class MenubarComponent {
             { label: 'Seguridad', icon: 'pi pi-shield', command: () => (this.activeComponent = SeguridadComponent) },
             { label: 'Base de Conocimiento', icon: 'pi pi-book', command: () => (this.activeComponent = BaseConocimientoComponent) },
             { label: 'IA', icon: 'pi pi-lightbulb', command: () => (this.activeComponent = IaComponent) },
+            { label: 'QR y Acceso', icon: 'pi pi-qrcode', command: () => (this.activeComponent = QrAccesoComponent) },
             { label: 'Respaldo', icon: 'pi pi-cloud-upload', command: () => (this.activeComponent = RespaldoComponent) },
             { label: 'Red Local', icon: 'pi pi-sitemap', command: () => (this.activeComponent = RedLocalComponent) },
             { label: 'Parámetros Generales', icon: 'pi pi-cog', command: () => (this.activeComponent = ParametrosGeneralesComponent) },

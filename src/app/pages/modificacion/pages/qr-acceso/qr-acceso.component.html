@@ -1,0 +1,26 @@
+<div class="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800">
+  <div class="font-bold text-xl mb-2 text-surface-900 dark:text-white">
+    QR y Acceso
+  </div>
+  <div class="text-sm text-gray-500 mb-6">
+    Configura los parámetros relacionados con códigos QR para el acceso
+  </div>
+
+  <component-togglesetting
+      title="Generación automática de códigos QR"
+      description="Habilita la generación automática de códigos QR para el acceso"
+      [(enabled)]="enabledQR">
+  </component-togglesetting>
+
+  <component-campo-input
+      label="Expiración de códigos QR (días)"
+      description="Establece el período de validez de los códigos QR en días"
+      [(value)]="expirationDayQR">
+  </component-campo-input>
+
+  <component-togglesetting
+      title="Restricciones de acceso por rol"
+      description="Restringe el acceso a los códigos QR según el rol del usuario"
+      [(enabled)]="enabledRestrictionRol">
+  </component-togglesetting>
+</div>
