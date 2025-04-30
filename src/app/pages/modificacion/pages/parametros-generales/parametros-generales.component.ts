@@ -13,13 +13,15 @@ import { SelectItem } from 'primeng/api';
 export class ParametrosGeneralesComponent {
     enableAuditLog: boolean = false;
 
-
     idiomaSeleccionado: string = 'ES';
-    idiomas: SelectItem[] = [{ label: 'Español', value: 'ES' }, { label: 'Ingles', value: 'IN' }];
+    idiomas: SelectItem[] = [
+        { label: 'Español', value: 'ES' },
+        { label: 'Ingles', value: 'IN' }
+    ];
 
     zonaHorariaSeleccionada: string = 'EC';
     zonasHorarias: SelectItem[] = [
-      { label: 'Ecuador', value: 'EC' },
-      { label: 'Mexico', value: 'MX' }
+        { label: 'Ecuador', value: 'EC' },
+        { label: 'Mexico', value: 'MX' }
     ];
 }
