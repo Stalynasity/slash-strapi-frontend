@@ -10,7 +10,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     template: `
         <div class="border rounded-lg border-gray-200 dark:border-gray-700 p-4 flex items-center justify-between mb-4">
             <div>
-                <div class="font-semibold text-surface-900 dark:text-white mb-2">{{ title }}</div>
+                <div class="font-bold text-surface-900 dark:text-white mb-2">{{ title }}</div>
                 <div class="text-sm text-gray-500">{{ description }}</div>
             </div>
             <p-inputSwitch [ngModel]="enabled" (ngModelChange)="onToggle($event)"></p-inputSwitch>
