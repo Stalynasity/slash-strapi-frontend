@@ -9,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class UsuariosComponent {
 
+   agregarUsuario():void{
+
+   }
+
+   solicitudDeRegistro():void{
+
+   }
 }
