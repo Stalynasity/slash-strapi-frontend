@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { NotificationsWidget } from './components/notificationswidget';
+import { IssuesSummaryWidget } from './components/issuessummarywidget';
 import { StatsWidget } from './components/statswidget';
 import { RecentSalesWidget } from './components/recentsaleswidget';
-import { BestSellingWidget } from './components/bestsellingwidget';
-import { RevenueStreamWidget } from './components/revenuestreamwidget';
+import { IncidentStreamWidget } from './components/incidentstreamwidget';
 import { DashboardHeader } from "./components/dashboardHeader";
+import { RecentActivityWidget } from './components/recentactivitywidget';
+import { ProjectsProgressWidget } from './components/projectsprogresswidget';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [StatsWidget, RecentSalesWidget, BestSellingWidget, RevenueStreamWidget, NotificationsWidget, DashboardHeader],
+  imports: [StatsWidget, RecentSalesWidget, IncidentStreamWidget, IssuesSummaryWidget, DashboardHeader, RecentActivityWidget, ProjectsProgressWidget],
   template: `
         <div class="grid grid-cols-12 gap-8">
         <div class="col-span-12">
@@ -20,14 +21,15 @@ import { DashboardHeader } from "./components/dashboardHeader";
             </div>
             <div class="col-span-12">
               <app-recent-sales-widget />
-          </div>
+            </div>
             <div class="col-span-12 xl:col-span-6">
-                <app-best-selling-widget />
+              <app-recent-activity-widget />
+              <app-incident-stream-widget/>
                 <!-- aca podemos poner alado con el otro -->
             </div>
             <div class="col-span-12 xl:col-span-6">
-                <app-revenue-stream-widget />
-                <app-notifications-widget />
+              <app-issues-summary-widget />
+              <app-projects-progress-widget />
             </div>
         </div>
     `

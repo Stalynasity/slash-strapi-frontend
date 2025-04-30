@@ -22,16 +22,16 @@ export class AppMenu {
         this.model = [
             {
                 label: 'Home',
-                items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
+                items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/admin'] }]
             },
             {
                 label: 'Data',
                 items: [
-                    { label: 'Bug Report', icon: 'pi pi-fw pi-id-card', routerLink: ['/pages/bug_reports'] },
-                    { label: 'Code smells', icon: 'pi pi-fw pi-check-square', routerLink: ['/pages/code_smells'] },
-                    { label: 'Incidents', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/pages/incidents'] },
-                    { label: 'Gestión', icon: 'pi pi-fw pi-table', routerLink: ['/pages/gestion'] },
-                    { label: 'Parametrización', icon: 'pi pi-fw pi-list', routerLink: ['/pages/parametrizacion'] },
+                    { label: 'Bug Report', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/pages/bug_reports'] },
+                    { label: 'Code smells', icon: 'pi pi-fw pi-check-square', routerLink: ['/admin/pages/code_smells'] },
+                    { label: 'Incidents', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/admin/pages/incidents'] },
+                    { label: 'Gestión', icon: 'pi pi-fw pi-table', routerLink: ['/admin/pages/gestion'] },
+                    { label: 'Parametrización', icon: 'pi pi-fw pi-list', routerLink: ['/admin/pages/parametrizacion'] },
                     // { label: 'Base de conocimiento', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
                     // { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
                     // { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
@@ -46,7 +46,7 @@ export class AppMenu {
             {
                 label: 'Settings',
                 icon: 'pi pi-fw pi-briefcase',
-                routerLink: ['/pages'],
+                routerLink: ['/admin/pages'],
                 items: [
                     {
                         label: 'Landing',
@@ -60,7 +60,7 @@ export class AppMenu {
                             {
                                 label: 'Usuarios',
                                 icon: 'pi pi-fw pi-sign-in',
-                                routerLink: ['/pages/user']
+                                routerLink: ['/admin/pages/user']
                             },
                             // {
                             //     label: 'Error',
@@ -70,14 +70,14 @@ export class AppMenu {
                             {
                                 label: 'Time access',
                                 icon: 'pi pi-fw pi-clock',
-                                routerLink: ['/auth/access']
+                                routerLink: ['/admin/auth/access']
                             }
                         ]
                     },
                     {
                         label: 'Configuración Global',
                         icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/modifications']
+                        routerLink: ['/admin/pages/modifications']
                     },
                     // {
                     //     label: 'Auth',
@@ -141,11 +141,11 @@ export class AppMenu {
                     {
                       label: 'Base de Conocimiento',
                       icon: 'pi pi-fw pi-globe',
-                      routerLink: ['/pages/base_conocimiento'] },
+                      routerLink: ['/admin/pages/base_conocimiento'] },
                     {
                         label: 'Documentation',
                         icon: 'pi pi-fw pi-book',
-                        routerLink: ['/pages/documentation']
+                        routerLink: ['/admin/pages/documentation']
                     },
                     {
                         label: 'Contactos',
