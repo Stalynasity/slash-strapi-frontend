@@ -1,1 +1,35 @@
-<p>ambiente works!</p>
+<div class="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800">
+  <div class="font-bold text-xl mb-2 text-surface-900 dark:text-white">
+    Configuración del Ambiente
+  </div>
+  <div class="text-sm text-gray-500 mb-6">
+    Configura los parámetros relacionados con el ambiente de desarrollo
+  </div>
+
+  <component-selector-opciones
+    label="Versión de Angular"
+    description="Define la versión del framework Angular"
+    [options]="versionesAngular"
+    [(selected)]="versionAngularSeleccionado">
+  </component-selector-opciones>
+
+  <component-selector-opciones
+    label="Versión de Strapi"
+    description="Define la versión del framework Strapi"
+    [options]="versionesStrapi"
+    [(selected)]="versionStrapiSeleccionado">
+  </component-selector-opciones>
+
+  <component-selector-opciones
+    label="Modo de despliegue"
+    description="Define el modo de despliegue del sistema"
+    [options]="modosDespligues"
+    [(selected)]="modoDespligueSeleccionado">
+  </component-selector-opciones>
+
+  <component-campo-input
+    label="Hora temporal (para pruebas)"
+    description="Establece una hora temporal para realizar pruebas"
+    [(value)]="horaTemporal">
+  </component-campo-input>
+</div>

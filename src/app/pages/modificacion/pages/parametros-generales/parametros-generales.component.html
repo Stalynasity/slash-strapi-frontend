@@ -1,1 +1,28 @@
-<p>parametros-generales works!</p>
+<div class="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800">
+  <div class="font-bold text-xl mb-2 text-surface-900 dark:text-white">
+    Parámetros Generales del Sistema
+  </div>
+  <div class="text-sm text-gray-500 mb-6">
+    Configura los parámetros generales de funcionamiento
+  </div>
+
+  <component-selector-opciones
+    label="Idioma del sistema"
+    description="Define el idioma predeterminado del sistema"
+    [options]="idiomas"
+    [(selected)]="idiomaSeleccionado">
+  </component-selector-opciones>
+
+  <component-selector-opciones
+    label="Zona horaria"
+    description="Define la zona horaria del sistema"
+    [options]="zonasHorarias"
+    [(selected)]="zonaHorariaSeleccionada">
+  </component-selector-opciones>
+
+  <component-togglesetting
+    title="Registro de actividad (Audit Log)"
+    description="Habilita o deshabilita el registro de actividades en el sistema"
+    [(enabled)]="enableAuditLog">
+  </component-togglesetting>
+</div>

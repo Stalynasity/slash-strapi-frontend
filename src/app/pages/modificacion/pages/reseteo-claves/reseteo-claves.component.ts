@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './reseteo-claves.component.css'
 })
 export class ReseteoClavesComponent {
+resetearClaveUsuario() {
+throw new Error('Method not implemented.');
+}
 
 }
