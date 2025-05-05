@@ -1,20 +1,27 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReusableMenubarComponent } from '../../shared/components/ReusableMenuBar.component';
+import { NewBugReportComponent } from './pages/newbugreport/newbugreport';
+import { BugReportComponent } from './pages/bugreports/bugreports';
+import { SolutionManagementComponent } from './pages/solutionmanagement/solutionmanagement';
 
 @Component({
     selector: 'app-bug-reports',
     standalone: true,
-    imports: [
-        CommonModule
-    ],
+    imports: [CommonModule, ReusableMenubarComponent],
     template: `
         <div class="mb-6">
-            <h2 class="text-2xl font-semibold text-surface-900 dark:text-white">Nueva vista< bug reports </h2>
-            <p class="text-gray-500 text-sm">gloglogloglo</p>
+            <component-menubar [tabs]="tabs"></component-menubar>
         </div>
     `,
     providers: []
 })
-export class bug_reports {
+export class BugReport {
+    // Constructor
 
+    tabs = [
+        { label: 'New Bug Report', icon: 'pi pi-pencil', component: NewBugReportComponent },
+        { label: 'Bug Reports', icon: 'pi pi-shield', component: BugReportComponent },
+        { label: 'Solution Management', icon: 'pi pi-shield', component: SolutionManagementComponent }
+    ];
 }

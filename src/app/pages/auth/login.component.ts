@@ -1,103 +1,134 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
+import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [
-        ButtonModule,
-        CheckboxModule,
-        InputTextModule,
-        PasswordModule,
-        FormsModule,
-        RouterModule,
-        RippleModule,
-        AppFloatingConfigurator,
-        CommonModule
-    ],
+    imports: [CommonModule, FormsModule, RouterModule, InputTextModule, PasswordModule, ButtonModule, RippleModule],
     template: `
-        <app-floating-configurator />
-        <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen w-full overflow-hidden">
-            <div class="flex flex-col items-center justify-center">
-                <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
-                    <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
-                        <div class="text-center mb-8">
-                            <!-- Logo aquí -->
-                            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">SLASH</div>
-                            <span class="text-muted-color font-medium">Bienvenido de nuevo</span>
-                        </div>
+        <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <!-- <div class="flex flex-col md:flex-row shadow-xl rounded-2xl max-w-6xl w-full bg-white overflow-hidden"> -->
+        <div class="flex flex-col md:flex-row shadow-xl rounded-2xl max-w-6xl w-full h-[50vh] bg-white overflow-hidden">
 
-                        <div>
-                            <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Usuario o correo</label>
-                            <input pInputText id="email1" type="text" placeholder="admin" class="w-full md:w-[30rem] mb-2" [(ngModel)]="email" />
-                            <div *ngIf="submitted && !email" class="text-red-500 text-sm mb-4">Usuario requerido</div>
 
-                            <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Contraseña</label>
-                            <p-password
-                                id="password1"
-                                [(ngModel)]="password"
-                                placeholder="admin"
-                                [toggleMask]="true"
-                                styleClass="mb-2"
-                                [fluid]="true"
-                                [feedback]="false"
-                            ></p-password>
-                            <div *ngIf="submitted && !password" class="text-red-500 text-sm mb-4">Contraseña requerida</div>
-
-                            <div class="flex items-center justify-between mt-2 mb-8 gap-8">
-                                <div class="flex items-center">
-                                    <p-checkbox [(ngModel)]="checked" id="rememberme1" binary class="mr-2"></p-checkbox>
-                                    <label for="rememberme1">Recuerdame</label>
-                                </div>
-                                <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">¿Olvidaste tu contraseña?</span>
-                            </div>
-
-                            <p-button label="Continuar" styleClass="w-full" (onClick)="login()"></p-button>
-
-                            <div *ngIf="error" class="text-red-500 mt-4 text-sm text-center">{{ error }}</div>
-                        </div>
+                <!-- Lado Izquierdo -->
+                <div class="w-full md:w-1/2 bg-white p-8 md:p-10 space-y-6 border-b md:border-b-0 md:border-r border-gray-200 flex flex-col justify-center">
+                    <div class="flex items-center gap-2 text-2xl font-semibold text-blue-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-8 w-8">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2zm-4.22 4.22l1.42 1.42 2.83-2.83-1.42-1.42zm8.48 0l1.42 1.42-2.83 2.83-1.42-1.42z"
+                            />
+                        </svg>
+                        SLASH
                     </div>
+
+                    <h2 class="text-xl font-medium text-gray-700 text-center">Bienvenido de nuevo</h2>
+                    <form (ngSubmit)="continuar()" class="space-y-4">
+                    <div class="text-left text-sm text-gray-500 mt-4">
+                        {{ mostrarPassword ? 'Ingresa tu contraseña' : 'Ingresa con tu usuario o correo' }}
+                    </div>
+
+
+                        <input
+                            *ngIf="!mostrarPassword"
+                            type="text"
+                            placeholder="Correo o usuario"
+                            class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            [(ngModel)]="usuario"
+                            name="usuario"
+                            required
+                        />
+
+                        <input
+                            *ngIf="mostrarPassword"
+                            type="password"
+                            placeholder="Contraseña"
+                            class="w-full mt-2 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            [ngClass]="{ 'border-red-500': error }"
+                            [(ngModel)]="contrasena"
+                            name="contrasena"
+                            required
+                            autofocus
+                            [disabled]="loading"
+                        />
+
+                        <div *ngIf="error" class="text-red-500 text-xs text-center animate-fade-in">{{ error }}</div>
+
+                        <button
+                            pButton
+                            class="w-full py-2 mt-2 rounded-md"
+                            [label]="mostrarPassword ? (loading ? 'Cargando...' : 'Iniciar sesión') : 'Continuar'"
+                            [disabled]="loading"
+                            [class.bg-blue-100]="!mostrarPassword"
+                            [class.text-blue-900]="!mostrarPassword"
+                            [class.bg-blue-600]="mostrarPassword"
+                            [class.text-white]="mostrarPassword"
+                            [class.opacity-60]="loading"
+                            [class.cursor-not-allowed]="loading"
+                        ></button>
+                    </form>
+
+                    <div class="text-sm text-gray-500 text-center mt-4">
+                        ¿No tienes una cuenta?
+                        <a routerLink="/signup" class="text-blue-600 hover:underline">Crea una</a>
+                    </div>
+                    <div class="text-sm text-gray-500 text-center">
+                        ¿Tienes problemas para iniciar sesión?
+                        <a routerLink="/reset-password" class="text-blue-600 hover:underline">Recuperar contraseña</a>
+                    </div>
+                </div>
+
+                <!-- Lado Derecho -->
+                <div class="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-between bg-gray-50">
+                    <div>
+                        <p class="mt-4 text-gray-600">Disminuye hasta en un <span class="font-semibold">35%</span> el tiempo dedicado a despliegues, resolución de errores y revisión de documentación con inteligencia artificial*</p>
+                    </div>
+                    <div class="text-xs text-gray-400 text-right mt-6">SlashWeb V1.1.0</div>
                 </div>
             </div>
         </div>
     `
 })
 export class Login {
-    email: string = '';
-    password: string = '';
-    checked: boolean = false;
-    error: string = '';
-    submitted: boolean = false;
+    usuario = '';
+    contrasena = '';
+    mostrarPassword = false;
+    loading = false;
+    error = '';
 
     constructor(private router: Router) {}
 
-    login() {
-        this.submitted = true;
+    continuar() {
         this.error = '';
 
-        if (!this.email || !this.password) {
+        if (!this.mostrarPassword) {
+            this.mostrarPassword = true;
             return;
         }
 
-        if (this.email === 'admin' && this.password === 'admin') {
-            this.router.navigate(['/']);
-        } else {
-            this.error = 'Credenciales incorrectas';
-        }
+        this.loading = true;
+        setTimeout(() => {
+            if (this.contrasena === '123456') {
+                this.router.navigate(['/landing/home']);
+            } else if (this.contrasena === 'admin') {
+                this.router.navigate(['/admin/dashboard']);
+            }
+            else {
+                this.error = 'Contraseña incorrecta. Intenta nuevamente.';
+            }
+            this.loading = false;
+        }, 800);
     }
-
-  //   if (user.role === 'admin') {
-  //     this.router.navigate(['/dashboard']);
-  //     } else {
-  //     this.router.navigate(['/landing/home']);
-  //     }
-
 }
+
+//   if (user.role === 'admin') {
+//     this.router.navigate(['/dashboard']);
+//     } else {
+//     this.router.navigate(['/landing/home']);
+//     }

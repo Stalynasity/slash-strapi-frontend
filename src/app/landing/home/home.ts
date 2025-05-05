@@ -25,7 +25,8 @@ import { RippleModule } from 'primeng/ripple';
                 </div>
             </div>
             <div class="flex justify-center md:justify-end mt-8">
-                <img src="https://primefaces.org/cdn/templates/sakai/landing/screen-1.png" alt="Hero Image" class="w-9/12 md:w-auto" />
+                <!-- <img src="https://primefaces.org/cdn/templates/sakai/landing/screen-1.png" alt="Hero Image" class="w-9/12 md:w-auto" /> -->
+                <img src="assets/img/portada_home.png" alt="Hero Image" class="w-1/2 md:w-1/3" />
             </div>
         </div>
     `

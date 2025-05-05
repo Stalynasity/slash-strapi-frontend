@@ -5,9 +5,9 @@
 @import 'primeicons/primeicons.css';
 @import './assets/demo/demo.scss';
 
-/* html {
+html {
   font-size: 105%
-} */
+}
 html {
   scroll-behavior: smooth;
 }
