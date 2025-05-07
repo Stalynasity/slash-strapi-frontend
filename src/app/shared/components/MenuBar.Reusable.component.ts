@@ -6,7 +6,21 @@ import { MenuItem } from 'primeng/api';
 @Component({
     selector: 'component-menubar',
     template: `
-        <p-menubar [model]="menuItems" />
+        <div class="flex justify-center mt-4">
+          <div class="inline-flex gap-4 bg-white rounded-lg p-2 shadow">
+            <button
+              *ngFor="let tab of tabs"
+              class="px-4 py-2 rounded-md text-sm font-medium transition-colors"
+              [class.bg-blue-100]="activeComponent === tab.component"
+              [class.text-blue-700]="activeComponent === tab.component"
+              [class.text-gray-500]="activeComponent !== tab.component"
+              (click)="activeComponent = tab.component"
+            >
+              <i [class]="tab.icon + ' mr-2'"></i>{{ tab.label }}
+            </button>
+          </div>
+        </div>
+
         <div class="mt-4">
             <ng-container *ngComponentOutlet="activeComponent"></ng-container>
         </div>
