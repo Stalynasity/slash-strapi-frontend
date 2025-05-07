@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReusableMenubarComponent } from '../../shared/components/ReusableMenuBar.component';
+import { ReusableMenubarComponent } from '../../shared/components/MenuBar.Reusable.component';
 import { NewBugReportComponent } from '../bug_reports/pages/newbugreport/newbugreport';
 
 @Component({
