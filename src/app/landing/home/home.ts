@@ -26,7 +26,13 @@ import { RippleModule } from 'primeng/ripple';
             </div>
             <div class="flex justify-center md:justify-end mt-8">
                 <!-- <img src="https://primefaces.org/cdn/templates/sakai/landing/screen-1.png" alt="Hero Image" class="w-9/12 md:w-auto" /> -->
-                <img src="assets/img/portada_home.png" alt="Hero Image" class="w-1/2 md:w-1/3" />
+                <!-- <img src="assets/img/portada_home.png" alt="Hero Image" class="w-1/2 md:w-1/3" /> -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-24 w-24 mr-2" fill="none">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2zm-4.22 4.22l1.42 1.42 2.83-2.83-1.42-1.42zm8.48 0l1.42 1.42-2.83 2.83-1.42-1.42z"
+                    fill="var(--primary-color)"
+                />
+                </svg>
             </div>
         </div>
     `

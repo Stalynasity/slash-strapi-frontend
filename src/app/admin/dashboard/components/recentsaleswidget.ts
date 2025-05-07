@@ -80,7 +80,7 @@ import { WidgetService, Issue } from '../../../core/services/widget.Service';
 
                     <!-- Código QR y compartir -->
                     <div class="col-span-12 md:col-span-4 flex flex-col items-center">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?data={{ selectedIssue?.id }}" alt="QR" class="w-32 h-32 mb-4" />
+                    <img *ngIf="selectedIssue" [src]="qrCodeUrl" alt="QR" class="w-32 h-32 mb-4" />
                         <span class="text-gray-500 text-xs mb-4">Código QR del incidente</span>
 
                         <div class="flex flex-col gap-2 w-full">
@@ -124,6 +124,11 @@ export class RecentSalesWidget {
       this.selectedIssue = null;
     }
 
+    get qrCodeUrl(): string {
+      if (!this.selectedIssue?.id) return '';
+      const data = encodeURIComponent(window.location.origin + `/bug/${this.selectedIssue.id}`);
+      return `https://api.qrserver.com/v1/create-qr-code/?data=${data}&size=150x150`;
+    }
 
     handleShare(type: 'email' | 'whatsapp' | 'telegram') {
       if (!this.selectedIssue) return;

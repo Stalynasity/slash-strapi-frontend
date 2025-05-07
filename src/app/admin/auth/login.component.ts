@@ -117,7 +117,7 @@ export class Login {
             if (this.contrasena === '123456') {
                 this.router.navigate(['/landing/home']);
             } else if (this.contrasena === 'admin') {
-                this.router.navigate(['/admin/dashboard']);
+                this.router.navigate(['/admin']);
             }
             else {
                 this.error = 'Contraseña incorrecta. Intenta nuevamente.';

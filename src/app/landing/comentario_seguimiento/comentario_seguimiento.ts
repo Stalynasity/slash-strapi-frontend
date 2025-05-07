@@ -3,12 +3,13 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { TextareaModule } from 'primeng/textarea'; // <-- el nuevo correcto
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     selector: 'app-comentario-seguimiento',
     standalone: true,
-    imports: [CommonModule, ButtonModule, RippleModule, TextareaModule, AvatarModule],
+    imports: [CommonModule, FormsModule, ButtonModule, RippleModule, TextareaModule, AvatarModule],
     template: `
         <div class="card p-6 shadow-md rounded-md">
             <h2 class="text-2xl font-semibold mb-6 text-surface-900 dark:text-white">Comentarios y Seguimiento</h2>
