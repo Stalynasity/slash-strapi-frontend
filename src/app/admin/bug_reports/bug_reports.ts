@@ -20,8 +20,8 @@ export class BugReport {
     // Constructor
 
     tabs = [
-        { label: 'New Bug Report', icon: 'pi pi-pencil', component: NewBugReportComponent },
-        { label: 'Bug Reports', icon: 'pi pi-shield', component: BugReportComponent },
-        { label: 'Solution Management', icon: 'pi pi-shield', component: SolutionManagementComponent }
+        { label: 'Nuevo Reporte de Error', icon: 'pi pi-pencil', component: NewBugReportComponent },
+        { label: 'Reportes de Errores', icon: 'pi pi-shield', component: BugReportComponent },
+        { label: 'Gestión de Soluciones', icon: 'pi pi-shield', component: SolutionManagementComponent }
     ];
 }

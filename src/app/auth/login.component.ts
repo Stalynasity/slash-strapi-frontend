@@ -38,24 +38,22 @@ export class Login {
 
         this.loading = true;
 
-        this.authService.login({ identifier: this.usuario, password: this.contrasena }).subscribe({
-            next: (res) => {
-                localStorage.setItem('token', res.jwt);
-                localStorage.setItem('user', JSON.stringify(res.user));
+        // this.authService.login({ identifier: this.usuario, password: this.contrasena }).subscribe({
+        //     next: (res) => {
+        //         localStorage.setItem('token', res.jwt);
+        //         localStorage.setItem('user', JSON.stringify(res.user));
 
-                const isAdmin = res.user?.role?.name === 'Admin';
-                this.router.navigate([isAdmin ? '/admin' : '/landing/home']);
-            },
-            error: (err) => {
-                this.error = 'Credenciales inválidas. Intenta nuevamente.';
-                this.loading = false;
-            },
-            complete: () => {
-                this.loading = false;
-            }
-        });
-
-        this.loading = true;
+        //         const isAdmin = res.user?.role?.name === 'Admin';
+        //         this.router.navigate([isAdmin ? '/admin' : '/landing/home']);
+        //     },
+        //     error: (err) => {
+        //         this.error = 'Credenciales inválidas. Intenta nuevamente.';
+        //         this.loading = false;
+        //     },
+        //     complete: () => {
+        //         this.loading = false;
+        //     }
+        // });
 
         setTimeout(() => {
             if (this.contrasena === '123456') {
