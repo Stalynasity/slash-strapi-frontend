@@ -19,7 +19,7 @@ export const routes: Routes = [
 
   { path: 'error', loadComponent: () => import('./app/shared/components/error.component').then(m => m.ErrorComponent), },
   { path: 'denegado', loadComponent: () => import('./app/shared/components/access-denied.component').then(m => m.AccessDeniedComponent), },
-  { path: 'auth', loadChildren: () => import('./app/admin/auth/login.route') },
+  { path: 'auth', loadChildren: () => import('./app/auth/login.route') },
 
   { path: '', redirectTo: 'landing/home', pathMatch: 'full' },
 

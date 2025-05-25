@@ -21,38 +21,23 @@ export class AppMenu {
     ngOnInit() {
         this.model = [
             {
-                label: 'Home',
+                label: 'Inicio',
                 items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/admin'] }]
             },
             {
-                label: 'Data',
+                label: 'Base de Datos',
                 items: [
-                    { label: 'Bug Report', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/pages/bug_reports'] },
+                    { label: 'Informe de errores', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/pages/bug_reports'] },
                     { label: 'Code smells', icon: 'pi pi-fw pi-check-square', routerLink: ['/admin/pages/code_smells'] },
-                    { label: 'Incidents', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/admin/pages/incidents'] },
-                    { label: 'Gestión', icon: 'pi pi-fw pi-table', routerLink: ['/admin/pages/gestion'] },
-                    { label: 'Parametrización', icon: 'pi pi-fw pi-list', routerLink: ['/admin/pages/parametrizacion'] },
-                    // { label: 'Base de conocimiento', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
-                    // { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
-                    // { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
-                    // { label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
-                    // { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
-                    // { label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
-                    // { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                    // { label: 'Timeline', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
-                    // { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
+                    { label: 'Incidentes', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/admin/pages/incidents'] },
+                    // { label: 'Gestión', icon: 'pi pi-fw pi-table', routerLink: ['/admin/pages/gestion'] },
                 ]
             },
             {
-                label: 'Settings',
+                label: 'Configuracion',
                 icon: 'pi pi-fw pi-briefcase',
                 routerLink: ['/admin/pages'],
                 items: [
-                    {
-                        label: 'Landing',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/landing']
-                    },
                     {
                         label: 'Gestión de Usuarios',
                         icon: 'pi pi-fw pi-user',
@@ -62,11 +47,6 @@ export class AppMenu {
                                 icon: 'pi pi-fw pi-sign-in',
                                 routerLink: ['/admin/pages/user']
                             },
-                            // {
-                            //     label: 'Error',
-                            //     icon: 'pi pi-fw pi-times-circle',
-                            //     routerLink: ['/auth/error']
-                            // },
                             {
                                 label: 'Time access',
                                 icon: 'pi pi-fw pi-clock',
@@ -79,6 +59,11 @@ export class AppMenu {
                         icon: 'pi pi-fw pi-pencil',
                         routerLink: ['/admin/pages/modifications']
                     },
+                    {
+                        label: 'Parametrizaciónes',
+                        icon: 'pi pi-fw pi-list',
+                        routerLink: ['/admin/pages/parametrizacion']
+                    }
                     // {
                     //     label: 'Auth',
                     //     icon: 'pi pi-fw pi-exclamation-circle',
@@ -136,23 +121,23 @@ export class AppMenu {
             //     ]
             // },
             {
-                label: 'Get Started',
+                label: 'Conocimiento',
                 items: [
                     {
                       label: 'Base de Conocimiento',
                       icon: 'pi pi-fw pi-globe',
                       routerLink: ['/admin/pages/base_conocimiento'] },
+                    // {
+                    //     label: 'Contactos',
+                    //     icon: 'pi pi-fw pi-github',
+                    //     url: 'https://github.com/Gabrieledevx',
+                    //     target: '_blank'
+                    // }
                     {
-                        label: 'Documentation',
-                        icon: 'pi pi-fw pi-book',
-                        routerLink: ['/admin/pages/documentation']
+                        label: 'Pagina de Inicio DEV',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/landing']
                     },
-                    {
-                        label: 'Contactos',
-                        icon: 'pi pi-fw pi-github',
-                        url: 'https://github.com/Gabrieledevx',
-                        target: '_blank'
-                    }
                 ]
             }
         ];

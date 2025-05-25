@@ -1,0 +1,36 @@
+<div class="card space-y-6">
+
+  <!-- Tabla de reportes -->
+  <div class="overflow-auto border rounded">
+    <table class="min-w-full text-sm text-left">
+      <thead class="text-gray-500 bg-gray-100">
+        <tr>
+          <th class="px-4 py-2">ID</th>
+          <th class="px-4 py-2">Title</th>
+          <th class="px-4 py-2">Module</th>
+          <th class="px-4 py-2">Severity</th>
+          <th class="px-4 py-2">Status</th>
+          <th class="px-4 py-2">Created</th>
+          <th class="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of issues" class="border-b">
+          <td class="px-4 py-2 font-medium">#{{ item.id }}</td>
+          <td class="px-4 py-2 underline text-blue-600 cursor-pointer">{{ item.title }}</td>
+          <td class="px-4 py-2">{{ item.module }}</td>
+          <td class="px-4 py-2">
+            <span class="border rounded-full px-2 py-1 text-xs">{{ item.severity }}</span>
+          </td>
+          <td class="px-4 py-2">
+            <span [ngClass]="statusClass(item.status)" class="rounded-full px-2 py-1 text-xs font-medium">
+              {{ item.status }}
+            </span>
+          </td>
+          <td class="px-4 py-2">{{ item.date }}</td>
+          <td class="px-4 py-2 text-blue-600 cursor-pointer">View</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
