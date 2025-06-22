@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { IssuesSummaryWidget } from './components/issuessummarywidget';
 import { StatsWidget } from './components/statswidget';
-import { RecentSalesWidget } from './components/recentsaleswidget';
-import { IncidentStreamWidget } from './components/incidentstreamwidget';
+
+
 import { DashboardHeader } from "./components/dashboardHeader";
 import { RecentActivityWidget } from './components/recentactivitywidget';
 import { ProjectsProgressWidget } from './components/projectsprogresswidget';
+import { IncidentStreamWidget } from './components/incidentstreamwidget';
+import { RecentSalesWidget } from './components/recentsaleswidget';
 
 @Component({
   selector: 'app-dashboard',

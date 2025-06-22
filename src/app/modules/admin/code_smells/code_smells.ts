@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReusableMenubarComponent } from '../../shared/components/MenuBar.Reusable.component';
+
 import { NewCodeSmellComponent } from './pages/NewCodeSmell/newCodeSmell';
 import { CodeSmellReportsComponent } from './pages/CodeSmeelReports/CodeSmeelReports';
 import { SolutionManagementCodeComponent } from './pages/SolutionManagementCode/SolutionManagementCode';
+import { ReusableMenubarComponent } from '../../../shared/components/MenuBar.Reusable.component';
 
 @Component({
     selector: 'app-code_smells',

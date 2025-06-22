@@ -16,4 +16,4 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class AccessDeniedComponent {}
+export default class AccessDeniedComponent {}

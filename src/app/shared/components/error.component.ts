@@ -13,4 +13,4 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class ErrorComponent {}
+export default class ErrorComponent {}

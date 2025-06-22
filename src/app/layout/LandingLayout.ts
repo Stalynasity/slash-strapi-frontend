@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FooterWidget } from './component/footerwidget';
 import { TopbarWidget } from './components/topbarwidget.component';
-import { FooterWidget } from './components/footerwidget';
+
+
 
 @Component({
   selector: 'app-landing-layout',

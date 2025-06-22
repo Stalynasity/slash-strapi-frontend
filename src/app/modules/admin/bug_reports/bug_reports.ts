@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReusableMenubarComponent } from '../../shared/components/MenuBar.Reusable.component';
+
 import { NewBugReportComponent } from './pages/newbugreport/newbugreport';
 import { BugReportComponent } from './pages/bugreports/bugreports';
 import { SolutionManagementComponent } from './pages/solutionmanagement/solutionmanagement';
+import { ReusableMenubarComponent } from '../../../shared/components/MenuBar.Reusable.component';
 
 @Component({
     selector: 'app-bug-reports',

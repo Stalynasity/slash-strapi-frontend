@@ -1,29 +1,33 @@
 import { Routes } from '@angular/router';
 import { AppLayout } from './app/layout/component/app.layout';
-import { Dashboard } from './app/admin/dashboard/dashboard.component';
+import { Dashboard } from './app/modules/admin/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
     path: 'admin',
     component: AppLayout,
-    children: [
-      { path: '', component: Dashboard },{ path: '', component: Dashboard },
-      {path : 'pages', loadChildren: () => import('./app/admin/pages.routes')},
-    ]
+    loadChildren: () => import('./app/modules/admin/admin.routes'),
   },
-
   {
     path: 'landing',
-    loadChildren: () => import('./app/landing/landing.routes').then(m => m.landingRoutes)
+    loadChildren: () => import('./app/modules/user/user.routes'),
   },
-
-  { path: 'error', loadComponent: () => import('./app/shared/components/error.component').then(m => m.ErrorComponent), },
-  { path: 'denegado', loadComponent: () => import('./app/shared/components/access-denied.component').then(m => m.AccessDeniedComponent), },
-  { path: 'auth', loadChildren: () => import('./app/auth/login.route') },
-
-  { path: '', redirectTo: 'landing/home', pathMatch: 'full' },
-
   {
-    path: '**', redirectTo: 'login' // o puedes redirigir a un componente de error
-  }
+    path: 'error',
+    loadComponent: () => import('./app/shared/components/error.component'),
+  },
+  {
+    path: 'denied',
+    loadComponent: () =>
+      import('./app/shared/components/access-denied.component'),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./app/modules/auth/auth.routes'),
+  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: '**',
+    redirectTo: 'auth',
+  },
 ];
