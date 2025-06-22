@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { LayoutService } from '../service/layout.service';
+import { AppConfigurator } from './app.configurator';
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [RouterModule, CommonModule, StyleClassModule],
+  imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
   template: ` <div class="layout-topbar">
     <div class="layout-topbar-logo-container">
       <button
@@ -36,14 +37,58 @@ import { LayoutService } from '../service/layout.service';
     </div>
 
     <div class="layout-topbar-actions">
-      <div class="layout-topbar-menu hidden lg:block">
-        <div class="layout-topbar-menu-content">
-          <button type="button" class="layout-topbar-action">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-          </button>
+      <div class="layout-config-menu">
+        <button
+          type="button"
+          class="layout-topbar-action"
+          (click)="toggleDarkMode()"
+        >
+          <i
+            [ngClass]="{
+              'pi ': true,
+              'pi-moon': layoutService.isDarkTheme(),
+              'pi-sun': !layoutService.isDarkTheme()
+            }"
+          ></i>
+        </button>
+        <div class="relative">
+          <app-configurator />
         </div>
       </div>
+
+      <button
+        class="layout-topbar-menu-button layout-topbar-action"
+        pStyleClass="@next"
+        enterFromClass="hidden"
+        enterActiveClass="animate-scalein"
+        leaveToClass="hidden"
+        leaveActiveClass="animate-fadeout"
+        [hideOnOutsideClick]="true"
+      >
+        <i class="pi pi-ellipsis-v"></i>
+      </button>
+
+      <!-- Info de usuario -->
+        <div class="text-right hidden md:block">
+          <small class="text-xs text-gray-500">Administrador</small><br />
+          <span class="font-medium text-sm">Stalyn David Asitimabay Shigla</span>
+        </div>
+
+        <!-- Cerrar sesión -->
+        <button class="layout-topbar-action" pTooltip="Cerrar sesión" (click)="cerrarSesion()">
+          <i class="pi pi-sign-out"></i>
+        </button>
+
+      <!-- <div class="layout-topbar-actions">
+        <div class="layout-topbar-menu hidden lg:block">
+          <div class="layout-topbar-menu-content">
+            <button type="button" class="layout-topbar-action">
+              <i class="pi pi-user"></i>
+              <span>Profile</span>
+            </button>
+          </div>
+        </div>
+      </div> -->
     </div>
   </div>`,
 })
@@ -57,5 +102,10 @@ export class AppTopbar {
       ...state,
       darkTheme: !state.darkTheme,
     }));
+  }
+
+  cerrarSesion() {
+    // Aquí puedes limpiar el token y redirigir
+    console.log('Cerrando sesión...');
   }
 }

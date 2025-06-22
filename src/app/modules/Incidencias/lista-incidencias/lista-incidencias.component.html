@@ -1,0 +1,67 @@
+<form [formGroup]="formulario" class="card">
+  <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4">
+    <div class="flex gap-2 w-full sm:w-auto">
+      <input
+        pInputText
+        type="text"
+        id="filtro"
+        formControlName="filtro"
+        class="w-full"
+        placeholder="Buscar incidencias..."
+        (input)="onFilter()"
+      />
+    </div>
+  </div>
+
+  <p-table
+    #dt
+    [value]="incidencias"
+    [paginator]="true"
+    [rows]="5"
+    [globalFilterFields]="['id', 'titulo', 'tipo', 'estado', 'creado']"
+    class="p-datatable-sm"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Creado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-incidencia>
+      <tr>
+        <td>{{ incidencia.id }}</td>
+        <td>{{ incidencia.titulo }}</td>
+        <td>
+          <span
+            [ngClass]="{
+              'text-yellow-500 font-semibold': incidencia.tipo === 'Alto',
+              'text-red-500 font-semibold': incidencia.tipo === 'Crítico',
+              'text-gray-400': incidencia.tipo === 'Bajo',
+              'text-color': incidencia.tipo === 'Medio'
+            }"
+          >
+            {{ incidencia.tipo }}
+          </span>
+        </td>
+        <td>{{ incidencia.estado }}</td>
+        <td>{{ incidencia.creado }}</td>
+        <td>
+          <p-button
+            icon="pi pi-eye"
+            label="View"
+            size="small"
+            (click)="verIncidencia(incidencia)"
+            class="p-button-text"
+            type="button"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</form>

@@ -1,0 +1,45 @@
+<section class="card p-6 rounded-xl shadow-md">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold text-gray-800">Documentación centralizada y recursos para proyectos</h2>
+    <form [formGroup]="formulario" class="flex items-center gap-2">
+      <p-select formControlName="filtroCampo" id="prioridad" [options]="opcionesPrioridad" optionLabel="label" formControlName="prioridad"
+        class="w-full" />
+      <input
+        pInputText
+        type="text"
+        id="filtro"
+        formControlName="filtro"
+        placeholder="Buscar documentación..."
+        class="w-64 border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+        (input)="onFilter()"
+      />
+    </form>
+  </div>
+
+  <p-table #dt [value]="documentos" class="p-datatable-sm" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Incidencia</th>
+        <th>Versión afectada</th>
+        <th>Autor</th>
+        <th>Fecha de documentación</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-doc>
+      <tr>
+        <td class="text-gray-700">{{ doc.id }}</td>
+        <td class="text-gray-700">{{ doc.incidencia }}</td>
+        <td class="text-gray-700">{{ doc.version }}</td>
+        <td class="text-gray-700">{{ doc.autor }}</td>
+        <td class="text-gray-700">{{ doc.fecha }}</td>
+        <td class="flex items-center gap-2">
+          <p-button icon="pi pi-eye" class="p-button-sm" (click)="verDocumento(doc)" severity="info" tooltip="Ver" />
+          <p-button icon="pi pi-pencil" class="p-button-sm" (click)="editarDocumento(doc)" severity="primary" tooltip="Editar" />
+          <p-button icon="pi pi-file-pdf" class="p-button-sm" (click)="descargarPDF(doc)" severity="danger" tooltip="Descargar PDF" />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

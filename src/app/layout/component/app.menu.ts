@@ -27,35 +27,41 @@ export class AppMenu {
   ngOnInit() {
     this.model = [
       {
-        label: 'Inicio',
+        label: '',
         items: [
           {
             label: 'Dashboard',
             icon: 'pi pi-fw pi-home',
             routerLink: ['/admin'],
           },
-        ],
-      },
-      {
-        label: 'Base de Datos',
-        items: [
           {
-            label: 'Informe de errores',
+            label: 'Incidencias',
             icon: 'pi pi-fw pi-id-card',
-            routerLink: ['/admin/bug_reports'],
+            routerLink: ['/models/incidencias/lista-incidencias'],
           },
           {
-            label: 'Code smells',
+            label: 'Documentación',
             icon: 'pi pi-fw pi-check-square',
-            routerLink: ['/admin/code_smells'],
+            routerLink: ['/models/documentacion'],
           },
           {
-            label: 'Incidentes',
+            label: 'Analsis de Código',
             icon: 'pi pi-fw pi-mobile',
             class: 'rotated-icon',
-            routerLink: ['/admin/incidents'],
+            routerLink: ['/models/analisis-codigo'],
           },
-          // { label: 'Gestión', icon: 'pi pi-fw pi-table', routerLink: ['/admin/gestion'] },
+          {
+            label: 'Sugerencias inteligentes',
+            icon: 'pi pi-fw pi-mobile',
+            class: 'rotated-icon',
+            routerLink: ['/models/sugerencias-inteligente'],
+          },
+          {
+            label: 'Reportes',
+            icon: 'pi pi-fw pi-mobile',
+            class: 'rotated-icon',
+            routerLink: ['/models/reportes'],
+          },
         ],
       },
       {
@@ -89,76 +95,6 @@ export class AppMenu {
             icon: 'pi pi-fw pi-list',
             routerLink: ['/admin/parametrizacion'],
           },
-          // {
-          //     label: 'Auth',
-          //     icon: 'pi pi-fw pi-exclamation-circle',
-          //     routerLink: ['/pages/notfound']
-          // },
-          // {
-          //     label: 'Not Found',
-          //     icon: 'pi pi-fw pi-circle-off',
-          //     routerLink: ['/pages/empty']
-          // }
-        ],
-      },
-      // {
-      //     label: 'Hierarchy',
-      //     items: [
-      //         {
-      //             label: 'Submenu 1',
-      //             icon: 'pi pi-fw pi-bookmark',
-      //             items: [
-      //                 {
-      //                     label: 'Submenu 1.1',
-      //                     icon: 'pi pi-fw pi-bookmark',
-      //                     items: [
-      //                         { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
-      //                         { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
-      //                         { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' }
-      //                     ]
-      //                 },
-      //                 {
-      //                     label: 'Submenu 1.2',
-      //                     icon: 'pi pi-fw pi-bookmark',
-      //                     items: [{ label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' }]
-      //                 }
-      //             ]
-      //         },
-      //         {
-      //             label: 'Submenu 2',
-      //             icon: 'pi pi-fw pi-bookmark',
-      //             items: [
-      //                 {
-      //                     label: 'Submenu 2.1',
-      //                     icon: 'pi pi-fw pi-bookmark',
-      //                     items: [
-      //                         { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
-      //                         { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' }
-      //                     ]
-      //                 },
-      //                 {
-      //                     label: 'Submenu 2.2',
-      //                     icon: 'pi pi-fw pi-bookmark',
-      //                     items: [{ label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' }]
-      //                 }
-      //             ]
-      //         }
-      //     ]
-      // },
-      {
-        label: 'Conocimiento',
-        items: [
-          {
-            label: 'Base de Conocimiento',
-            icon: 'pi pi-fw pi-globe',
-            routerLink: ['/admin/base_conocimiento'],
-          },
-          // {
-          //     label: 'Contactos',
-          //     icon: 'pi pi-fw pi-github',
-          //     url: 'https://github.com/Gabrieledevx',
-          //     target: '_blank'
-          // }
         ],
       },
     ];

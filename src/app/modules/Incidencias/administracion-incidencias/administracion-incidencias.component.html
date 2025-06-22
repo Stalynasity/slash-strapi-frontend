@@ -1,0 +1,89 @@
+<!-- Componente base del formulario de filtros + tabla -->
+<form [formGroup]="filtroForm" class="card p-4 space-y-4">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <input type="text" pInputText formControlName="id" placeholder="ID" class="w-full" />
+    <input type="text" pInputText formControlName="titulo" placeholder="Título" class="w-full" />
+    <input type="text" pInputText formControlName="prioridad" placeholder="Prioridad" class="w-full" />
+    <input type="text" pInputText formControlName="estado" placeholder="Estado" class="w-full" />
+    <input type="text" pInputText formControlName="usuario" placeholder="Usuario" class="w-full" />
+    <input type="text" pInputText formControlName="tipo" placeholder="Tipo" class="w-full" />
+    <input type="text" pInputText formControlName="fechaInicio" placeholder="Fecha inicio" class="w-full" />
+    <input type="text" pInputText formControlName="fechaFin" placeholder="Fecha fin" class="w-full" />
+  </div>
+  <div class="text-end">
+    <p-button label="Buscar" (click)="filtrar()" icon="pi pi-search" />
+  </div>
+
+  <p-table [value]="incidencias" class="p-datatable-sm" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Asignado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-incidencia>
+      <tr>
+        <td>{{ incidencia.id }}</td>
+        <td>{{ incidencia.titulo }}</td>
+        <td>
+          <span [ngClass]="{
+            'text-yellow-500 font-semibold': incidencia.tipo === 'Alto',
+            'text-red-500 font-semibold': incidencia.tipo === 'Crítico',
+            'text-gray-400': incidencia.tipo === 'Bajo',
+            'text-color': incidencia.tipo === 'Medio'
+          }">
+            {{ incidencia.tipo }}
+          </span>
+        </td>
+        <td>{{ incidencia.estado }}</td>
+        <td>{{ incidencia.asignado }}</td>
+        <td class="flex items-center gap-2">
+          <i class="pi pi-pencil cursor-pointer" (click)="abrirAsignarUsuario(incidencia)"></i>
+          <i class="pi pi-trash cursor-pointer" (click)="confirmarEliminacion(incidencia)"></i>
+          <a class="text-blue-500 cursor-pointer" (click)="abrirAsignarUsuario(incidencia)">asignar</a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</form>
+
+<!-- Diálogo de asignar usuario -->
+<p-dialog header="Asignar usuario:" [(visible)]="mostrarAsignarUsuario" [modal]="true" [closable]="false" class="w-96">
+  <input type="text" pInputText [(ngModel)]="usuarioAsignado" placeholder="Usuario" class="w-full mb-4" />
+  <div class="flex justify-between">
+    <p-button label="Cancelar" (click)="cancelarAsignacion()" severity="danger" />
+    <p-button label="Aceptar" (click)="aceptarAsignacion()" severity="primary" />
+  </div>
+</p-dialog>
+
+<!-- Diálogo confirmación de eliminación -->
+<p-dialog header="¿Estas seguro que deseas eliminar este incidente?" [(visible)]="mostrarEliminar" [modal]="true" [closable]="false" class="w-[40rem]">
+  <div class="mb-4">
+    <p><strong>ID:</strong> {{ incidenciaSeleccionada?.id }}</p>
+    <p><strong>Titulo:</strong> {{ incidenciaSeleccionada?.titulo }}</p>
+  </div>
+  <div class="flex justify-between">
+    <p-button label="Eliminar" (click)="validarContrasenia()" severity="danger" />
+    <p-button label="Cancelar" (click)="mostrarEliminar = false" severity="primary" />
+  </div>
+</p-dialog>
+
+<!-- Diálogo contraseña -->
+<p-dialog header="Introduzca su contraseña de usuario" [(visible)]="mostrarContrasenia" [modal]="true" [closable]="false" class="w-96">
+  <input type="password" pInputText [(ngModel)]="contrasenia" placeholder="Contraseña" class="w-full mb-4" />
+  <div class="flex justify-end">
+    <p-button label="Aceptar" (click)="eliminarIncidencia()" severity="primary" />
+  </div>
+</p-dialog>
+
+<!-- Diálogo éxito -->
+<p-dialog header="Eliminado" [(visible)]="mostrarExito" [modal]="true" [closable]="false" class="w-80">
+  <p>Se ha eliminado correctamente</p>
+  <div class="text-center mt-4">
+    <p-button label="OK" (click)="mostrarExito = false" severity="primary" />
+  </div>
+</p-dialog>

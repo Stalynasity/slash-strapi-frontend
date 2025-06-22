@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AppLayout } from './app/layout/component/app.layout';
-import { Dashboard } from './app/modules/admin/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -9,8 +8,9 @@ export const routes: Routes = [
     loadChildren: () => import('./app/modules/admin/admin.routes'),
   },
   {
-    path: 'landing',
-    loadChildren: () => import('./app/modules/user/user.routes'),
+    path: 'models',
+    component: AppLayout,
+    loadChildren: () => import('./app/modules/modules.routes'),
   },
   {
     path: 'error',
@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./app/modules/auth/auth.routes'),
+    loadChildren: () => import('./app/auth/auth.routes'),
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
