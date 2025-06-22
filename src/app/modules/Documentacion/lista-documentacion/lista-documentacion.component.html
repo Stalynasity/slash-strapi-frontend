@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between mb-6">
     <h2 class="text-xl font-semibold text-gray-800">Documentación centralizada y recursos para proyectos</h2>
     <form [formGroup]="formulario" class="flex items-center gap-2">
-      <p-select formControlName="filtroCampo" id="prioridad" [options]="opcionesPrioridad" optionLabel="label"
+      <p-select formControlName="filtroCampo" id="prioridad" [options]="opcionesPrioridad" optionLabel="label" optionValue="value"
         class="w-full" />
       <input
         pInputText
