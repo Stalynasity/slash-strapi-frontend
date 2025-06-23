@@ -36,6 +36,21 @@
 
     <!-- Área de PDF y QR o adjuntos -->
     <div class="flex flex-col items-center justify-center border-1 surface-border surface-ground rounded-md p-4 space-y-4 w-full">
+      <!-- Código QR y compartir -->
+                    <div class="col-span-12 md:col-span-4 flex flex-col items-center">
+                    <img *ngIf="selectedIssue" [src]="qrCodeUrl" alt="QR" class="w-32 h-32 mb-4" />
+                        <span class="text-gray-500 text-xs mb-4">Código QR del incidente</span>
+
+                        <div class="flex flex-col gap-2 w-full">
+                            <button pButton pRipple label="Compartir por correo" icon="pi pi-envelope" class="flex items-center gap-2 w-full justify-center" (click)="handleShare('email')" text></button>
+                            <button pButton pRipple label="Compartir por WhatsApp" icon="pi pi-whatsapp" class="flex items-center gap-2 w-full justify-center" (click)="handleShare('whatsapp')" text></button>
+                            <button pButton pRipple label="Compartir por Telegram" icon="pi pi-send" class="flex items-center gap-2 w-full justify-center" (click)="handleShare('telegram')" text></button>
+                        </div>
+
+                        <p class="text-xs text-gray-400 text-center mt-4">
+                            Escanea el código QR para ver el incidente en tu móvil.
+                        </p>
+                    </div>
       <ng-container *ngIf="documento.adjuntos?.length > 0; else sinAdjuntos">
         <div *ngFor="let archivo of documento.adjuntos" class="flex items-center gap-2">
           <i class="pi pi-file-pdf text-2xl text-red-600"></i>

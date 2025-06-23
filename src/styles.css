@@ -5,8 +5,5 @@
 @import 'primeicons/primeicons.css';
 
 html {
-  font-size: 105%
-}
-html {
   scroll-behavior: smooth;
 }
