@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { LayoutService } from '../../layout/service/layout.service';
-import { AppConfigurator } from '../../layout/component/app.configurator';
+import { filter } from 'rxjs/operators';
+import { AuthService } from '../../../app/core/services/auth.service';            // ← IMPORTA
+import { LoginRequest } from '../../../app/core/models/request/login-request.model'; // ← IMPORTA
+import { AppConfigurator } from '../../layout/component/app.configurator';  // ruta correcta
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -19,19 +24,42 @@ import { AppConfigurator } from '../../layout/component/app.configurator';
     PasswordModule,
     ButtonModule,
     RippleModule,
-    AppConfigurator
+    AppConfigurator,
+    ToastModule
+  ],
+  providers: [
+    MessageService,
+    // ... otros providers
   ],
   templateUrl: './login.html',
 })
-export class Login {
+export class Login implements AfterViewInit {
+  @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
+
   usuario = '';
   contrasena = '';
   mostrarPassword = false;
+  passwordVisible = false;
   loading = false;
   error = '';
 
-  constructor(private router: Router)
-  {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private messageService: MessageService      // ← INYECTA
+  ) {}
+
+  ngAfterViewInit() {
+    this.attemptPlay();
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => this.attemptPlay());
+  }
+
+  private attemptPlay() {
+    const videoEl = this.videoPlayer.nativeElement;
+    videoEl.load();
+    videoEl.play().catch(err => console.warn('Autoplay falló:', err));
   }
 
   continuar() {
@@ -48,49 +76,62 @@ export class Login {
     }
 
     this.loading = true;
+    const payload: LoginRequest = {
+      identifier: this.usuario,
+      password: this.contrasena
+    };
 
-    // this.authService.login({ identifier: this.usuario, password: this.contrasena }).subscribe({
-    //     next: (res) => {
-    //         localStorage.setItem('token', res.jwt);
-    //         localStorage.setItem('user', JSON.stringify(res.user));
+    // 2) Úsalo en tu handler de error:
+this.authService.login(payload).subscribe({
+  next: res => {
+      // 1) Muestra el toast
+      this.messageService.add({
+        severity: 'success',
+        summary: '¡Login exitoso!',
+        detail: `Bienvenido, ${res.user.username}`,
+        life: 2000,       // dura 2 segundos
+        key: 'tl'
+      });
 
-    //         const isAdmin = res.user?.role?.name === 'Admin';
-    //         this.router.navigate([isAdmin ? '/admin' : '/landing/home']);
-    //     },
-    //     error: (err) => {
-    //         this.error = 'Credenciales inválidas. Intenta nuevamente.';
-    //         this.loading = false;
-    //     },
-    //     complete: () => {
-    //         this.loading = false;
-    //     }
-    // });
+      // 2) Navega tras 2s, que coincide con la vida del toast
+      setTimeout(() => {
+        const destino = res.user.role?.name === 'Admin' ? '/admin' : '/landing/home';
+        this.router.navigate([destino]);
+      }, 2000);
+    },
+  error: err => {
+    // Captura el mensaje crudo del API
+    const raw = err.error?.error?.message || 'Error al iniciar sesión';
+    // Tradúcelo
+    const detail = this.translateError(raw);
 
-    setTimeout(() => {
-      if (this.contrasena === '123456') {
-        this.router.navigate(['/landing/home']);
-      } else if (this.contrasena === 'admin') {
-        this.router.navigate(['/admin']);
-      } else {
-        this.error = 'Contraseña incorrecta. Intenta nuevamente.';
-      }
-      this.loading = false;
-    }, 800);
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Login fallido',
+      detail,
+      life: 5000,
+      key: 'tl'
+    });
+    this.loading = false;
+  },
+  complete: () => this.loading = false
+});
 
-    //   this.authService.login({ identifier: this.usuario, password: this.contrasena }).subscribe({
-    //   next: (res) => {
-    //     localStorage.setItem('token', res.jwt);
-    //     const isAdmin = res.user?.role?.name === 'Admin';
-    //     this.router.navigate([isAdmin ? '/admin' : '/landing/home']);
-    //   },
-    //   error: (err) => {
-    //     console.error(err);
-    //     this.error = 'Credenciales inválidas. Intenta nuevamente.';
-    //     this.loading = false;
-    //   },
-    //   complete: () => {
-    //     this.loading = false;
-    //   }
-    // });
+
   }
+
+
+  private translateError(rawMsg: string): string {
+  const translations: Record<string,string> = {
+    // Mensajes exactos que Strapi te devuelve:
+    'Invalid identifier or password':       'Usuario o contraseña inválidos',
+    'Missing identifier or password':       'Falta el usuario o la contraseña',
+    'User not found':                       'Usuario no encontrado',
+    // …añade aquí tantos casos como necesites…
+  };
+
+  // Si no está en el diccionario, devolvemos el mensaje original
+  return translations[rawMsg] ?? rawMsg;
+}
+
 }

@@ -10,3 +10,18 @@ html {
 html {
   scroll-behavior: smooth;
 }
+
+/* styles.css (o tu global) */
+
+@media (max-width: 640px) {
+  /* Móvil: ubicamos el toast en el top-center */
+  .responsive-toast.p-toast.p-toast-bottom-right {
+    top: 1rem !important;                /* lo anclamos desde arriba */
+    bottom: auto !important;             /* quitamos el anclaje inferior */
+    left: 50% !important;                /* centramos horizontalmente */
+    right: auto !important;              /* quitamos el anclaje derecho */
+    transform: translateX(-50%) !important;
+    max-width: 90% !important;           /* para que no ocupe todo el ancho */
+  }
+}
+
