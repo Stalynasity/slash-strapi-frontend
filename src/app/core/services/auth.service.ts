@@ -1,17 +1,65 @@
+// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../../../../slash-strapi-frontend/src/environments/environment';
+import { UserProfile } from '../../core/models/request/UserProfile-request.model';
 import { LoginRequest } from '../models/request/login-request.model';
+
+interface LoginResponse {
+  jwt: string;
+  user: any;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://35.209.121.70:1337/api';
-  private loginUrl = `${this.baseUrl}/auth/local?populate=*`;
+  profile: UserProfile | null = null;
+  private baseUrl = environment.apiUrl;
+  private loginUrl = `${this.baseUrl}/auth/local`;
+  private _userProfile: UserProfile | null = null;
 
-  constructor(private http: HttpClient) {}
+  // Preparamos siempre los mismos headers
+  private jsonHeaders = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  });
 
-  login(data: LoginRequest): Observable<any> {
-    return this.http.post<any>(this.loginUrl, data);
+  constructor(private http: HttpClient) { 
+    this.loadProfileFromStorage();
+  }
+
+  loadProfileFromStorage() {
+    const raw = sessionStorage.getItem('userProfile');
+    this._userProfile = raw ? JSON.parse(raw) : null;
+  }
+
+  get userProfile(): UserProfile | null {
+    return this._userProfile;
+  }
+  
+  setUserProfile(profile: UserProfile) {
+    this._userProfile = profile;
+    sessionStorage.setItem('userProfile', JSON.stringify(profile));
+  }
+
+  /**
+   * Hace login: envía un JSON puro, con los headers adecuados,
+   * guarda el token y devuelve la respuesta.
+   */
+  login(data: LoginRequest): Observable<LoginResponse> {
+    return this.http
+      .post<LoginResponse>(
+        this.loginUrl,
+        JSON.stringify(data),
+        { headers: this.jsonHeaders }
+      )
+      .pipe(
+        tap(res => {
+          // Sólo al recibir 2xx guardamos el token
+          localStorage.setItem('token', res.jwt);
+          localStorage.setItem('user', JSON.stringify(res.user));
+        })
+      );
   }
 
   isLoggedIn(): boolean {
@@ -19,7 +67,16 @@ export class AuthService {
   }
 
   logout(): void {
+    // Borra token y datos de usuario
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    // Borra el perfil guardado
+    sessionStorage.removeItem('userProfile');
+    // Y limpia la copia interna
+    this._userProfile = null;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }
