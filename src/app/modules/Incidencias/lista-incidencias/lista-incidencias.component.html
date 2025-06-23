@@ -17,7 +17,8 @@
     #dt
     [value]="incidencias"
     [paginator]="true"
-    [rows]="5"
+    [rows]="10"
+    [rowsPerPageOptions]="[5,10,20]">
     [globalFilterFields]="['id', 'titulo', 'tipo', 'estado', 'creado']"
     class="p-datatable-sm"
     responsiveLayout="scroll"

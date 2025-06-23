@@ -1,0 +1,50 @@
+<button class="p-button p-button-text mb-4" routerLink="/models/documentacion">
+  <i class="pi pi-arrow-left mr-2"></i> Volver a búsqueda de documentación
+</button>
+
+<div class="p-4 card surface-card rounded-xl shadow-md">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Información del documento -->
+    <div class="space-y-4 text-sm">
+      <div class="grid grid-cols-2 gap-y-2 text-color-secondary">
+        <span class="font-semibold">ID:</span><span class="font-bold">{{ documento.id }}</span>
+        <span class="font-semibold">Autor de la documentación:</span><span>{{ documento.autor_documentacion }}</span>
+        <span class="font-semibold">ID de la Incidencia:</span><span>{{ documento.incidencia_id }}</span>
+        <span class="font-semibold">Fecha de documentación:</span><span>{{ documento.fecha_documentacion | date: 'dd/MM/yyyy' }}</span>
+        <span class="font-semibold">Versión afectada:</span><span>{{ documento.version_afectada }}</span>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <h4 class="text-primary font-medium">Causa raíz:</h4>
+          <p class="text-color">{{ documento.causa_raiz || 'Sin información' }}</p>
+        </div>
+        <div>
+          <h4 class="text-primary font-medium">Impacto</h4>
+          <p class="text-color">{{ documento.impacto || 'Sin información' }}</p>
+        </div>
+        <div>
+          <h4 class="text-primary font-medium">Solución aplicada</h4>
+          <p class="text-color">{{ documento.solucion_aplicada || 'Sin información' }}</p>
+        </div>
+        <div>
+          <h4 class="text-primary font-medium">Recomendaciones</h4>
+          <p class="text-color">{{ documento.recomendaciones || 'Sin información' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área de PDF y QR o adjuntos -->
+    <div class="flex flex-col items-center justify-center border-1 surface-border surface-ground rounded-md p-4 space-y-4 w-full">
+      <ng-container *ngIf="documento.adjuntos?.length > 0; else sinAdjuntos">
+        <div *ngFor="let archivo of documento.adjuntos" class="flex items-center gap-2">
+          <i class="pi pi-file-pdf text-2xl text-red-600"></i>
+          <a [href]="'/ruta/archivos/' + archivo" target="_blank" class="text-primary hover:underline">{{ archivo }}</a>
+        </div>
+      </ng-container>
+      <ng-template #sinAdjuntos>
+        <p class="text-sm text-color-secondary">Sin archivos adjuntos</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
