@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../../../slash-strapi-frontend/src/environments/environment';
-
+import { UserProfile } from '../../core/models/request/UserProfile-request.model';
 import { LoginRequest } from '../models/request/login-request.model';
 
 interface LoginResponse {
@@ -13,8 +13,10 @@ interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl  = environment.apiUrl;
+  profile: UserProfile | null = null;
+  private baseUrl = environment.apiUrl;
   private loginUrl = `${this.baseUrl}/auth/local`;
+  private _userProfile: UserProfile | null = null;
 
   // Preparamos siempre los mismos headers
   private jsonHeaders = new HttpHeaders({
@@ -22,7 +24,23 @@ export class AuthService {
     'Accept': 'application/json'
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { 
+    this.loadProfileFromStorage();
+  }
+
+  loadProfileFromStorage() {
+    const raw = sessionStorage.getItem('userProfile');
+    this._userProfile = raw ? JSON.parse(raw) : null;
+  }
+
+  get userProfile(): UserProfile | null {
+    return this._userProfile;
+  }
+  
+  setUserProfile(profile: UserProfile) {
+    this._userProfile = profile;
+    sessionStorage.setItem('userProfile', JSON.stringify(profile));
+  }
 
   /**
    * Hace login: envía un JSON puro, con los headers adecuados,
@@ -49,8 +67,13 @@ export class AuthService {
   }
 
   logout(): void {
+    // Borra token y datos de usuario
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    // Borra el perfil guardado
+    sessionStorage.removeItem('userProfile');
+    // Y limpia la copia interna
+    this._userProfile = null;
   }
 
   getToken(): string | null {
