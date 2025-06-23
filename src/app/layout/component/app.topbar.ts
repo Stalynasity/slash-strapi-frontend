@@ -69,15 +69,19 @@ import { AppConfigurator } from './app.configurator';
       </button>
 
       <!-- Info de usuario -->
-        <div class="text-right hidden md:block">
-          <small class="text-xs text-gray-500">Administrador</small><br />
-          <span class="font-medium text-sm">Stalyn David Asitimabay Shigla</span>
-        </div>
+      <div class="text-right hidden md:block">
+        <small class="text-xs text-gray-500">Administrador</small><br />
+        <span class="font-medium text-sm">Stalyn David Asitimabay Shigla</span>
+      </div>
 
-        <!-- Cerrar sesión -->
-        <button class="layout-topbar-action" pTooltip="Cerrar sesión" (click)="cerrarSesion()">
-          <i class="pi pi-sign-out"></i>
-        </button>
+      <!-- Cerrar sesión -->
+      <button
+        class="layout-topbar-action"
+        pTooltip="Cerrar sesión"
+        (click)="cerrarSesion()"
+      >
+        <i class="pi pi-sign-out"></i>
+      </button>
 
       <!-- <div class="layout-topbar-actions">
         <div class="layout-topbar-menu hidden lg:block">

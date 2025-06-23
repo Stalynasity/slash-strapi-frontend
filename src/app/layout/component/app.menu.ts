@@ -8,18 +8,20 @@ import { AppMenuitem } from './app.menuitem';
   selector: 'app-menu',
   standalone: true,
   imports: [CommonModule, RouterModule, AppMenuitem],
-  template: `<ul class="layout-menu">
-    <ng-container *ngFor="let item of model; let i = index">
-      <li
-        app-menuitem
-        *ngIf="!item.separator"
-        [item]="item"
-        [index]="i"
-        [root]="true"
-      ></li>
-      <li *ngIf="item.separator" class="menu-separator"></li>
-    </ng-container>
-  </ul> `,
+  template: `
+    <ul class="layout-menu text-[15px]">
+      <ng-container *ngFor="let item of model; let i = index">
+        <li
+          app-menuitem
+          *ngIf="!item.separator"
+          [item]="item"
+          [index]="i"
+          [root]="true"
+        ></li>
+        <li *ngIf="item.separator" class="menu-separator"></li>
+      </ng-container>
+    </ul>
+  `,
 })
 export class AppMenu {
   model: MenuItem[] = [];
@@ -27,76 +29,75 @@ export class AppMenu {
   ngOnInit() {
     this.model = [
       {
-        label: '',
+        label: 'Principal',
         items: [
           {
             label: 'Dashboard',
             icon: 'pi pi-fw pi-home',
-            routerLink: ['/admin'],
+            routerLink: ['/admin']
           },
           {
             label: 'Incidencias',
-            icon: 'pi pi-fw pi-id-card',
-            routerLink: ['/models/incidencias/lista-incidencias'],
+            icon: 'pi pi-fw pi-exclamation-triangle',
+            routerLink: ['/admin/incidencias']
           },
           {
             label: 'Documentación',
-            icon: 'pi pi-fw pi-check-square',
-            routerLink: ['/models/documentacion'],
+            icon: 'pi pi-fw pi-book',
+            routerLink: ['/admin/documentacion']
           },
           {
-            label: 'Analsis de Código',
-            icon: 'pi pi-fw pi-mobile',
-            class: 'rotated-icon',
-            routerLink: ['/models/analisis-codigo'],
+            label: 'Análisis de Código',
+            icon: 'pi pi-fw pi-code',
+            routerLink: ['/admin/analisis-codigo']
           },
           {
-            label: 'Sugerencias inteligentes',
-            icon: 'pi pi-fw pi-mobile',
-            class: 'rotated-icon',
-            routerLink: ['/models/sugerencias-inteligente'],
+            label: 'Sugerencias Inteligentes',
+            icon: 'pi pi-fw pi-lightbulb',
+            routerLink: ['/admin/sugerencias-inteligentes']
           },
           {
             label: 'Reportes',
-            icon: 'pi pi-fw pi-mobile',
-            class: 'rotated-icon',
-            routerLink: ['/models/reportes'],
-          },
-        ],
+            icon: 'pi pi-fw pi-chart-bar',
+            routerLink: ['/admin/reportes']
+          }
+        ]
       },
       {
-        label: 'Configuracion',
-        icon: 'pi pi-fw pi-briefcase',
-        routerLink: ['/admin'],
+        separator: true
+      },
+      {
+        label: 'Configuración',
+        icon: 'pi pi-fw pi-cog',
         items: [
           {
             label: 'Gestión de Usuarios',
-            icon: 'pi pi-fw pi-user',
+            icon: 'pi pi-fw pi-users',
             items: [
               {
                 label: 'Usuarios',
-                icon: 'pi pi-fw pi-sign-in',
-                routerLink: ['/admin/user'],
+                icon: 'pi pi-fw pi-user',
+                routerLink: ['/admin/user']
               },
               {
-                label: 'Time access',
+                label: 'Accesos Temporales',
                 icon: 'pi pi-fw pi-clock',
-                routerLink: ['/admin/auth/access'],
-              },
-            ],
+                routerLink: ['/admin/auth/access']
+              }
+            ]
           },
           {
             label: 'Configuración Global',
-            icon: 'pi pi-fw pi-pencil',
-            routerLink: ['/admin/modifications'],
+            icon: 'pi pi-fw pi-sliders-h',
+            routerLink: ['/admin/configuracion-global']
           },
           {
-            label: 'Parametrizaciónes',
-            icon: 'pi pi-fw pi-list',
-            routerLink: ['/admin/parametrizacion'],
-          },
-        ],
-      },
+            label: 'Parametrizaciones',
+            icon: 'pi pi-fw pi-sliders-h',
+            routerLink: ['/admin/parametrizacion']
+          }
+        ]
+      }
     ];
   }
 }
