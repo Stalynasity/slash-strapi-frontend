@@ -16,7 +16,7 @@ import { AnalisisResultadoComponent } from "../components/analisis-resultado/ana
 })
 export default class AnalisisCodigoPageComponent {
 
-  analisis = signal<boolean>(true)
+  analisis = signal<boolean>(false)
 
   realizarAnalisis (value : boolean){
     this.analisis.set(value);

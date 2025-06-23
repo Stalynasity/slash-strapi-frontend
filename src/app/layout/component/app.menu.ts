@@ -34,41 +34,44 @@ export class AppMenu {
           {
             label: 'Dashboard',
             icon: 'pi pi-fw pi-home',
-            routerLink: ['/admin']
+            routerLink: ['/admin'],
           },
           {
             label: 'Incidencias',
-            icon: 'pi pi-fw pi-exclamation-triangle',
-            routerLink: ['/admin/incidencias']
+                        icon: 'pi pi-fw pi-exclamation-triangle',
+
+
+            routerLink: ['/models/incidencias/lista-incidencias'],
           },
           {
             label: 'Documentación',
             icon: 'pi pi-fw pi-book',
-            routerLink: ['/admin/documentacion']
+            routerLink: ['/models/documentacion'],
           },
           {
             label: 'Análisis de Código',
             icon: 'pi pi-fw pi-code',
-            routerLink: ['/admin/analisis-codigo']
+            routerLink: ['/models/analisis-codigo'],
           },
           {
             label: 'Sugerencias Inteligentes',
             icon: 'pi pi-fw pi-lightbulb',
-            routerLink: ['/admin/sugerencias-inteligentes']
+            routerLink: ['/models/sugerencias-inteligente'],
           },
           {
             label: 'Reportes',
-            icon: 'pi pi-fw pi-chart-bar',
-            routerLink: ['/admin/reportes']
-          }
-        ]
+            icon: 'pi pi-fw pi-mobile',
+            class: 'rotated-icon',
+            routerLink: ['/models/reportes'],
+          },
+        ],
+
+
       },
       {
-        separator: true
-      },
-      {
-        label: 'Configuración',
+        label: 'Configuracion',
         icon: 'pi pi-fw pi-cog',
+        routerLink: ['/admin'],
         items: [
           {
             label: 'Gestión de Usuarios',
@@ -76,28 +79,28 @@ export class AppMenu {
             items: [
               {
                 label: 'Usuarios',
-                icon: 'pi pi-fw pi-user',
-                routerLink: ['/admin/user']
+                icon: 'pi pi-fw pi-sign-in',
+                routerLink: ['/admin/user'],
               },
               {
-                label: 'Accesos Temporales',
+                label: 'Time access',
                 icon: 'pi pi-fw pi-clock',
-                routerLink: ['/admin/auth/access']
-              }
-            ]
+                routerLink: ['/admin/auth/access'],
+              },
+            ],
           },
           {
             label: 'Configuración Global',
-            icon: 'pi pi-fw pi-sliders-h',
-            routerLink: ['/admin/configuracion-global']
+            icon: 'pi pi-fw pi-pencil',
+            routerLink: ['/admin/modifications'],
           },
           {
-            label: 'Parametrizaciones',
-            icon: 'pi pi-fw pi-sliders-h',
-            routerLink: ['/admin/parametrizacion']
-          }
-        ]
-      }
+            label: 'Parametrizaciónes',
+            icon: 'pi pi-fw pi-list',
+            routerLink: ['/admin/parametrizacion'],
+          },
+        ],
+      },
     ];
   }
 }
