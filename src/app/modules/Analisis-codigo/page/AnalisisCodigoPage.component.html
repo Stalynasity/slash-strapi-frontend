@@ -1,0 +1,7 @@
+<app-selector-herramienta-proyecto (analisisRealizado)="realizarAnalisis($event)" />
+
+@if (!analisis()) {
+  <app-analisis-vacio />
+}@else {
+  <app-analisis-resultado />
+}

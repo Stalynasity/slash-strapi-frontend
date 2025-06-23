@@ -1,0 +1,21 @@
+<div class="card flex justify-center">
+  <p-dialog header="Nuevo Code Smell a Incidencia" [visible]="visibleModalNuevoCodeSmell()"
+    (visibleChange)="visibleModalNuevoCodeSmell.set($event)" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '30vw' }" [draggable]="false"
+    [resizable]="false">
+    <div class="flex items-center gap-4 mb-4">
+      <label for="titulo" class="font-semibold w-36">Título</label>
+      <input id="titulo" type="text" pInputText class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-8">
+      <label for="descripcion" class="font-semibold w-24">Descripción</label>
+      <textarea id="descripcion" rows="5" cols="30" pTextarea class="w-full mt-4"></textarea>
+    </div>
+
+    <div class="p-text-right">
+      <button pButton type="button" label="Cancelar" class="p-button-text mr-2"
+        (click)="visibleModalNuevoCodeSmell.set(false)"></button>
+      <button pButton type="button" label="Guardar" icon="pi pi-check"></button>
+    </div>
+  </p-dialog>
+</div>
