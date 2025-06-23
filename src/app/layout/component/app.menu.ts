@@ -8,18 +8,20 @@ import { AppMenuitem } from './app.menuitem';
   selector: 'app-menu',
   standalone: true,
   imports: [CommonModule, RouterModule, AppMenuitem],
-  template: `<ul class="layout-menu">
-    <ng-container *ngFor="let item of model; let i = index">
-      <li
-        app-menuitem
-        *ngIf="!item.separator"
-        [item]="item"
-        [index]="i"
-        [root]="true"
-      ></li>
-      <li *ngIf="item.separator" class="menu-separator"></li>
-    </ng-container>
-  </ul> `,
+  template: `
+    <ul class="layout-menu text-[15px]">
+      <ng-container *ngFor="let item of model; let i = index">
+        <li
+          app-menuitem
+          *ngIf="!item.separator"
+          [item]="item"
+          [index]="i"
+          [root]="true"
+        ></li>
+        <li *ngIf="item.separator" class="menu-separator"></li>
+      </ng-container>
+    </ul>
+  `,
 })
 export class AppMenu {
   model: MenuItem[] = [];
@@ -27,7 +29,7 @@ export class AppMenu {
   ngOnInit() {
     this.model = [
       {
-        label: '',
+        label: 'Principal',
         items: [
           {
             label: 'Dashboard',
@@ -36,24 +38,24 @@ export class AppMenu {
           },
           {
             label: 'Incidencias',
-            icon: 'pi pi-fw pi-id-card',
+                        icon: 'pi pi-fw pi-exclamation-triangle',
+
+
             routerLink: ['/models/incidencias/lista-incidencias'],
           },
           {
             label: 'Documentación',
-            icon: 'pi pi-fw pi-check-square',
+            icon: 'pi pi-fw pi-book',
             routerLink: ['/models/documentacion'],
           },
           {
-            label: 'Analsis de Código',
-            icon: 'pi pi-fw pi-mobile',
-            class: 'rotated-icon',
+            label: 'Análisis de Código',
+            icon: 'pi pi-fw pi-code',
             routerLink: ['/models/analisis-codigo'],
           },
           {
-            label: 'Sugerencias inteligentes',
-            icon: 'pi pi-fw pi-mobile',
-            class: 'rotated-icon',
+            label: 'Sugerencias Inteligentes',
+            icon: 'pi pi-fw pi-lightbulb',
             routerLink: ['/models/sugerencias-inteligente'],
           },
           {
@@ -63,15 +65,17 @@ export class AppMenu {
             routerLink: ['/models/reportes'],
           },
         ],
+
+
       },
       {
         label: 'Configuracion',
-        icon: 'pi pi-fw pi-briefcase',
+        icon: 'pi pi-fw pi-cog',
         routerLink: ['/admin'],
         items: [
           {
             label: 'Gestión de Usuarios',
-            icon: 'pi pi-fw pi-user',
+            icon: 'pi pi-fw pi-users',
             items: [
               {
                 label: 'Usuarios',

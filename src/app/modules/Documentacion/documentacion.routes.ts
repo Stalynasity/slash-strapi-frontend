@@ -8,6 +8,10 @@ export default [
     loadComponent: () =>
       import('./documentacion.component').then(
         (m) => m.DocumentacionModuleComponent
-      ),
+      )
   },
+  {
+  path: 'ver',
+  loadComponent: () => import('./vista-documentacion/vista-documentacion.component').then(m => m.VistaDocumentacionComponent)
+}
 ] as Routes;

@@ -1,0 +1,49 @@
+<section class="resultado-analisis bg-white w-full h-[76vh] max-h-[76vh] rounded-md p-9">
+  <div class="resultado-analisis">
+    <p class="text-[var(--primary-color)] text-2xl">Resultados</p>
+    <div class="detalle-analisis flex justify-between mt-4">
+      <p class="mr-16">Total bugs nivel bajo: <strong class="text-green-600">0</strong></p>
+      <p class="mr-16">Total bugs nivel medio: <strong class="text-yellow-600">0</strong></p>
+      <p class="mr-16">Total bugs nivel alto: <strong class="text-red-600">0</strong></p>
+      <p class="mr-16">Total bugs: <strong>0</strong></p>
+    </div>
+  </div>
+
+  <div class="tabla-analisis mt-6 overflow-x-auto bg-[var(--surface-card)]/10 p-4 rounded-lg shadow-sm">
+    <table class="min-w-full divide-y divide-[var(--surface-border)] table-auto">
+      <thead class="bg-[var(--surface-card)]">
+        <tr>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Archivo</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Línea</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Tipo Smell</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Nivel</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-[var(--surface-border)]">
+        @for (item of mockupAnalisisResultado; track $index) {
+        <tr class="odd:bg-white ">
+          <td class="px-4 py-2 text-sm text-gray-600"> {{ item.archivo }} </td>
+          <td class="px-4 py-2 text-sm text-gray-600"> {{ item.linea }} </td>
+          <td class="px-4 py-2 text-sm text-gray-600"> {{ item.tipoSmell }} </td>
+          <td class="px-4 py-2 text-sm font-semibold" [ngClass]="{
+                  'text-green-600': item.nivel.toLocaleLowerCase() === 'bajo',
+                  'text-yellow-600': item.nivel.toLocaleLowerCase() === 'medio',
+                  'text-red-600': item.nivel.toLocaleLowerCase() === 'alto'
+                }">
+            {{ item.nivel }}
+          </td>
+          <td class="px-4 py-2 text-sm">
+            <button (click)="menu.toggle($event)" class="bg-[var(--primary-color)] text-white p-2 rounded-md no-underline">Asociar</button>
+              <p-tieredmenu #menu [model]="items" [popup]="true" />
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<app-modal-asociar-code-smell [(visibleModalAsociarCodeSmell)]="visibleModalAsociarCodeSmell" />
+<app-modal-nuevo-code-smell  [(visibleModalNuevoCodeSmell)]="visibleModalNuevoCodeSmell">

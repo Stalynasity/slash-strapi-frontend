@@ -9,11 +9,12 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-nueva-documentacion',
   standalone: true,
-  imports: [DialogModule, CommonModule, ReactiveFormsModule, InputTextModule, TextareaModule, ButtonModule, SelectModule, FileUploadModule, ToastModule ],
+  imports: [DropdownModule,DialogModule, CommonModule, ReactiveFormsModule, InputTextModule, TextareaModule, ButtonModule, SelectModule, FileUploadModule, ToastModule ],
   templateUrl: './nueva-documentacion.component.html',
   styleUrl: './nueva-documentacion.component.css',
   providers: [MessageService]
