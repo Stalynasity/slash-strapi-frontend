@@ -34,19 +34,17 @@ export class AppMenu {
           {
             label: 'Dashboard',
             icon: 'pi pi-fw pi-home',
-            routerLink: ['/admin'],
+            routerLink: ['/admin/dashboard'],
           },
           {
             label: 'Incidencias',
-                        icon: 'pi pi-fw pi-exclamation-triangle',
-
-
+            icon: 'pi pi-fw pi-exclamation-triangle',
             routerLink: ['/models/incidencias/lista-incidencias'],
           },
           {
             label: 'Documentación',
             icon: 'pi pi-fw pi-book',
-            routerLink: ['/models/documentacion'],
+            routerLink: ['/models/documentacion/lista-documentacion'],
           },
           {
             label: 'Análisis de Código',
@@ -56,7 +54,7 @@ export class AppMenu {
           {
             label: 'Sugerencias Inteligentes',
             icon: 'pi pi-fw pi-lightbulb',
-            routerLink: ['/models/sugerencias-inteligente'],
+            routerLink: ['/models/sugerencias-inteligente/busqueda-incidencia'],
           },
           {
             label: 'Reportes',

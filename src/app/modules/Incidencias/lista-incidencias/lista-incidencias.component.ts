@@ -1,51 +1,97 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { TagModule } from 'primeng/tag';
+import { Incidencia } from '../../../core/models/incidentes.model';
+import { IncidenciaService } from '../../../core/services/Incidencia.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-incidencias',
   standalone: true,
   imports: [
-    InputTextModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
     TableModule,
     ButtonModule,
-    ReactiveFormsModule,
+    TagModule,
   ],
   templateUrl: './lista-incidencias.component.html',
-  styleUrl: './lista-incidencias.component.css',
+  styleUrls: ['./lista-incidencias.component.css'],
 })
-export class ListaIncidenciasComponent {
-  @ViewChild('dt') table!: Table;
-
+export class ListaIncidenciasComponent implements OnInit {
+  @ViewChild('dt', { static: false }) table?: Table;
   formulario!: FormGroup;
+  incidencias: Incidencia[] = [];
 
-  incidencias = [
-    { id: '12542', titulo: 'Solucion compatibilidad de plataforma', tipo: 'Alto', estado: 'asignado', creado: 'Stalyn asitimabay' },
-    { id: '23542', titulo: 'Nuevo metodo de escaneo de barras', tipo: 'Crítico', estado: 'cerrado', creado: 'Stalyn asitimabay' },
-    { id: '98742', titulo: 'Proyecto gestion de usuario para veterinaria', tipo: 'Medio', estado: 'Pendiente', creado: 'Stalyn asitimabay' },
-    { id: '00001', titulo: 'Proyecto gestion de usuario para veterinaria', tipo: 'Bajo', estado: 'Pendiente', creado: 'Stalyn asitimabay' }
-  ];
+  constructor(
+    private fb: FormBuilder,
+    private incidenciaService: IncidenciaService,
+    private router: Router
+  ) {}
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.formulario = this.fb.group({
-      filtro: ['']
+      filtro: [''],
+    });
+
+    this.incidenciaService.getIncidencias().subscribe((res) => {
+      // Simula nombre de autor por ID (puedes reemplazar con lógica real después)
+      this.incidencias = res.map((i) => ({
+        ...i,
+      }));
     });
   }
 
-  onFilter() {
+  onFilter(): void {
     const valor = this.formulario.get('filtro')?.value || '';
-    this.table.filterGlobal(valor, 'contains');
+    this.table?.filterGlobal(valor, 'contains');
   }
 
-  verIncidencia(incidencia: any) {
-    console.log('Ver incidencia:', incidencia);
+  getNombreAutor(id: string): string {
+    const usuarios: { [key: string]: string } = {
+      USR001: 'Carlos Medina',
+      USR002: 'Laura Quintero',
+      USR003: 'Stalyn Asitimabay',
+    };
+    return usuarios[id] || 'Desconocido';
   }
+
+  getSeveridadEstado(
+    estado: string
+  ):
+    | 'success'
+    | 'info'
+    | 'warn'
+    | 'danger'
+    | 'secondary'
+    | 'contrast'
+    | undefined {
+    switch (estado.toLowerCase()) {
+      case 'pendiente':
+        return 'warn';
+      case 'asignada':
+        return 'info';
+      case 'cerrada':
+        return 'success';
+      case 'bloqueada':
+        return 'danger';
+      default:
+        return 'secondary'; // o undefined
+    }
+  }
+
+  verIncidencia(incidencia: Incidencia) {
+  this.router.navigate(['/models/incidencias/detalle-incidencias', incidencia.id]);
+}
 }

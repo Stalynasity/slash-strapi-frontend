@@ -24,7 +24,7 @@ export class AuthService {
     'Accept': 'application/json'
   });
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.loadProfileFromStorage();
   }
 
@@ -36,7 +36,7 @@ export class AuthService {
   get userProfile(): UserProfile | null {
     return this._userProfile;
   }
-  
+
   setUserProfile(profile: UserProfile) {
     this._userProfile = profile;
     sessionStorage.setItem('userProfile', JSON.stringify(profile));
@@ -47,6 +47,28 @@ export class AuthService {
    * guarda el token y devuelve la respuesta.
    */
   login(data: LoginRequest): Observable<LoginResponse> {
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // Simulación de login para el usuario admin
+    // eliminar esta sección si estás usando un backend real./////////////////////////////////
+    if (data.identifier === 'admin' && data.password === 'admin') {
+    const fakeResponse: LoginResponse = {
+      jwt: 'fake-jwt-token',
+      user: {
+        id: 1,
+        username: 'admin',
+        email: 'admin@example.com'
+      }
+    };
+    localStorage.setItem('token', fakeResponse.jwt);
+    localStorage.setItem('user', JSON.stringify(fakeResponse.user));
+    return new Observable<LoginResponse>(observer => {
+      observer.next(fakeResponse);
+      observer.complete();
+    });
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////
+
+
     return this.http
       .post<LoginResponse>(
         this.loginUrl,

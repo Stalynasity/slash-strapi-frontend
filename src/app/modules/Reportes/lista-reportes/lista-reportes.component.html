@@ -1,1 +1,81 @@
-<p>lista-reportes works!</p>
+<div class="p-6 surface-100 min-h-screen">
+  <!-- CABECERA -->
+  <div class="flex flex-wrap justify-between items-center mb-4">
+    <div>
+      <h2 class="text-2xl font-bold text-primary flex items-center gap-2">
+        <i class="pi pi-chart-bar text-xl"></i>
+        Reportes de Incidencias
+      </h2>
+      <p class="text-sm text-color-secondary">Visualiza las incidencias por módulo, fecha o prioridad.</p>
+    </div>
+    <button
+      pButton
+      icon="pi pi-refresh"
+      label="Resetear"
+      class="p-button-sm p-button-text text-primary"
+      (click)="resetFiltros()"
+    ></button>
+  </div>
+
+  <!-- CUERPO PRINCIPAL -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <!-- FILTROS -->
+    <p-card class="shadow-2 p-5">
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2">
+          <i class="pi pi-sliders-h text-primary"></i>
+          <span class="font-medium text-900">Filtros</span>
+        </div>
+      </ng-template>
+
+      <div class="flex flex-col gap-3 mt-2">
+        <div>
+          <label for="desde" class="block text-sm font-medium text-700 mb-1">Desde:</label>
+          <p-calendar id="desde" [(ngModel)]="filtros.desde" showIcon dateFormat="yy-mm-dd" class="w-full" />
+        </div>
+
+        <div>
+          <label for="hasta" class="block text-sm font-medium text-700 mb-1">Hasta:</label>
+          <p-calendar id="hasta" [(ngModel)]="filtros.hasta" showIcon dateFormat="yy-mm-dd" class="w-full" />
+        </div>
+
+        <div>
+          <label for="modulo" class="block text-sm font-medium text-700 mb-1">Módulo:</label>
+          <input
+            pInputText
+            id="modulo"
+            [(ngModel)]="filtros.modulo"
+            placeholder="Ej. Inventario, Login..."
+            class="w-full"
+          />
+        </div>
+
+        <div class="mt-2">
+          <button
+            pButton
+            label="Buscar"
+            icon="pi pi-search"
+            class="w-full p-button-sm"
+            (click)="buscarReportes()"
+          ></button>
+        </div>
+      </div>
+    </p-card>
+
+    <!-- RESULTADOS -->
+    <p-card class="lg:col-span-3 shadow-2">
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2">
+          <i class="pi pi-chart-line text-primary"></i>
+          <span class="font-medium text-900">Resultados de Incidencias</span>
+        </div>
+      </ng-template>
+
+      <div
+        class="h-[400px] mt-3 flex items-center justify-center border border-dashed border-gray-300 rounded-md bg-surface-0 text-gray-500 text-sm text-center px-6"
+      >
+        📊 El gráfico de resultados aparecerá aquí al aplicar los filtros.
+      </div>
+    </p-card>
+  </div>
+</div>

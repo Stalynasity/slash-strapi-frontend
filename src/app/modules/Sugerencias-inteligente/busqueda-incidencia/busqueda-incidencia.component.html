@@ -1,1 +1,180 @@
-<p>busqueda-incidencia works!</p>
+<div class="p-6 space-y-6 bg-white shadow-md rounded-xl">
+  <h2 class="text-3xl font-bold text-gray-800">Sugerencias Inteligentes</h2>
+
+  <!-- Sección de búsqueda -->
+<div class="bg-gray-50 p-4 rounded-xl shadow-sm border space-y-4">
+  <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+    <i class="pi pi-search text-blue-500"></i> Buscar Incidencia
+  </h3>
+
+  <div class="flex flex-col md:flex-row md:items-end md:gap-4 gap-2">
+    <!-- Input de código -->
+    <div class="flex-1">
+      <label for="codigoIncidencia" class="block text-sm font-medium text-gray-700 mb-1">
+        Código de Incidencia
+      </label>
+      <input
+        id="codigoIncidencia"
+        type="text"
+        pInputText
+        [(ngModel)]="codigoIncidencia"
+        placeholder="Ej: INC005"
+        class="w-full"
+      />
+    </div>
+
+    <!-- Botón de cargar -->
+    <div class="pt-1">
+      <button
+        pButton
+        type="button"
+        label="Buscar"
+        icon="pi pi-search"
+        class="p-button-primary p-button-sm"
+        (click)="cargarIncidencia()"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<!-- Tarjeta de incidencia encontrada -->
+<p-card *ngIf="incidencia" header="Incidencia Encontrada" class="shadow-md mt-6">
+  <div class="space-y-2 text-sm text-gray-700">
+    <p><strong>ID:</strong> {{ incidencia.id }}</p>
+    <p><strong>Título:</strong> {{ incidencia.titulo }}</p>
+    <p><strong>Descripción:</strong> {{ incidencia.descripcion }}</p>
+
+    <div class="pt-2">
+      <button
+        pButton
+        icon="pi pi-search"
+        label="Buscar sugerencias"
+        class="p-button-sm p-button-secondary"
+        (click)="buscarSugerencias()"
+      ></button>
+    </div>
+  </div>
+</p-card>
+
+  <!-- Sugerencia asociada -->
+  <div *ngIf="sugerenciaAsociada" class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md">
+    <h3 class="text-lg font-semibold text-blue-800 mb-3">Sugerencia Asociada</h3>
+    <div class="overflow-x-auto rounded-md shadow">
+      <table class="min-w-full text-sm text-gray-700">
+        <thead class="bg-blue-100 text-left text-sm uppercase font-medium">
+          <tr>
+            <th class="p-3">Incidencia similar</th>
+            <th class="p-3">Similitud</th>
+            <th class="p-3">Solución sugerida</th>
+            <th class="p-3">Estado</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white">
+          <tr class="border-t">
+            <td class="p-3">{{ sugerenciaAsociada.descripcion }}</td>
+            <td class="p-3">{{ sugerenciaAsociada.similitud }}</td>
+            <td class="p-3">{{ sugerenciaAsociada.solucion }}</td>
+            <td class="p-3 text-green-600 font-semibold">Asociado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Resultados sugeridos -->
+  <div *ngIf="sugerencias.length > 0">
+    <h3 class="text-lg font-semibold text-gray-800 mb-2">Resultados sugeridos</h3>
+    <div class="overflow-x-auto rounded-md shadow">
+      <table class="min-w-full text-sm text-gray-700">
+        <thead class="bg-gray-100 text-left uppercase font-medium">
+          <tr>
+            <th class="p-3">Incidencia similar</th>
+            <th class="p-3">Similitud</th>
+            <th class="p-3">Solución sugerida</th>
+            <th class="p-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let sugerencia of sugerencias" class="hover:bg-gray-50">
+            <td class="p-3">{{ sugerencia.descripcion }}</td>
+            <td class="p-3">{{ sugerencia.similitud }}</td>
+            <td class="p-3">{{ sugerencia.solucion }}</td>
+            <td class="p-3">
+              <a
+                class="text-blue-600 hover:underline font-medium cursor-pointer"
+                (click)="verAcciones(sugerencia)"
+              >
+                Ver acciones
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<p-dialog
+  [(visible)]="mostrarDialogoSugerencia"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [contentStyle]="{ 'padding': '2rem' }"
+  [breakpoints]="{ '960px': '90vw' }"
+  header="Detalle de sugerencia"
+>
+  <div class="text-sm space-y-6 text-gray-800">
+    <!-- Encabezado de datos -->
+    <div class="grid grid-cols-2 gap-4 text-gray-600">
+      <div>
+        <span class="font-medium text-gray-400">Código:</span>
+        <span class="font-semibold text-gray-900 ml-1">{{ sugerencia.codigo }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-400">Nivel de similitud:</span>
+        <span class="text-green-600 font-semibold ml-1">{{ sugerencia.similitud }}% similitud</span>
+      </div>
+      <div class="col-span-2">
+        <span class="font-medium text-gray-400">Incidencia similar:</span>
+        <span class="ml-1 text-gray-900">{{ sugerencia.descripcion }}</span>
+      </div>
+    </div>
+
+    <!-- Campo descripción -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Descripción del caso sugerido</label>
+      <textarea
+        pInputTextarea
+        [(ngModel)]="sugerencia.descripcion_caso"
+        rows="3"
+        class="w-full"
+      ></textarea>
+    </div>
+
+    <!-- Solución aplicada -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Detalle técnico</label>
+      <textarea
+        pInputTextarea
+        [(ngModel)]="sugerencia.solucion"
+        rows="3"
+        placeholder="Solución aplicada"
+        class="w-full"
+      ></textarea>
+    </div>
+
+    <!-- Responsable -->
+    <div>
+      <label class="block text-sm text-gray-500 font-medium">Responsable de la solución:</label>
+      <span class="text-gray-800 font-semibold">{{ sugerencia.responsable }}</span>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex flex-wrap justify-end gap-3 pt-4">
+      <button pButton type="button" label="Ver documentación" icon="pi pi-book" class="p-button-sm p-button-primary" (click)="verDocumentacion(sugerencia)"></button>
+      <button pButton type="button" label="Asociar sugerencia" icon="pi pi-link" class="p-button-sm p-button-success" (click)="buscarSugerencias()"></button>
+      <button pButton type="button" label="Cerrar" icon="pi pi-times" class="p-button-sm p-button-secondary" (click)="mostrarDialogoSugerencia = false"></button>
+    </div>
+  </div>
+</p-dialog>

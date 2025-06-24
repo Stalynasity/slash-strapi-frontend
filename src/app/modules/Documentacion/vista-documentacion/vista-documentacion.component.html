@@ -1,64 +1,102 @@
-<button class="p-button p-button-text mb-4" routerLink="/models/documentacion">
-  <i class="pi pi-arrow-left mr-2"></i> Volver a búsqueda de documentación
+<!-- Botón volver -->
+<button class="p-button p-button-text mb-5" routerLink="/models/documentacion">
+  <i class="pi pi-arrow-left mr-2"></i>
+  Volver a búsqueda de documentación
 </button>
 
-<div class="p-4 card surface-card rounded-xl shadow-md">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Información del documento -->
-    <div class="space-y-4 text-sm">
-      <div class="grid grid-cols-2 gap-y-2 text-color-secondary">
-        <span class="font-semibold">ID:</span><span class="font-bold">{{ documento.id }}</span>
-        <span class="font-semibold">Autor de la documentación:</span><span>{{ documento.autor_documentacion }}</span>
-        <span class="font-semibold">ID de la Incidencia:</span><span>{{ documento.incidencia_id }}</span>
-        <span class="font-semibold">Fecha de documentación:</span><span>{{ documento.fecha_documentacion | date: 'dd/MM/yyyy' }}</span>
-        <span class="font-semibold">Versión afectada:</span><span>{{ documento.version_afectada }}</span>
-      </div>
+<!-- Contenedor principal -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <div class="space-y-3">
-        <div>
-          <h4 class="text-primary font-medium">Causa raíz:</h4>
-          <p class="text-color">{{ documento.causa_raiz || 'Sin información' }}</p>
-        </div>
-        <div>
-          <h4 class="text-primary font-medium">Impacto</h4>
-          <p class="text-color">{{ documento.impacto || 'Sin información' }}</p>
-        </div>
-        <div>
-          <h4 class="text-primary font-medium">Solución aplicada</h4>
-          <p class="text-color">{{ documento.solucion_aplicada || 'Sin información' }}</p>
-        </div>
-        <div>
-          <h4 class="text-primary font-medium">Recomendaciones</h4>
-          <p class="text-color">{{ documento.recomendaciones || 'Sin información' }}</p>
-        </div>
+  <!-- Panel izquierdo: Información de documento -->
+  <div class="lg:col-span-2 space-y-6">
+
+    <!-- Datos generales -->
+    <div class="card p-5 rounded-xl shadow-md border space-y-4">
+      <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+        <i class="pi pi-file text-blue-500"></i> Detalles del Documento
+      </h3>
+
+      <div class="grid grid-cols-2 gap-y-2 text-sm text-gray-700">
+        <span class="font-semibold text-gray-500">ID:</span>
+        <span class="font-medium">{{ documento.id }}</span>
+
+        <span class="font-semibold text-gray-500">Autor:</span>
+        <span>{{ documento.autor_documentacion }}</span>
+
+        <span class="font-semibold text-gray-500">ID Incidencia:</span>
+        <span>{{ documento.incidencia_id }}</span>
+
+        <span class="font-semibold text-gray-500">Fecha:</span>
+        <span>{{ documento.fecha_documentacion | date: 'dd/MM/yyyy' }}</span>
+
+        <span class="font-semibold text-gray-500">Versión afectada:</span>
+        <span>{{ documento.version_afectada }}</span>
       </div>
     </div>
 
-    <!-- Área de PDF y QR o adjuntos -->
-    <div class="flex flex-col items-center justify-center border-1 surface-border surface-ground rounded-md p-4 space-y-4 w-full">
-      <!-- Código QR y compartir -->
-                    <div class="col-span-12 md:col-span-4 flex flex-col items-center">
-                    <img *ngIf="selectedIssue" [src]="qrCodeUrl" alt="QR" class="w-32 h-32 mb-4" />
-                        <span class="text-gray-500 text-xs mb-4">Código QR del incidente</span>
+    <!-- Causa, impacto, solución y recomendaciones -->
+    <div class="grid md:grid-cols-2 gap-6">
 
-                        <div class="flex flex-col gap-2 w-full">
-                            <button pButton pRipple label="Compartir por correo" icon="pi pi-envelope" class="flex items-center gap-2 w-full justify-center" (click)="handleShare('email')" text></button>
-                            <button pButton pRipple label="Compartir por WhatsApp" icon="pi pi-whatsapp" class="flex items-center gap-2 w-full justify-center" (click)="handleShare('whatsapp')" text></button>
-                            <button pButton pRipple label="Compartir por Telegram" icon="pi pi-send" class="flex items-center gap-2 w-full justify-center" (click)="handleShare('telegram')" text></button>
-                        </div>
+      <div class="card p-4 rounded-xl shadow-sm border">
+        <h4 class="text-primary font-semibold mb-2">Causa raíz</h4>
+        <p class="text-sm text-gray-700">{{ documento.causa_raiz || 'Sin información' }}</p>
+      </div>
 
-                        <p class="text-xs text-gray-400 text-center mt-4">
-                            Escanea el código QR para ver el incidente en tu móvil.
-                        </p>
-                    </div>
+      <div class="card p-4 rounded-xl shadow-sm border">
+        <h4 class="text-primary font-semibold mb-2">Impacto</h4>
+        <p class="text-sm text-gray-700">{{ documento.impacto || 'Sin información' }}</p>
+      </div>
+
+      <div class="card p-4 rounded-xl shadow-sm border">
+        <h4 class="text-primary font-semibold mb-2">Solución aplicada</h4>
+        <p class="text-sm text-gray-700">{{ documento.solucion_aplicada || 'Sin información' }}</p>
+      </div>
+
+      <div class="card p-4 rounded-xl shadow-sm border">
+        <h4 class="text-primary font-semibold mb-2">Recomendaciones</h4>
+        <p class="text-sm text-gray-700">{{ documento.recomendaciones || 'Sin información' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel derecho: QR y archivos -->
+  <div class="space-y-6">
+
+    <!-- QR + Compartir -->
+    <div class="card p-5 rounded-xl shadow-md border flex flex-col items-center text-center space-y-4 w-full">
+
+      <h4 class="text-md font-bold text-gray-800">Compartir documento</h4>
+
+      <!-- QR solo si está disponible -->
+      <img *ngIf="selectedIssue" [src]="qrCodeUrl" alt="QR" class="w-32 h-32 mx-auto" />
+      <p class="text-xs text-gray-500">Escanea el QR para abrir en tu dispositivo móvil</p>
+
+      <!-- Sección de botones de compartir SIEMPRE visible -->
+      <div class="w-full flex flex-col gap-2 pt-2">
+        <button pButton label="Compartir por correo" icon="pi pi-envelope" class="w-full p-button-sm p-button-outlined"
+          (click)="handleShare('email')"></button>
+
+        <button pButton label="Compartir por WhatsApp" icon="pi pi-whatsapp"
+          class="w-full p-button-sm p-button-outlined" (click)="handleShare('whatsapp')"></button>
+
+        <button pButton label="Compartir por Telegram" icon="pi pi-send" class="w-full p-button-sm p-button-outlined"
+          (click)="handleShare('telegram')"></button>
+      </div>
+    </div>
+
+    <!-- Adjuntos -->
+    <div class="card p-5 rounded-xl shadow-md border space-y-2">
+      <h4 class="text-md font-bold text-gray-800">📎 Archivos Adjuntos</h4>
+
       <ng-container *ngIf="documento.adjuntos?.length > 0; else sinAdjuntos">
-        <div *ngFor="let archivo of documento.adjuntos" class="flex items-center gap-2">
-          <i class="pi pi-file-pdf text-2xl text-red-600"></i>
+        <div *ngFor="let archivo of documento.adjuntos" class="flex items-center gap-2 text-sm">
+          <i class="pi pi-file-pdf text-red-500 text-lg"></i>
           <a [href]="'/ruta/archivos/' + archivo" target="_blank" class="text-primary hover:underline">{{ archivo }}</a>
         </div>
       </ng-container>
+
       <ng-template #sinAdjuntos>
-        <p class="text-sm text-color-secondary">Sin archivos adjuntos</p>
+        <p class="text-sm text-gray-400 italic">Sin archivos adjuntos</p>
       </ng-template>
     </div>
   </div>

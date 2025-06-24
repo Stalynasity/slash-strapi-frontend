@@ -9,7 +9,7 @@ export default [
   { path: 'incidencias', loadChildren: () => import('./Incidencias/incidencias.routes') },
   { path: 'documentacion' , loadChildren: () => import('./Documentacion/documentacion.routes') },
   { path : 'analisis-codigo', loadComponent: () => import('./Analisis-codigo/page/AnalisisCodigoPage.component')},
-  { path : 'sugerencias-inteligente', component: BusquedaIncidenciaComponent},
+  { path : 'sugerencias-inteligente', loadChildren: () => import('./Sugerencias-inteligente/Sugerencias-inteligente.routes') },
   { path : 'reportes', component: ListaReportesComponent},
 
 

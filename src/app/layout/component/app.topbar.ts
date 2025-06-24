@@ -107,13 +107,14 @@ export class AppTopbar implements OnInit {
   roleName: string = '';
   maskedEmail: string = '';
 
-  constructor(public layoutService: LayoutService,  private authService: AuthService,private router: Router, ) { 
-    
+  constructor(public layoutService: LayoutService,  private authService: AuthService,private router: Router, ) {
+
   }
 
   ngOnInit() {
     // Simulated loading delay - replace with real data fetch
     setTimeout(() => (this.loading = false), 1000);
+
 
   // fuerza la recarga desde sessionStorage
   this.authService.loadProfileFromStorage();
