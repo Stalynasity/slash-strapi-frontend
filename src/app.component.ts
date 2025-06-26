@@ -6,7 +6,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from '../../slash-strapi-frontend/src/app/core/services/auth.service';
 
-import { AuthInterceptor } from '../../slash-strapi-frontend/src/app/core/interceptors/auth.interceptor';
+import { authInterceptor } from './app/core/interceptors/auth.interceptor';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +14,7 @@ import { AuthInterceptor } from '../../slash-strapi-frontend/src/app/core/interc
   imports: [
     RouterModule,   // ← aquí importas el módulo HTTP
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
+  // providers removed; HTTP_INTERCEPTORS is now registered globally in app.config.ts
   template: `<router-outlet></router-outlet>`
 })
 export class AppComponent implements OnInit{

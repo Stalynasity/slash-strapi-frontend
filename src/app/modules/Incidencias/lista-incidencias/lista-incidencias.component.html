@@ -21,8 +21,10 @@
     #dt
     [value]="incidencias"
     [paginator]="true"
-    [rows]="5"
+    [rows]="pageSize"
     [rowsPerPageOptions]="[5, 10, 20]"
+    [totalRecords]="totalRecords"
+    (onPage)="onPageChange($event)"
     [globalFilterFields]="['id', 'titulo', 'tipo', 'estado', 'creado_por']"
     class="p-datatable-gridlines p-datatable-sm border-round shadow-sm"
     responsiveLayout="scroll"
@@ -42,7 +44,7 @@
     <!-- Cuerpo -->
     <ng-template pTemplate="body" let-incidencia>
       <tr>
-        <td class="text-sm">{{ incidencia.id }}</td>
+        <td class="text-sm">{{ incidencia.codigo }}</td>
         <td class="text-sm">{{ incidencia.titulo }}</td>
         <td class="text-sm">{{ incidencia.tipo }}</td>
         <td class="text-sm">
@@ -51,7 +53,7 @@
             [severity]="getSeveridadEstado(incidencia.estado)">
           </p-tag>
         </td>
-        <td class="text-sm">{{ incidencia.autor_id }}</td>
+        <td class="text-sm">{{ incidencia.autor }}</td>
         <td class="text-sm">
           <p-button
             icon="pi pi-eye"
