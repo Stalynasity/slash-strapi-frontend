@@ -13,10 +13,14 @@ export interface SugerenciaInteligente {
   recomendaciones: Recomendacion[];
 }
 
-// incidencia.model.ts
-export interface Incidencia {
-  id: string;
-  titulo: string;
-  descripcion: string;
-}
 
+
+
+export interface Detalle_sugerencia {
+  id: string;
+  incidencia_id: string;
+  similitud: string;
+  incidencia_similar: string;
+  solucion_aplicada: string;
+  Responsable: string;
+  }

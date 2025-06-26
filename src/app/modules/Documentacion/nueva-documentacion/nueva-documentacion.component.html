@@ -84,17 +84,17 @@
     </div>
 
     <div>
-      <p class="font-semibold text-gray-700">💡 <strong>Recomendaciones:</strong></p>
+      <p class="font-semibold text-gray-700"><strong>Recomendaciones:</strong></p>
       <p class="text-sm text-gray-800 ml-2 whitespace-pre-wrap">{{ formulario.value.recomendaciones }}</p>
     </div>
 
     <div>
-      <p class="font-semibold text-gray-700">✅ <strong>Solución aplicada:</strong></p>
+      <p class="font-semibold text-gray-700"><strong>Solución aplicada:</strong></p>
       <p class="text-sm text-gray-800 ml-2 whitespace-pre-wrap">{{ formulario.value.solucion }}</p>
     </div>
 
     <div>
-      <p class="font-semibold text-gray-700">📎 <strong>Archivos adjuntos:</strong></p>
+      <p class="font-semibold text-gray-700"><strong>Archivos adjuntos:</strong></p>
       <ul class="list-disc list-inside ml-2 text-sm text-gray-800">
         <li *ngFor="let archivo of uploadedFiles">
           {{ archivo.name }} ({{ archivo.size / 1024 | number: '1.0-0' }} KB)

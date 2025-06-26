@@ -1,0 +1,62 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [contentStyle]="{ 'padding': '2rem' }"
+  [breakpoints]="{ '960px': '90vw' }"
+  header="Detalle de sugerencia"
+>
+  <div *ngIf="sugerencia" class="text-sm space-y-6">
+    <!-- Encabezado de datos -->
+    <div class="grid grid-cols-2 gap-4 text-gray-600">
+      <div>
+        <span class="font-medium text-gray-400">Código:</span>
+        <span class="font-semibold text-gray-900 ml-1">{{ sugerencia.codigo }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-400">Nivel de similitud:</span>
+        <span class="text-green-600 font-semibold ml-1">{{ sugerencia.similitud }}% similitud</span>
+      </div>
+      <div class="col-span-2">
+        <span class="font-medium text-gray-400">Incidencia similar:</span>
+        <span class="ml-1 text-gray-900">{{ sugerencia.descripcion }}</span>
+      </div>
+    </div>
+
+    <!-- Campo descripción -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Descripción del caso sugerido</label>
+      <textarea
+        pInputTextarea
+        [(ngModel)]="sugerencia.descripcion_caso"
+        rows="3"
+        class="w-full"
+      ></textarea>
+    </div>
+
+    <!-- Solución aplicada -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Detalle técnico</label>
+      <textarea
+        pInputTextarea
+        [(ngModel)]="sugerencia.solucion"
+        rows="3"
+        placeholder="Solución aplicada"
+        class="w-full"
+      ></textarea>
+    </div>
+
+    <!-- Responsable -->
+    <div>
+      <label class="block text-sm text-gray-500 font-medium">Responsable de la solución:</label>
+      <span class="text-gray-800 font-semibold">{{ sugerencia.responsable }}</span>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex flex-wrap justify-end gap-3 pt-4">
+      <button pButton type="button" label="Ver documentación" icon="pi pi-book" class="p-button-sm p-button-primary" (click)="verDocumentacion(sugerencia)"></button>
+      <button pButton type="button" label="Asociar sugerencia" icon="pi pi-link" class="p-button-sm p-button-success" (click)="buscarSugerencias()"></button>
+      <button pButton type="button" label="Cerrar" icon="pi pi-times" class="p-button-sm p-button-secondary" (click)="cerrarDialogo()"></button>
+    </div>
+  </div>
+</p-dialog>

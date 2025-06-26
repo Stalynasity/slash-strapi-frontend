@@ -56,6 +56,9 @@
   </div>
 </section>
 
+
+
+
 <!-- Diálogo de edición -->
 <p-dialog
   header="Editar Documento"
@@ -90,7 +93,7 @@
 
       <div>
         <label class="block text-gray-600 font-medium mb-1">Fecha de documentación</label>
-        <p-calendar formControlName="fecha_documentacion" dateFormat="dd/mm/yy" class="w-full" />
+        <p-datepicker formControlName="fecha_documentacion" dateFormat="dd/mm/yy" class="w-full" />
       </div>
     </div>
 
@@ -102,7 +105,7 @@
 
     <div>
       <label class="block text-gray-600 font-medium mb-1">Impacto</label>
-      <p-dropdown
+      <p-select
         [options]="impactos"
         formControlName="impacto"
         placeholder="Seleccione el impacto"

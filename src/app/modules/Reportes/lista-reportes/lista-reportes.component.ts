@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+
 @Component({
   selector: 'app-lista-reportes',
   standalone: true,
-  imports: [ CalendarModule, CardModule, ButtonModule, InputTextModule, FormsModule, CommonModule ],
+  imports: [ DatePickerModule, CardModule, ButtonModule, InputTextModule, FormsModule, CommonModule ],
   templateUrl: './lista-reportes.component.html',
   styleUrl: './lista-reportes.component.css'
 })

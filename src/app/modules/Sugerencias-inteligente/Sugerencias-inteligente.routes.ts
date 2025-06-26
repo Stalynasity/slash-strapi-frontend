@@ -1,19 +1,23 @@
 import { Routes } from '@angular/router';
 
 export default [
-  { path: '', redirectTo: 'busqueda-incidencia', pathMatch: 'full' },
   {
-    path: 'busqueda-incidencia',
+    path: '',
+    redirectTo: 'sugerencia',
+    pathMatch: 'full',
+  },
+  {
+    path: 'sugerencia',
     loadComponent: () =>
-      import('./busqueda-incidencia/busqueda-incidencia.component').then(
-        (m) => m.BusquedaIncidenciaComponent
+      import('./Sugerencias.module.component').then(
+        (m) => m.SugerenciaModuleComponent
       ),
   },
   {
     path: 'ver',
     loadComponent: () =>
-      import('./ver-sugerencia-inteligente/ver-sugerencia-inteligente.component').then(
-        (m) => m.VerSugerenciaInteligenteComponent
-      ),
+      import(
+        './ver-sugerencia-inteligente/ver-sugerencia-inteligente.component'
+      ).then((m) => m.VerSugerenciaInteligenteComponent),
   },
 ] as Routes;

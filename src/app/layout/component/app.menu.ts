@@ -54,7 +54,7 @@ export class AppMenu {
           {
             label: 'Sugerencias Inteligentes',
             icon: 'pi pi-fw pi-lightbulb',
-            routerLink: ['/models/sugerencias-inteligente/busqueda-incidencia'],
+            routerLink: ['/models/sugerencias-inteligente/sugerencia'],
           },
           {
             label: 'Reportes',

@@ -19,7 +19,7 @@ import { ButtonModule } from 'primeng/button';
           <!-- Buscador y botón alineados -->
           <div class="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
               <!-- Buscador -->
-              <div class="relative flex-1 lg:flex-none w-full lg:w-80">
+              <!-- <div class="relative flex-1 lg:flex-none w-full lg:w-80">
                   <i
                         class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"
                         (click)="search(onSearch.value)"
@@ -31,16 +31,16 @@ import { ButtonModule } from 'primeng/button';
                       class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
                       (keydown.enter)="search(onSearch.value)"
                   />
-              </div>
+              </div> -->
 
               <!-- Botón -->
-              <button
+              <!-- <button
                   pButton
                   label="New Report"
                   icon="pi pi-plus"
                   class="px-6 py-2 bg-[var(--primary-color)] text-white rounded-md hover:bg-[var(--primary-color-hover)] transition-shadow shadow-md border border-[var(--primary-color)]"
-              ></button>
-          </div>
+              ></button> -->
+          <!-- </div> -->
       </div>
   `
 })

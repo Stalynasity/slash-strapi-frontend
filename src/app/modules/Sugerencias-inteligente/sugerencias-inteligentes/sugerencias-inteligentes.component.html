@@ -1,0 +1,54 @@
+<div class="space-y-6 bg-white shadow-xl rounded-xl p-6">
+  <h2 class="text-3xl font-bold text-gray-800">
+    Sugerencias Inteligentes para: <span class="text-blue-600">{{ incidencia?.id }}</span>
+  </h2>
+
+  <!-- Cargando sugerencias -->
+  <div *ngIf="cargandoSugerencias" class="flex justify-center items-center py-8">
+    <p-progressSpinner strokeWidth="4" styleClass="w-10 h-10" />
+  </div>
+
+  <!-- Resultados sugeridos -->
+  <div *ngIf="!cargandoSugerencias && sugerencias.length > 0" class="card mb-4">
+    <h3 class="text-[var(--primary-color)] text-lg font-semibold mb-2">Resultados sugeridos</h3>
+    <div class="overflow-x-auto rounded-md shadow">
+      <p-table [value]="sugerencias" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
+        <ng-template #header>
+          <tr>
+            <th class="font-bold p-3" style="min-width: 200px;">Incidencia similar</th>
+            <th style="min-width: 150px;" class="p-3">Similitud</th>
+            <th style="min-width: 300px;" class="p-3">Solución sugerida</th>
+            <th style="min-width: 150px;" class="p-3">Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template #body let-sugerencia>
+          <tr>
+            <td class="p-3">{{ sugerencia.descripcion }}</td>
+            <td class="p-3">{{ sugerencia.similitud }}%</td>
+            <td class="p-3">{{ sugerencia.solucion }}</td>
+            <td class="p-3">
+              <a class="text-blue-600 hover:underline font-medium cursor-pointer" (click)="verAcciones(sugerencia)">
+                Ver acciones
+              </a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <!-- Sin resultados -->
+  <p-message
+    *ngIf="!cargandoSugerencias && sugerencias.length === 0"
+    severity="info"
+    text="No se encontraron sugerencias asociadas para esta incidencia.">
+  </p-message>
+
+  <!-- Modal de acciones -->
+  <app-acciones-sugerencias
+    [visible]="mostrarDialogoSugerencia"
+    [sugerencia]="sugerenciaSeleccionada"
+    (onClose)="mostrarDialogoSugerencia = false">
+  </app-acciones-sugerencias>
+</div>

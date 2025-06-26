@@ -12,6 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { TextareaModule } from 'primeng/textarea';
+import { DatePickerModule } from 'primeng/datepicker';
+
 @Component({
   selector: 'app-lista-documentacion',
   standalone: true,
@@ -27,6 +29,7 @@ import { TextareaModule } from 'primeng/textarea';
     FileUploadModule,
     ToastModule,
     DropdownModule,
+    DatePickerModule
   ],
   templateUrl: './lista-documentacion.component.html',
   styleUrl: './lista-documentacion.component.css',
@@ -192,7 +195,7 @@ export class ListaDocumentacionComponent implements OnInit {
       recomendaciones: [''],
       version_afectada: [''],
       autor_documentacion: [''],
-      fecha_documentacion: [''],
+      fecha_documentacion: [{ value: '', disabled: true }],
       adjuntos: [[]],
     });
   }
