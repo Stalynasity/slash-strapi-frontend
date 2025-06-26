@@ -1,114 +1,113 @@
-<div class="card p-6 shadow-md rounded-md">
-  <div class="text-2xl font-bold mb-5 text-primary">🔍 Detalle de Incidencia</div>
+<div class="card p-6 shadow-md rounded-xl space-y-6 bg-white">
 
-  <p-tabs value="0" class="mb-4">
-    <p-tablist class="gap-3">
-      <p-tab value="0">📝 Información</p-tab>
-      <p-tab value="1">💡 Sugerencias</p-tab>
-      <p-tab value="2">👥 Colaboración</p-tab>
-    </p-tablist>
+  <!-- Header: Título y botón Regresar -->
+  <div class="flex justify-between items-center border-b pb-4">
+    <h2 class="text-2xl font-bold text-primary">📄 Hoja de Vida de la Incidencia</h2>
+    <button
+      pButton
+      icon="pi pi-arrow-left"
+      label="Regresar"
+      class="p-button-sm p-button-secondary"
+      (click)="volver()"
+    ></button>
+  </div>
 
-    <p-tabpanels>
-      <!-- Información General -->
-      <p-tabpanel value="0">
-        <p-card *ngIf="incidencia" header="📄 Información General" class="w-full mt-3">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
-            <div><label class="text-gray-500">ID:</label>
-              <p class="font-medium">{{ incidencia.id }}</p>
-            </div>
-            <div><label class="text-gray-500">Título:</label>
-              <p class="font-medium">{{ incidencia.titulo }}</p>
-            </div>
-            <div class="md:col-span-2"><label class="text-gray-500">Descripción:</label>
-              <p>{{ incidencia.descripcion }}</p>
-            </div>
-            <div><label class="text-gray-500">Tipo:</label>
-              <p>{{ incidencia.tipo }}</p>
-            </div>
-            <div><label class="text-gray-500">Prioridad:</label>
-              <p>{{ incidencia.prioridad }}</p>
-            </div>
-            <div>
-              <label class="text-gray-500">Estado:</label>
-              <p-tag [value]="incidencia.estado" [severity]="getSeveridadEstado(incidencia.estado)"
-                styleClass="text-sm px-2 py-1"></p-tag>
-            </div>
-            <div><label class="text-gray-500">Módulo Afectado:</label>
-              <p>{{ incidencia.modulo_afectado }}</p>
-            </div>
-            <div><label class="text-gray-500">Autor:</label>
-              <p>{{ incidencia.autor_id }}</p>
-            </div>
-            <div><label class="text-gray-500">Responsable:</label>
-              <p>{{ incidencia.responsable_id }}</p>
-            </div>
-            <div><label class="text-gray-500">Creado:</label>
-              <p>{{ incidencia.fecha_creacion | date:'medium' }}</p>
-            </div>
-            <div><label class="text-gray-500">Actualizado:</label>
-              <p>{{ incidencia.fecha_actualizacion | date:'medium' }}</p>
-            </div>
-
-            <div *ngIf="incidencia.archivos_adjunto?.length" class="md:col-span-2">
-              <label class="text-gray-500">📎 Archivos Adjuntos:</label>
-              <ul class="list-disc list-inside mt-1">
-                <li *ngFor="let archivo of incidencia.archivos_adjunto">
-                  <a href="#" class="text-blue-600 hover:underline">{{ archivo }}</a>
-                </li>
-              </ul>
-            </div>
+  <!-- Layout principal: info + QR -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- Info General -->
+    <div class="lg:col-span-3 space-y-4">
+      <p-card class="w-full" header="🧾 Información General">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+          <div>
+            <label class="block text-gray-500">Código:</label>
+            <p class="font-medium">{{ incidencia?.codigo }}</p>
           </div>
-        </p-card>
-      </p-tabpanel>
-
-      <!-- Sugerencias -->
-      <p-tabpanel value="1">
-        <p-card header="💡 Sugerencias Inteligentes" class="w-full mt-3">
-          <ng-container *ngIf="incidencia?.sugerencias?.length; else sinSugerencias">
-            <ul class="list-disc list-inside text-sm">
-              <li *ngFor="let sugerencia of incidencia?.sugerencias" class="py-1">{{ sugerencia }}</li>
-            </ul>
-          </ng-container>
-          <ng-template #sinSugerencias>
-            <p class="text-gray-400">No hay sugerencias disponibles para esta incidencia.</p>
-          </ng-template>
-        </p-card>
-      </p-tabpanel>
-
-
-
-      <!-- Comentarios / Colaboración -->
-      <p-tabpanel value="2">
-
-        <!-- Formulario rápido (opcional) -->
-        <div class="mb-5">
-          <label for="nuevoComentario" class="block text-sm font-semibold text-color mb-2">
-            Agregar Comentario:
-          </label>
-
-          <div class="flex flex-col md:flex-row gap-3 items-end">
-            <textarea pTextarea  id="nuevoComentario" [(ngModel)]="nuevoComentario" rows="3"
-              class="w-full" placeholder="Escribe aquí tu comentario..."></textarea>
-
-            <p-button type="button" icon="pi pi-send" label="Enviar" class="md:w-auto w-full"
-              (click)="agregarComentario()" [disabled]="!nuevoComentario.trim()"></p-button>
+          <div>
+            <label class="block text-gray-500">Título:</label>
+            <p class="font-medium">{{ incidencia?.titulo }}</p>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-gray-500">Descripción:</label>
+            <p class="text-justify">{{ incidencia?.descripcion }}</p>
+          </div>
+          <div>
+            <label class="block text-gray-500">Tipo:</label>
+            <p>{{ incidencia?.tipo }}</p>
+          </div>
+          <div>
+            <label class="block text-gray-500">Prioridad:</label>
+            <p>{{ incidencia?.prioridad }}</p>
+          </div>
+          <div>
+            <label class="block text-gray-500">Estado:</label>
+            <p-tag
+              [value]="incidencia?.estado"
+              [severity]="getSeveridadEstado(incidencia?.estado || '')"
+              styleClass="text-sm px-2 py-1"
+            ></p-tag>
+          </div>
+          <div>
+            <label class="block text-gray-500">Autor:</label>
+            <p>{{ incidencia?.autor }}</p>
+          </div>
+          <div>
+            <label class="block text-gray-500">Fecha Reporte:</label>
+            <p>{{ incidencia?.publishedAt | date: 'medium' }}</p>
+          </div>
+          <div>
+            <label class="block text-gray-500">Última Actualización:</label>
+            <p>{{ incidencia?.updatedAt | date: 'medium' }}</p>
           </div>
         </div>
-        <p-card header="👥 Comentarios de Colaboradores" class="w-full mt-3">
+      </p-card>
+    </div>
 
-          <p-timeline [value]="comentarios" align="alternate" styleClass="customized-timeline"
-            *ngIf="comentarios?.length">
-            <ng-template let-comentario pTemplate="content">
-              <small class="text-gray-500">{{ comentario.fecha | date: 'short' }}</small>
-              <p class="mt-1">{{ comentario.contenido }}</p>
-            </ng-template>
-          </p-timeline>
-          <ng-template #sinComentarios>
-            <p class="text-gray-400">No hay comentarios registrados aún.</p>
-          </ng-template>
+    <!-- QR a la derecha -->
+    <div class="flex flex-col items-center space-y-4">
+      <p class="font-semibold text-sm text-gray-600">Slash Quick Share</p>
+      <canvas #qrCanvas class="border rounded-xl p-2 bg-white shadow-sm"></canvas>
 
-        </p-card>
-      </p-tabpanel>
-    </p-tabpanels>
-  </p-tabs>
+      <div class="flex flex-col gap-2 w-full">
+        <button
+          pButton
+          icon="pi pi-copy"
+          label="Copiar Enlace"
+          class="p-button-sm p-button-info w-full"
+          (click)="copiarEnlace()"
+        ></button>
+      <button
+  type="button"
+  class="w-full flex items-center justify-center gap-2 bg-black text-white px-3 py-2 rounded-md shadow-sm text-sm font-medium hover:bg-gray-800 transition"
+  (click)="compartirEnlace()"
+>
+  <i class="pi pi-share-alt"></i>
+  Compartir
+</button>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline Feedback -->
+  <p-card header="🕓 Comentarios de Colaboradores" class="w-full" *ngIf="incidencia?.feedback?.length">
+    <p-timeline
+      [value]="incidencia?.feedback"
+      align="alternate"
+      class="customized-timeline"
+    >
+      <ng-template let-item pTemplate="content">
+        <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200">
+          <div class="text-sm text-gray-500 mb-1">
+            {{ item.fechacomentario | date: 'medium' }}
+          </div>
+          <div class="text-sm">
+            <span class="font-semibold">{{ item.autor }}</span>
+            <span class="text-xs text-gray-500 ml-1">({{ item.reputacion }})</span>
+          </div>
+          <p class="mt-1 text-gray-800 text-sm leading-relaxed">{{ item.comentarios }}</p>
+        </div>
+      </ng-template>
+    </p-timeline>
+  </p-card>
 </div>
