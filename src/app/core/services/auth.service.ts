@@ -18,10 +18,9 @@ export class AuthService {
   private loginUrl = `${this.baseUrl}/auth/local`;
   private _userProfile: UserProfile | null = null;
 
-  // Preparamos siempre los mismos headers
   private jsonHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    'Accept': 'application/json',
   });
 
   constructor(private http: HttpClient) {
@@ -43,31 +42,26 @@ export class AuthService {
   }
 
   /**
-   * Hace login: envía un JSON puro, con los headers adecuados,
-   * guarda el token y devuelve la respuesta.
+   * Login: Guarda el token tanto en localStorage como en sessionStorage.
    */
   login(data: LoginRequest): Observable<LoginResponse> {
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // Simulación de login para el usuario admin
-    // eliminar esta sección si estás usando un backend real./////////////////////////////////
     if (data.identifier === 'admin' && data.password === 'admin') {
-    const fakeResponse: LoginResponse = {
-      jwt: 'fake-jwt-token',
-      user: {
-        id: 1,
-        username: 'admin',
-        email: 'admin@example.com'
-      }
-    };
-    localStorage.setItem('token', fakeResponse.jwt);
-    localStorage.setItem('user', JSON.stringify(fakeResponse.user));
-    return new Observable<LoginResponse>(observer => {
-      observer.next(fakeResponse);
-      observer.complete();
-    });
-  }
-  //////////////////////////////////////////////////////////////////////////////////////////
-
+      const fakeResponse: LoginResponse = {
+        jwt: 'fake-jwt-token',
+        user: {
+          id: 1,
+          username: 'admin',
+          email: 'admin@example.com',
+        },
+      };
+      localStorage.setItem('token', fakeResponse.jwt);
+      sessionStorage.setItem('token', fakeResponse.jwt); // Guardando en sessionStorage
+      localStorage.setItem('user', JSON.stringify(fakeResponse.user));
+      return new Observable<LoginResponse>((observer) => {
+        observer.next(fakeResponse);
+        observer.complete();
+      });
+    }
 
     return this.http
       .post<LoginResponse>(
@@ -76,29 +70,31 @@ export class AuthService {
         { headers: this.jsonHeaders }
       )
       .pipe(
-        tap(res => {
-          // Sólo al recibir 2xx guardamos el token
+        tap((res) => {
+          // Guarda el token en localStorage y sessionStorage
           localStorage.setItem('token', res.jwt);
+          sessionStorage.setItem('token', res.jwt); // Guardando en sessionStorage
           localStorage.setItem('user', JSON.stringify(res.user));
         })
       );
   }
 
+  /**
+   * Devuelve el token almacenado en sessionStorage
+   */
+  getToken(): string | null {
+    return sessionStorage.getItem('token') || localStorage.getItem('token');
+  }
+
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token') || !!localStorage.getItem('token');
   }
 
   logout(): void {
-    // Borra token y datos de usuario
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     localStorage.removeItem('user');
-    // Borra el perfil guardado
     sessionStorage.removeItem('userProfile');
-    // Y limpia la copia interna
     this._userProfile = null;
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
   }
 }

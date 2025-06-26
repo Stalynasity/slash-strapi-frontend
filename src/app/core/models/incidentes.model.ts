@@ -6,12 +6,14 @@ export interface Incidencia {
   prioridad: string;
   estado: string;
   modulo_afectado: string;
-  fecha_creacion: string; // ISO datetime
-  fecha_actualizacion: string;
-  autor_id: string;
+  publishedAt: string; // ISO datetime
+  updatedAt: string;
+  autor: string;
   responsable_id: string;
   archivos_adjunto: string[]; // o ArchivoAdjunto[]
   sugerencias: string[];
+  codigo: string; // o CodeSmell[]
+  feedback: feedback[]; // o Feedback[]
   code_smells_relacionados: string[]; // o CodeSmell[]
 }
 
@@ -21,6 +23,13 @@ export interface TipoError {
   descripcion: string;
 }
 
+export interface feedback {
+  id: string;
+  comentarios: string;
+  autor: string;
+  fechacomentario: string; // ✅ Agregado
+  reputacion: string;
+}
 export interface EstadoIncidencia {
   id: string;
   nombre: string;
