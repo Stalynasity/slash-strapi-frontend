@@ -3,6 +3,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
+
 
 @Component({
   selector: 'app-acciones-sugerencias',
@@ -10,7 +13,7 @@ import { DialogModule } from 'primeng/dialog';
   imports: [CommonModule,
     FormsModule,
     DialogModule,
-    ButtonModule,
+    ButtonModule,TextareaModule, InputTextModule, InputTextModule
   ],
   templateUrl: './acciones-sugerencias.component.html',
   styleUrl: './acciones-sugerencias.component.css'

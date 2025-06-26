@@ -1,12 +1,12 @@
-<div class="space-y-6 bg-white shadow-xl rounded-xl p-6">
+<div class="card">
 
   <!-- Título principal -->
-  <h2 class="text-3xl font-bold">🔍 Sugerencias Inteligentes</h2>
+  <h2 class="text-[var(--primary-color)] text-3xl font-bold">🔍 Sugerencias Inteligentes</h2>
 
   <!-- Sección de búsqueda -->
   <div class="card bg-gray-50 p-6 rounded-xl shadow-md border space-y-6">
-    <h3 class="text-xl font-semibold text-gray-800 flex items-center gap-3">
-      <i class="pi pi-search text-blue-500"></i> Buscar Incidencia
+    <h3 class="text-xl font-semibold flex items-center gap-3">
+      Buscar Incidencia
     </h3>
 
     <!-- Formulario de búsqueda -->
@@ -51,7 +51,7 @@
         </div>
         <div *ngIf="sugerenciasAsociadas.length > 0" class="overflow-x-auto rounded-md shadow">
           <p-table [value]="sugerenciasAsociadas" [scrollable]="true" scrollHeight="400px"
-            [tableStyle]="{ 'min-width': '50rem' }">
+            [tableStyle]="{ 'min-width': '50rem' }" class="p-datatable-gridlines p-datatable-sm border-round shadow-sm">
             <ng-template #header>
               <tr>
                 <th class="p-3">Incidencia similar</th>

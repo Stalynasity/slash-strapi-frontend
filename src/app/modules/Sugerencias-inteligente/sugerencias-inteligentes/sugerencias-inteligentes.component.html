@@ -1,6 +1,6 @@
-<div class="space-y-6 bg-white shadow-xl rounded-xl p-6">
-  <h2 class="text-3xl font-bold text-gray-800">
-    Sugerencias Inteligentes para: <span class="text-blue-600">{{ incidencia?.id }}</span>
+<div class="card">
+  <h2 class="text-3xl font-bold ">
+    Sugerencias Inteligentes para: <span class="text-[var(--primary-color)]">{{ incidencia?.id }}</span>
   </h2>
 
   <!-- Cargando sugerencias -->
@@ -12,7 +12,7 @@
   <div *ngIf="!cargandoSugerencias && sugerencias.length > 0" class="card mb-4">
     <h3 class="text-[var(--primary-color)] text-lg font-semibold mb-2">Resultados sugeridos</h3>
     <div class="overflow-x-auto rounded-md shadow">
-      <p-table [value]="sugerencias" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
+      <p-table [value]="sugerencias" [scrollable]="true" scrollHeight="400px" styleClass="mt-4" class="p-datatable-gridlines p-datatable-sm border-round shadow-sm">
         <ng-template #header>
           <tr>
             <th class="font-bold p-3" style="min-width: 200px;">Incidencia similar</th>

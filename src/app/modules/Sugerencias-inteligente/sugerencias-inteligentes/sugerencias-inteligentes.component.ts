@@ -77,7 +77,7 @@ export class SugerenciasInteligentesComponent implements OnInit {
   verAcciones(sugerencia: SugerenciaResponse) {
     this.sugerenciaSeleccionada = {
       ...sugerencia,
-      codigo: 'SG-' + Math.floor(Math.random() * 9999),
+      codigo: this.incidencia?.id,
       descripcion_caso: '',
       responsable: 'Sistema'
     };
