@@ -1,50 +1,86 @@
-<section class="resultado-analisis bg-white w-full h-[76vh] max-h-[76vh] rounded-md p-9">
+<section
+  class="resultado-analisis bg-white dark:bg-[var(--surface-900)] text-gray-800 dark:text-gray-200 w-full h-[76vh] max-h-[76vh] rounded-md p-9">
   <div class="resultado-analisis">
-    <p class="text-[var(--primary-color)] text-2xl">Resultados</p>
+    <p class="text-[var(--primary-color)] dark:text-[var(--primary-color)] text-2xl">Resultados</p>
     <div class="detalle-analisis flex justify-between mt-4">
-      <p class="mr-16">Total bugs nivel bajo: <strong class="text-green-600">0</strong></p>
-      <p class="mr-16">Total bugs nivel medio: <strong class="text-yellow-600">0</strong></p>
-      <p class="mr-16">Total bugs nivel alto: <strong class="text-red-600">0</strong></p>
-      <p class="mr-16">Total bugs: <strong>0</strong></p>
+      <p class="mr-16">
+        Total bugs nivel bajo:
+        <strong class="text-green-600 dark:text-green-400">0</strong>
+      </p>
+      <p class="mr-16">
+        Total bugs nivel medio:
+        <strong class="text-yellow-600 dark:text-yellow-400">0</strong>
+      </p>
+      <p class="mr-16">
+        Total bugs nivel alto:
+        <strong class="text-red-600 dark:text-red-400">0</strong>
+      </p>
+      <p class="mr-16">
+        Total bugs:
+        <strong>0</strong>
+      </p>
     </div>
   </div>
 
-  <div class="tabla-analisis mt-6 overflow-x-auto bg-[var(--surface-card)]/10 p-4 rounded-lg shadow-sm">
-    <table class="min-w-full divide-y divide-[var(--surface-border)] table-auto">
-      <thead class="bg-[var(--surface-card)]">
+  <div
+    class="tabla-analisis mt-6 overflow-x-auto bg-[var(--surface-card)]/10 dark:bg-[var(--surface-800)]/50 p-4 rounded-lg shadow-sm">
+    <table class="min-w-full divide-y divide-[var(--surface-border)] dark:divide-[var(--surface-border)] table-auto">
+      <thead class="bg-[var(--surface-card)] dark:bg-[var(--surface-700)]">
         <tr>
-          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Archivo</th>
-          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Línea</th>
-          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Tipo Smell</th>
-          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Nivel</th>
-          <th class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)]">Acciones</th>
+          <th
+            class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)] dark:text-[var(--surface-100)]">
+            Archivo
+          </th>
+          <th
+            class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)] dark:text-[var(--surface-100)]">
+            Línea
+          </th>
+          <th
+            class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)] dark:text-[var(--surface-100)]">
+            Tipo Smell
+          </th>
+          <th
+            class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)] dark:text-[var(--surface-100)]">
+            Nivel
+          </th>
+          <th
+            class="px-4 py-3 text-left text-sm font-semibold text-[var(--surface-900)] dark:text-[var(--surface-100)]">
+            Acciones
+          </th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-[var(--surface-border)]">
-        @for (item of mockupAnalisisResultado; track $index) {
-        <tr class="odd:bg-white ">
-          <td class="px-4 py-2 text-sm text-gray-600"> {{ item.archivo }} </td>
-          <td class="px-4 py-2 text-sm text-gray-600"> {{ item.linea }} </td>
-          <td class="px-4 py-2 text-sm text-gray-600"> {{ item.tipoSmell }} </td>
+      <tbody class="divide-y divide-[var(--surface-border)] dark:divide-[var(--surface-border)]">
+        <tr *ngFor="let item of mockupAnalisisResultado; let i = index" class="odd:bg-white dark:odd:bg-[var(--surface-800)]">
+          <td class="px-4 py-2 text-sm text-gray-600 dark:text-gray-300">{{ item.archivo }}</td>
+          <td class="px-4 py-2 text-sm text-gray-600 dark:text-gray-300">{{ item.linea }}</td>
+          <td class="px-4 py-2 text-sm text-gray-600 dark:text-gray-300">{{ item.tipoSmell }}</td>
           <td class="px-4 py-2 text-sm font-semibold" [ngClass]="{
-                  'text-green-600': item.nivel.toLocaleLowerCase() === 'bajo',
-                  'text-yellow-600': item.nivel.toLocaleLowerCase() === 'medio',
-                  'text-red-600': item.nivel.toLocaleLowerCase() === 'alto'
-                }">
+              'text-green-600 dark:text-green-400': item.nivel.toLowerCase() === 'bajo',
+              'text-yellow-600 dark:text-yellow-400': item.nivel.toLowerCase() === 'medio',
+              'text-red-600 dark:text-red-400': item.nivel.toLowerCase() === 'alto'
+            }">
             {{ item.nivel }}
           </td>
           <td class="px-4 py-2 text-sm">
-            <button (click)="menu.toggle($event)" class="bg-[var(--primary-color)] text-white p-2 rounded-md no-underline">Asociar</button>
-              <p-tieredmenu #menu [model]="items" [popup]="true" />
+            <button (click)="menu.toggle($event)"
+              class="bg-[var(--primary-color)] dark:bg-[var(--primary-color)]/80 text-white p-2 rounded-md no-underline hover:dark:bg-[var(--primary-color)]/70">
+              Asociar
+            </button>
+            <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
           </td>
         </tr>
-        }
       </tbody>
     </table>
+
+    <!-- Paginador -->
+    <div class="mt-4 flex justify-end">
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+        [totalRecords]="mockupAnalisisResultado.length" [rowsPerPageOptions]="[1,5,10]"
+        class="dark:bg-[var(--surface-800)]/50 rounded-md p-2"></p-paginator>
+    </div>
   </div>
 </section>
-<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="mockupAnalisisResultado " [totalRecords]="mockupAnalisisResultado.length" [rowsPerPageOptions]="[1, 5, 10]" />
 
-
-<app-modal-asociar-code-smell [(visibleModalAsociarCodeSmell)]="visibleModalAsociarCodeSmell" />
-<app-modal-nuevo-code-smell  [(visibleModalNuevoCodeSmell)]="visibleModalNuevoCodeSmell">
+<app-modal-asociar-code-smell
+  [(visibleModalAsociarCodeSmell)]="visibleModalAsociarCodeSmell"></app-modal-asociar-code-smell>
+<app-modal-nuevo-code-smell [(visibleModalNuevoCodeSmell)]="visibleModalNuevoCodeSmell"></app-modal-nuevo-code-smell>
