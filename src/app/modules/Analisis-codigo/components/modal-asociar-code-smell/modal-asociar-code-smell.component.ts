@@ -15,6 +15,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-modal-asociar-code-smell',
@@ -27,6 +28,7 @@ import { TextareaModule } from 'primeng/textarea';
     AccordionModule,
     InputTextModule,
     TextareaModule,
+    ButtonModule
   ],
   templateUrl: './modal-asociar-code-smell.component.html',
   styleUrl: './modal-asociar-code-smell.component.css',

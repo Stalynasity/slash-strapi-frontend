@@ -43,6 +43,7 @@
     </table>
   </div>
 </section>
+<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="mockupAnalisisResultado " [totalRecords]="mockupAnalisisResultado.length" [rowsPerPageOptions]="[1, 5, 10]" />
 
 
 <app-modal-asociar-code-smell [(visibleModalAsociarCodeSmell)]="visibleModalAsociarCodeSmell" />

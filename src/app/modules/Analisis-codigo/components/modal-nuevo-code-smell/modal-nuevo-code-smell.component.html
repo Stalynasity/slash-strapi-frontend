@@ -12,10 +12,12 @@
       <textarea id="descripcion" rows="5" cols="30" pTextarea class="w-full mt-4"></textarea>
     </div>
 
-    <div class="p-text-right">
-      <button pButton type="button" label="Cancelar" class="p-button-text mr-2"
+    <div class="flex w-full justify-end">
+      <!-- <button pButton type="button" label="Cancelar" class="p-button-text mr-2"
         (click)="visibleModalNuevoCodeSmell.set(false)"></button>
-      <button pButton type="button" label="Guardar" icon="pi pi-check"></button>
+      <button pButton type="button" label="Guardar" icon="pi pi-check"></button> -->
+      <p-button class="mr-3" (click)="visibleModalNuevoCodeSmell.set(false)" label="Cancelar" />
+      <p-button class="mr-3"  label="Guardar" />
     </div>
   </p-dialog>
 </div>

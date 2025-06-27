@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { ModalAsociarCodeSmellComponent } from '../modal-asociar-code-smell/modal-asociar-code-smell.component';
 import { ModalNuevoCodeSmellComponent } from '../modal-nuevo-code-smell/modal-nuevo-code-smell.component';
 import { MenuItem } from 'primeng/api';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 // Data interface
 interface AnalisisResultado {
@@ -36,7 +37,8 @@ interface AnalisisResultado {
     TieredMenuModule,
     ButtonModule,
     ModalAsociarCodeSmellComponent,
-    ModalNuevoCodeSmellComponent
+    ModalNuevoCodeSmellComponent,
+    PaginatorModule
   ],
   templateUrl: './analisis-resultado.component.html',
   styleUrls: ['./analisis-resultado.component.css'],
@@ -46,6 +48,8 @@ export class AnalisisResultadoComponent implements OnInit {
   // --- Signals for modal visibility ---
   visibleModalAsociarCodeSmell = signal(false);
   visibleModalNuevoCodeSmell = signal(false);
+  first: number = 0;
+  rows: number = 10;
 
   // --- Menu items ---
   items: MenuItem[] = [];
@@ -87,5 +91,9 @@ export class AnalisisResultadoComponent implements OnInit {
 
   private asociarIncidencia(): void {
     this.visibleModalAsociarCodeSmell.set(true);
+  }
+    onPageChange(event: PaginatorState) {
+      this.first = event.first ?? 0;
+      this.rows = event.rows ?? 10;
   }
 }

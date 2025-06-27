@@ -26,8 +26,8 @@ export const routes: Routes = [
     loadChildren: () => import('./app/auth/auth.routes'),
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  {
-    path: '**',
-    redirectTo: 'auth',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'auth',
+  // },
 ];
