@@ -14,6 +14,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-modal-nuevo-code-smell',
@@ -25,7 +26,8 @@ import { TextareaModule } from 'primeng/textarea';
       CheckboxModule,
       AccordionModule,
       InputTextModule,
-      TextareaModule
+      TextareaModule,
+      ButtonModule
     ],
   templateUrl: './modal-nuevo-code-smell.component.html',
   styleUrl: './modal-nuevo-code-smell.component.css',
@@ -33,4 +35,8 @@ import { TextareaModule } from 'primeng/textarea';
 })
 export class ModalNuevoCodeSmellComponent {
   visibleModalNuevoCodeSmell = model(false);
+
+  guardarNuevoCodeSmell() {
+
+  }
 }
