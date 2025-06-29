@@ -14,6 +14,7 @@ export interface Incidencia {
   sugerencias: string[];
   codigo: string; // o CodeSmell[]
   feedback: feedback[]; // o Feedback[]
+  adjuntoincidencia: ArchivoAdjunto[]; // o ArchivoAdjunto[]
   code_smells_relacionados: string[]; // o CodeSmell[]
 }
 
@@ -47,11 +48,11 @@ export interface ComentarioIncidencia {
 
 export interface ArchivoAdjunto {
   id: string;
-  incidencia_id: string;
-  nombre_archivo: string;
-  ruta_archivo: string;
-  tipo_mime: string;
-  subido_por: string;
+  descripcion: string;
+  fechacarga: string;
+  estado: string;
+  autor: string;
+  IDADJUNTOINCIDENCIA: String;
 }
 
 export interface HistorialIncidencia {

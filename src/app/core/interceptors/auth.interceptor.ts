@@ -16,9 +16,9 @@ import { inject } from '@angular/core';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getToken();
-    console.log('Interceptor ejecutado. Token:', token); // Verifica si el interceptor se ejecuta
+   console.log('Interceptor ejecutado. URL:', req.url);
+console.log('Token:', token);
 
-  console.log('Token:', token); // Para depuración
   if (token) {
     req = req.clone({
       setHeaders: {

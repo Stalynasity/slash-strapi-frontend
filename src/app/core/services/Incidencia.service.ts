@@ -32,7 +32,51 @@ export class IncidenciaService {
       return response.data?.[0];
     })
   );
+
+  
 }
+
+
+getArchivosAdjuntosPorIncidencia(incidencia: Incidencia): Observable<any[]> {
+  const tieneAdjuntos = incidencia.adjuntoincidencia?.length > 0;
+  const tituloValido = incidencia.titulo?.trim()?.length > 0;
+
+  if (!tieneAdjuntos || !tituloValido) {
+    return new Observable((observer) => {
+      observer.next([]);
+      observer.complete();
+    });
+  }
+
+  const adjuntosIds = incidencia.adjuntoincidencia
+    .filter(adj => adj.IDADJUNTOINCIDENCIA?.trim().length > 0)
+    .map(adj => encodeURIComponent(adj.IDADJUNTOINCIDENCIA.trim()));
+
+  if (adjuntosIds.length === 0) {
+    return new Observable((observer) => {
+      observer.next([]);
+      observer.complete();
+    });
+  }
+
+  // Construye la query con múltiples [$in]=
+  const queryParams = adjuntosIds.map(id => `filters[caption][$in]=${id}`).join('&');
+
+  const url = `${this.baseUrl}/upload/files?${queryParams}`;
+  console.log('🌐 URL para obtener archivos adjuntos dinámicos:', url);
+
+ return this.http.get<any[]>(url).pipe(
+  map(archivos => archivos.map(archivo => ({
+    ...archivo,
+    urlCompleta: `${environment.assetsUrl}${archivo.url}`,
+    autor: archivo.autor || incidencia.autor,          // fallback
+    fechacarga: archivo.fechacarga || incidencia.publishedAt  // fallback
+  })))
+);
+
+}
+
+
 
 
 }

@@ -1,61 +1,53 @@
-<div class="card p-6 shadow-md rounded-xl space-y-6 bg-white">
+<div class="card p-6 shadow-md rounded-xl space-y-6 bg-white dark:bg-gray-900 dark:text-gray-200">
 
-  <!-- Header: Título y botón Regresar -->
-  <div class="flex justify-between items-center border-b pb-4">
+  <!-- Header -->
+  <div class="flex justify-between items-center border-b pb-4 border-gray-200 dark:border-gray-700">
     <h2 class="text-2xl font-bold text-primary">📄 Hoja de Vida de la Incidencia</h2>
-    <button
-      pButton
-      icon="pi pi-arrow-left"
-      label="Regresar"
-      class="p-button-sm p-button-secondary"
-      (click)="volver()"
-    ></button>
+    <button pButton icon="pi pi-arrow-left" label="Regresar" class="p-button-sm p-button-secondary"
+      (click)="volver()"></button>
   </div>
 
-  <!-- Layout principal: info + QR -->
+  <!-- Layout principal -->
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
     <!-- Info General -->
     <div class="lg:col-span-3 space-y-4">
-      <p-card class="w-full" header="🧾 Información General">
+      <p-card header="🧾 Información General" class="w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
-            <label class="block text-gray-500">Código:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Código:</label>
             <p class="font-medium">{{ incidencia?.codigo }}</p>
           </div>
           <div>
-            <label class="block text-gray-500">Título:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Título:</label>
             <p class="font-medium">{{ incidencia?.titulo }}</p>
           </div>
           <div class="md:col-span-2">
-            <label class="block text-gray-500">Descripción:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Descripción:</label>
             <p class="text-justify">{{ incidencia?.descripcion }}</p>
           </div>
           <div>
-            <label class="block text-gray-500">Tipo:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Tipo:</label>
             <p>{{ incidencia?.tipo }}</p>
           </div>
           <div>
-            <label class="block text-gray-500">Prioridad:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Prioridad:</label>
             <p>{{ incidencia?.prioridad }}</p>
           </div>
           <div>
-            <label class="block text-gray-500">Estado:</label>
-            <p-tag
-              [value]="incidencia?.estado"
-              [severity]="getSeveridadEstado(incidencia?.estado || '')"
-              styleClass="text-sm px-2 py-1"
-            ></p-tag>
+            <label class="block text-gray-500 dark:text-gray-400">Estado:</label>
+            <p-tag [value]="incidencia?.estado" [severity]="getSeveridadEstado(incidencia?.estado || '')"
+              styleClass="text-sm px-2 py-1"></p-tag>
           </div>
           <div>
-            <label class="block text-gray-500">Autor:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Autor:</label>
             <p>{{ incidencia?.autor }}</p>
           </div>
           <div>
-            <label class="block text-gray-500">Fecha Reporte:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Fecha Reporte:</label>
             <p>{{ incidencia?.publishedAt | date: 'medium' }}</p>
           </div>
           <div>
-            <label class="block text-gray-500">Última Actualización:</label>
+            <label class="block text-gray-500 dark:text-gray-400">Última Actualización:</label>
             <p>{{ incidencia?.updatedAt | date: 'medium' }}</p>
           </div>
         </div>
@@ -64,50 +56,74 @@
 
     <!-- QR a la derecha -->
     <div class="flex flex-col items-center space-y-4">
-      <p class="font-semibold text-sm text-gray-600">Slash Quick Share</p>
-      <canvas #qrCanvas class="border rounded-xl p-2 bg-white shadow-sm"></canvas>
+      <p class="font-semibold text-sm text-gray-600 dark:text-gray-300">Slash Quick Share</p>
+      <canvas #qrCanvas class="border rounded-xl p-2 bg-white dark:bg-gray-800 shadow-sm"></canvas>
 
       <div class="flex flex-col gap-2 w-full">
-        <button
-          pButton
-          icon="pi pi-copy"
-          label="Copiar Enlace"
-          class="p-button-sm p-button-info w-full"
-          (click)="copiarEnlace()"
-        ></button>
-      <button
-  type="button"
-  class="w-full flex items-center justify-center gap-2 bg-black text-white px-3 py-2 rounded-md shadow-sm text-sm font-medium hover:bg-gray-800 transition"
-  (click)="compartirEnlace()"
->
-  <i class="pi pi-share-alt"></i>
-  Compartir
-</button>
-
-
+        <button pButton icon="pi pi-copy" label="Copiar Enlace" class="p-button-sm p-button-info w-full"
+          (click)="copiarEnlace()"></button>
+        <button type="button"
+          class="w-full flex items-center justify-center gap-2 bg-black text-white px-3 py-2 rounded-md shadow-sm text-sm font-medium hover:bg-gray-800 transition"
+          (click)="compartirEnlace()">
+          <i class="pi pi-share-alt"></i>
+          Compartir
+        </button>
       </div>
     </div>
   </div>
 
   <!-- Timeline Feedback -->
-  <p-card header="🕓 Comentarios de Colaboradores" class="w-full" *ngIf="incidencia?.feedback?.length">
-    <p-timeline
-      [value]="incidencia?.feedback"
-      align="alternate"
-      class="customized-timeline"
-    >
+  <p-card header="🕓 Comentarios de Colaboradores" class="w-full mt-6">
+    <p-timeline [value]="incidencia?.feedback" align="alternate" class="customized-timeline">
       <ng-template let-item pTemplate="content">
-        <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200">
-          <div class="text-sm text-gray-500 mb-1">
+        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
+          <div class="text-sm text-gray-500 dark:text-gray-300 mb-1">
             {{ item.fechacomentario | date: 'medium' }}
           </div>
           <div class="text-sm">
             <span class="font-semibold">{{ item.autor }}</span>
             <span class="text-xs text-gray-500 ml-1">({{ item.reputacion }})</span>
           </div>
-          <p class="mt-1 text-gray-800 text-sm leading-relaxed">{{ item.comentarios }}</p>
+          <p class="mt-1 text-gray-800 dark:text-gray-200 text-sm leading-relaxed">
+            {{ item.comentarios }}
+          </p>
         </div>
       </ng-template>
     </p-timeline>
   </p-card>
+
+  <!-- Archivos Adjuntos -->
+  <p-card header="📎 Archivos Adjuntos" class="w-full mt-6" *ngIf="archivosAdjuntos.length > 0">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ng-container *ngFor="let archivo of archivosAdjuntos">
+        <div class="flex flex-col gap-2 border p-3 rounded-lg shadow-sm bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+          <p class="text-sm font-medium truncate">{{ archivo.name || archivo.descripcion }}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-300">Autor: {{ archivo.autor }}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-300">
+            Fecha de carga: {{ archivo.fechacarga | date: 'short' }}
+          </p>
+          <button
+            pButton
+            type="button"
+            class="p-button-text p-0 text-xs text-blue-600 hover:underline w-full justify-start"
+            (click)="abrirModal(archivo)">
+            Ver archivo
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </p-card>
+
+  <!-- Modal -->
+  <p-dialog header="{{ archivoSeleccionado?.name }}" [(visible)]="modalVisible" [modal]="true"
+    [style]="{ width: '80vw', height: '80vh' }" [contentStyle]="{ height: '100%' }" [dismissableMask]="true">
+    <iframe *ngIf="archivoSeleccionado?.mime === 'application/pdf'" [src]="pdfSafeUrl"
+      style="width: 100%; height: 100%; border: none;"></iframe>
+
+    <ng-template #imagen>
+      <img *ngIf="archivoSeleccionado?.mime.startsWith('image/')" [src]="archivoSeleccionado.urlCompleta"
+        alt="Vista previa" class="w-full h-full object-contain" />
+    </ng-template>
+  </p-dialog>
+
 </div>

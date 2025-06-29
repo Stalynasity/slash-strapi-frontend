@@ -87,7 +87,7 @@
       <!-- aqui debe de ir el webm centrado -->
       <!-- contenedor del video centrado -->
       <div class="flex justify-center items-center my-6">
-        <video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true">
+        <video #videoPlayer loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true">
           <source src="../../../assets/img/001.webm" type="video/webm" />
           Tu navegador no soporta el formato WebM.
         </video>

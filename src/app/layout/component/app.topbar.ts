@@ -6,27 +6,27 @@ import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { LayoutService } from '../service/layout.service';
 import { AppConfigurator } from './app.configurator';
-import { SkeletonModule } from 'primeng/skeleton';
 import { AuthService } from '../../core/services/auth.service';
-import { UserProfile } from '../../core/models/request/UserProfile-request.model';
+
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator, SkeletonModule,],
-  template: `    <div class="layout-topbar">
-      <!-- Content or Skeleton -->
-      <ng-container *ngIf="!loading; else skeleton">
-        <div class="layout-topbar-logo-container">
-          <button
-            class="layout-menu-button layout-topbar-action"
-            (click)="layoutService.onMenuToggle()"
-          >
-            <i class="pi pi-bars"></i>
-          </button>
-          <a routerLink="/admin/dashboard">
+  imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
+  template: `
+    <div class="layout-topbar">
+      <div class="layout-topbar-logo-container">
+        <button
+          class="layout-menu-button layout-topbar-action"
+          (click)="layoutService.onMenuToggle()"
+        >
+          <i class="pi pi-bars"></i>
+        </button>
+        <a routerLink="/admin/dashboard">
           <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 1000 1000"
-            preserveAspectRatio="xMidYMid slice">
-            <g transform="translate(0,1024) scale(.1,-.1)">
+            preserveAspectRatio="xMidYMid slice"
+              [ngClass]="{ 'text-white': layoutService.isDarkTheme(), 'text-black': !layoutService.isDarkTheme() }"
+            >
+            <g transform="translate(0,1024) scale(.1,-.1)" fill="currentColor">
               <path
                 d="M2055 6556 c-281 -54 -512 -273 -579 -547 -19 -76 -21 -243 -5 -321 19 -95 81 -208 160 -292 83 -89 131 -122 598 -407 184 -112 349 -219 367 -238 88 -88 60 -251 -54 -318 l-47 -28 -485 -5 -484 -5 -92 -220 c-51 -121 -93 -226 -93 -233 -1 -11 110 -12 602 -10 675 4 649 2 807 80 67 34 103 61 170 128 140 140 207 284 217 471 9 156 -18 266 -100 396 -74 119 -151 177 -588 443 -221 135 -419 257 -440 272 -58 41 -82 97 -77 174 5 75 38 130 107 179 l43 30 491 5 490 5 89 219 c49 120 88 219 86 221 -2 1 -253 5 -558 8 -443 5 -569 3 -625 -7z" />
               <path
@@ -41,90 +41,69 @@ import { UserProfile } from '../../core/models/request/UserProfile-request.model
             </g>
           </svg>
           </a>
-        </div>
+      </div>
 
-        <div class="layout-topbar-actions">
-          <div class="layout-config-menu">
-            <button
-              type="button"
-              class="layout-topbar-action"
-              (click)="toggleDarkMode()"
-            >
-              <i
-                [ngClass]="{
-                  'pi ': true,
-                  'pi-moon': layoutService.isDarkTheme(),
-                  'pi-sun': !layoutService.isDarkTheme()
-                }"
-              ></i>
-            </button>
-            <div class="relative">
-              <app-configurator />
-            </div>
-          </div>
-
+      <div class="layout-topbar-actions">
+        <div class="layout-config-menu">
           <button
-            class="layout-topbar-menu-button layout-topbar-action"
-            pStyleClass="@next"
-            enterFromClass="hidden"
-            enterActiveClass="animate-scalein"
-            leaveToClass="hidden"
-            leaveActiveClass="animate-fadeout"
-            [hideOnOutsideClick]="true"
+            type="button"
+            class="layout-topbar-action"
+            (click)="toggleDarkMode()"
           >
-            <i class="pi pi-ellipsis-v"></i>
+            <i
+              [ngClass]="{
+                'pi ': true,
+                'pi-moon': layoutService.isDarkTheme(),
+                'pi-sun': !layoutService.isDarkTheme()
+              }"
+            ></i>
           </button>
-
-          <div class="text-right hidden md:block">
-            <small class="text-xs text-gray-500">{{ roleName }}</small><br />
-            <span class="font-medium text-sm">{{ maskedEmail }}</span>
+          <div class="relative">
+            <app-configurator />
           </div>
+        </div>
 
-          <button class="layout-topbar-action" pTooltip="Cerrar sesión" (click)="cerrarSesion()">
-            <i class="pi pi-sign-out"></i>
-          </button>
-        </div>
-      </ng-container>
+        <button
+          class="layout-topbar-menu-button layout-topbar-action"
+          pStyleClass="@next"
+          enterFromClass="hidden"
+          enterActiveClass="animate-scalein"
+          leaveToClass="hidden"
+          leaveActiveClass="animate-fadeout"
+          [hideOnOutsideClick]="true"
+        >
+          <i class="pi pi-ellipsis-v"></i>
+        </button>
 
-      <!-- Skeleton Template -->
-      <ng-template #skeleton>
-        <div class="layout-topbar-logo-container">
-          <button class="layout-menu-button layout-topbar-action" pSkeleton shape="circle" style="width:2rem; height:2rem;"></button>
-          <p-skeleton width="100px" height="50px"></p-skeleton>
+        <div class="text-right hidden md:block">
+          <small class="text-xs text-gray-500">{{ roleName }}</small><br />
+          <span class="font-medium text-sm">{{ maskedEmail }}</span>
         </div>
-        <div class="layout-topbar-actions flex items-center space-x-4">
-          <button class="layout-topbar-action" pSkeleton shape="circle" style="width:1.5rem; height:1.5rem;"></button>
-          <p-skeleton width="2rem" height="1rem"></p-skeleton>
-          <button class="layout-topbar-action" pSkeleton shape="circle" style="width:1.5rem; height:1.5rem;"></button>
-        </div>
-      </ng-template>
+
+        <button class="layout-topbar-action" pTooltip="Cerrar sesión" (click)="cerrarSesion()">
+          <i class="pi pi-sign-out"></i>
+        </button>
+      </div>
     </div>
   `,
 })
 export class AppTopbar implements OnInit {
-  loading = true;
-  items!: MenuItem[];
   roleName: string = '';
   maskedEmail: string = '';
 
-  constructor(public layoutService: LayoutService,  private authService: AuthService,private router: Router, ) {
-
-  }
+  constructor(
+    public layoutService: LayoutService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // Simulated loading delay - replace with real data fetch
-    setTimeout(() => (this.loading = false), 1000);
-
-
-  // fuerza la recarga desde sessionStorage
-  this.authService.loadProfileFromStorage();
-
-  const profile = this.authService.userProfile;
-  if (profile) {
-    this.roleName    = profile.role.name;
-   // this.maskedEmail = this.maskEmail(profile.email);
-   this.maskedEmail = profile.alias;
-  }
+    this.authService.loadProfileFromStorage();
+    const profile = this.authService.userProfile;
+    if (profile) {
+      this.roleName = profile.role.name;
+      this.maskedEmail = profile.alias;
+    }
   }
 
   toggleDarkMode() {
@@ -134,12 +113,12 @@ export class AppTopbar implements OnInit {
     }));
   }
 
- cerrarSesion() {
+  cerrarSesion() {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
-   private maskEmail(email: string): string {
+  private maskEmail(email: string): string {
     const [localPart, domain] = email.split('@');
     return `${localPart}@${'*'.repeat(domain.length)}`;
   }

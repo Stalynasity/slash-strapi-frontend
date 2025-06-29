@@ -8,7 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { Incidencia } from '../../../core/models/incidentes.model';
 import { IncidenciaService } from '../../../core/services/Incidencia.service';
 import { Router } from '@angular/router';
-import { HttpInterceptor, HttpInterceptorFn } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-lista-incidencias',

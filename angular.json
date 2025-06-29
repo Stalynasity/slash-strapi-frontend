@@ -24,13 +24,14 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "**/*",
-                "input": "public"
-              },
-              "src/assets"
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/ngx-extended-pdf-viewer/"
+              }
             ],
             "styles": [
               "src/styles.css"
@@ -85,9 +86,12 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/ngx-extended-pdf-viewer/"
               }
             ],
             "styles": [
