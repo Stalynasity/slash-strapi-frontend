@@ -14,7 +14,7 @@ import QRious from 'qrious';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../src/environments/environment'; 
 import { DialogModule } from 'primeng/dialog'; // Asegúrate de que este pipe esté importado si lo usas en tu template
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+
 import { SafeUrlPipe } from '../../../core/pipes/safe-url.pipe';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -22,7 +22,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   selector: 'app-ver-incidencias',
   standalone: true,
   imports: [
-    NgxExtendedPdfViewerModule,
+
     CommonModule,
     TagModule,
     CardModule,

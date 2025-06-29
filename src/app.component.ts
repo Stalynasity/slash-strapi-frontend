@@ -7,7 +7,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from '../../slash-strapi-frontend/src/app/core/services/auth.service';
 
 import { authInterceptor } from './app/core/interceptors/auth.interceptor';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+
 
 
 @Component({
@@ -15,7 +15,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
   standalone: true,
   imports: [
     RouterModule,
-    NgxExtendedPdfViewerModule,   // ← aquí importas el módulo HTTP
+// ← aquí importas el módulo HTTP
   ],
   // providers removed; HTTP_INTERCEPTORS is now registered globally in app.config.ts
   template: `<router-outlet></router-outlet>`
