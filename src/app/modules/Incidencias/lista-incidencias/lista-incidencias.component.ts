@@ -24,8 +24,8 @@ import { HttpInterceptor, HttpInterceptorFn } from '@angular/common/http';
   ],
   templateUrl: './lista-incidencias.component.html',
   styleUrls: ['./lista-incidencias.component.css'],
-   providers: [
-    
+  providers: [
+
   ],
 })
 export class ListaIncidenciasComponent implements OnInit {
@@ -70,7 +70,7 @@ export class ListaIncidenciasComponent implements OnInit {
     this.cargarIncidencias(this.currentPage);
   }
 
- 
+
 
   getSeveridadEstado(
     estado: string

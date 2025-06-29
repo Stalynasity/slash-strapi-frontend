@@ -34,9 +34,15 @@
       <tr>
         <th class="text-sm font-semibold">Codigo</th>
         <th class="text-sm font-semibold">Título</th>
-        <th class="text-sm font-semibold">Tipo de error</th>
-        <th class="text-sm font-semibold">Estado</th>
-        <th class="text-sm font-semibold">Autor</th>
+        <th pSortableColumn="tipo" class="text-sm font-semibold text-gray-700">
+          Tipo de error
+          <p-sortIcon field="tipo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="estado" class="text-sm font-semibold text-gray-700">
+          Estado
+          <p-sortIcon field="estado"></p-sortIcon>
+        </th>
+        <th class="text-sm font-semibold">Asignado</th>
         <th class="text-sm font-semibold">Acciones</th>
       </tr>
     </ng-template>
@@ -54,13 +60,15 @@
           </p-tag>
         </td>
         <td class="text-sm">{{ incidencia.autor }}</td>
-        <td class="text-sm">
-          <p-button
+        <td class="text-sm text-center">
+          <button
+            pButton
+            pTooltip="Ver detalles"
+            tooltipPosition="top"
             icon="pi pi-eye"
-            class="p-button-sm p-button-text"
-            label="Ver"
-            (click)="verIncidencia(incidencia)">
-          </p-button>
+            class="p-button-text p-button-rounded p-button-sm text-primary"
+            (click)="verIncidencia(incidencia)"
+          > Ver... </button>
         </td>
       </tr>
     </ng-template>
