@@ -1,112 +1,218 @@
-<section class="card p-6 rounded-xl shadow-md space-y-4">
-  <form [formGroup]="formulario" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <!-- Fila superior -->
-    <div class="flex flex-col">
-      <label class="mb-1 font-medium">Causa raíz:</label>
-      <input pInputText formControlName="causaRaiz" class="w-full" />
+<section class="card p-6 rounded-xl shadow-md space-y-6 bg-white">
+
+  <!-- 🔍 Buscador de incidencia -->
+  <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg space-y-4">
+    <h3 class="text-lg font-semibold text-primary">🔎 Buscar incidencia a documentar</h3>
+
+    <div class="flex flex-col md:flex-row items-start gap-3">
+      <p-autoComplete
+        [(ngModel)]="incidenciaSeleccionada"
+        [suggestions]="incidenciasFiltradas"
+        (completeMethod)="buscarIncidencias($event)"
+        field="codigo"
+        [dropdown]="true"
+        placeholder="Buscar por código"
+        class="w-full"
+        [disabled]="incidenciasAsociadas.length > 0"
+
+      />
+      <p-button
+        label="Agregar"
+        icon="pi pi-plus"
+        (click)="agregarIncidenciaSeleccionada()"
+        [disabled]="!incidenciaSeleccionada || incidenciasAsociadas.length > 0"
+      />
     </div>
 
-    <div class="flex flex-col">
-      <label class="mb-1 font-medium">Impacto:</label>
-      <p-select [options]="opcionesImpacto" formControlName="impacto" optionLabel="label" placeholder="Seleccione" class="w-full" />
-    </div>
-
-    <div class="flex flex-col">
-      <label class="mb-1 font-medium">Versión afectada:</label>
-      <input pInputText formControlName="version" class="w-full" />
-    </div>
-
-    <!-- Recomendaciones y Solución a la izquierda -->
-    <div class="md:col-span-2 grid grid-cols-1 gap-4">
-      <div class="flex flex-col">
-        <label class="mb-1 font-medium">Recomendaciones</label>
-        <textarea pTextarea formControlName="recomendaciones" rows="3" class="w-full"></textarea>
-      </div>
-
-      <div class="flex flex-col">
-        <label class="mb-1 font-medium">Solución aplicada:</label>
-        <textarea pTextarea formControlName="solucion" rows="4" class="w-full"></textarea>
-      </div>
-    </div>
-
-    <!-- Archivos adjuntos a la derecha -->
-    <div class="flex flex-col h-full">
-      <label class="mb-1 font-medium">Archivo Adjunto</label>
-      <div class="max-h-[400px] overflow-y-auto border rounded-md p-2">
-        <p-fileupload
-          name="archivo[]"
-          (onUpload)="onUpload($event)"
-          [multiple]="true"
-          accept="image/*"
-          maxFileSize="500000"
-          mode="advanced"
-          url="https://www.primefaces.org/cdn/api/upload.php"
-          chooseLabel="Elegir"
-          uploadLabel="Subir"
-          cancelLabel="Cancelar"
-        >
-          <ng-template #empty>
-            <div>Arrastra y suelta los archivos aquí para subirlos.</div>
-          </ng-template>
-          <ng-template #content>
-            <ul *ngIf="uploadedFiles.length" class="space-y-2">
-              <li *ngFor="let file of uploadedFiles" class="text-sm">
-                {{ file.name }} - {{ file.size / 1024 | number: '1.0-2' }} KB
-              </li>
-            </ul>
-          </ng-template>
-        </p-fileupload>
-      </div>
-    </div>
-  </form>
-
-  <!-- Botones -->
-  <div class="flex justify-end gap-3">
-    <p-button label="Borrar" severity="secondary" icon="pi pi-times" (click)="formulario.reset()" />
-    <p-button label="Agregar" icon="pi pi-check" (click)="mostrarResumen()" />
-  </div>
-
-  <p-dialog header="Resumen de creación" [(visible)]="mostrarDialogo" [modal]="true" [style]="{ width: '500px' }">
-  <div class="space-y-3">
-    <div>
-      <p class="font-semibold text-gray-700"> <strong>Causa raíza:</strong></p>
-      <p class="text-sm text-gray-800 ml-2">{{ formulario.value.causaRaiz }}</p>
-    </div>
-
-    <div>
-      <p class="font-semibold text-gray-700"> <strong>Impacto:</strong></p>
-      <p class="text-sm text-gray-800 ml-2">{{ formulario.value.impacto?.label }}</p>
-    </div>
-
-    <div>
-      <p class="font-semibold text-gray-700">🛠️ <strong>Versión afectada:</strong></p>
-      <p class="text-sm text-gray-800 ml-2">{{ formulario.value.version }}</p>
-    </div>
-
-    <div>
-      <p class="font-semibold text-gray-700"><strong>Recomendaciones:</strong></p>
-      <p class="text-sm text-gray-800 ml-2 whitespace-pre-wrap">{{ formulario.value.recomendaciones }}</p>
-    </div>
-
-    <div>
-      <p class="font-semibold text-gray-700"><strong>Solución aplicada:</strong></p>
-      <p class="text-sm text-gray-800 ml-2 whitespace-pre-wrap">{{ formulario.value.solucion }}</p>
-    </div>
-
-    <div>
-      <p class="font-semibold text-gray-700"><strong>Archivos adjuntos:</strong></p>
-      <ul class="list-disc list-inside ml-2 text-sm text-gray-800">
-        <li *ngFor="let archivo of uploadedFiles">
-          {{ archivo.name }} ({{ archivo.size / 1024 | number: '1.0-0' }} KB)
+    <!-- 🧾 Incidencias asociadas -->
+    <div *ngIf="incidenciasAsociadas.length > 0" class="space-y-2 pt-2">
+      <h4 class="font-semibold text-gray-700">📋 Incidencia seleccionada:</h4>
+      <ul class="space-y-2">
+        <li *ngFor="let inc of incidenciasAsociadas; let i = index"
+            class="flex flex-col md:flex-row md:items-center md:justify-between bg-white border rounded-md p-3 shadow-sm">
+          <div>
+            <p class="font-medium text-gray-800">#{{ inc.codigo }} - {{ inc.titulo }}</p>
+            <p class="text-sm text-gray-500">Tipo: {{ inc.tipo }}</p>
+          </div>
+          <div class="flex items-center gap-2 mt-2 md:mt-0">
+            <p-tag [value]="inc.estado" [severity]="getSeveridadEstado(inc.estado)" />
+            <button pButton icon="pi pi-times" severity="danger" class="p-button-sm p-button-text"
+              (click)="eliminarIncidenciaAsociada(i)"></button>
+          </div>
         </li>
       </ul>
     </div>
   </div>
 
-  <div class="flex justify-end gap-3 mt-5">
-    <p-button label="Cancelar" icon="pi pi-times" (click)="mostrarDialogo = false" severity="secondary" />
-    <p-button label="Confirmar" icon="pi pi-check" (click)="agregarSolucion()" />
+  <!-- ✅ Formulario -->
+  <form [formGroup]="formulario" class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+
+
+    <div class="flex flex-col">
+      <label class="mb-1 font-medium text-sm text-gray-700">Impacto</label>
+      <p-select
+        [options]="opcionesImpacto"
+        formControlName="impacto"
+        optionLabel="label"
+        placeholder="Seleccione"
+        class="w-full"
+      />
+    </div>
+
+    <div class="flex flex-col">
+      <label class="mb-1 font-medium text-sm text-gray-700">Versión afectada</label>
+      <input pInputText formControlName="version" class="w-full" placeholder="Ej. v1.3.2" />
+    </div>
+
+    <div class="lg:col-span-2 flex flex-col">
+      <label class="mb-1 font-medium text-sm text-gray-700">Causa raíz</label>
+      <input pInputText formControlName="causaRaiz" class="w-full" placeholder="¿Cuál fue la causa principal?" />
+    </div>
+
+    <div class="lg:col-span-2 flex flex-col">
+      <label class="mb-1 font-medium text-sm text-gray-700">Recomendaciones</label>
+      <textarea
+        pTextarea
+        formControlName="recomendaciones"
+        rows="3"
+        class="w-full"
+        placeholder="Sugerencias para evitar recurrencia..."
+      ></textarea>
+    </div>
+
+    <div class="lg:col-span-2 flex flex-col">
+      <label class="mb-1 font-medium text-sm text-gray-700">Solución aplicada</label>
+      <p-editor
+        placeholder="¿Qué acciones se tomaron para solucionar?"
+        formControlName="solucion"
+        [style]="{ height: '320px' }"
+      ></p-editor>
+    </div>
+  </form>
+
+  <!-- ✅ Archivos Adjuntos (fuera del formulario) -->
+  <div class="space-y-2 border border-gray-200 rounded-lg p-4 bg-gray-50">
+    <h4 class="mb-1 font-semibold text-sm text-gray-700">📎 Archivos Adjuntos</h4>
+    <div class="max-h-[400px] overflow-y-auto border rounded-md p-3 bg-white">
+      <p-fileupload
+        name="archivo[]"
+        (onUpload)="onUpload($event)"
+        [multiple]="true"
+        accept="image/*"
+        maxFileSize="500000"
+        mode="advanced"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        chooseLabel="Elegir"
+        uploadLabel="Subir"
+        cancelLabel="Cancelar"
+      >
+        <ng-template #empty>
+          <div class="text-gray-500 text-sm">Arrastra y suelta los archivos aquí</div>
+        </ng-template>
+        <ng-template #content>
+          <ul *ngIf="uploadedFiles.length" class="space-y-1 text-sm text-gray-700">
+            <li *ngFor="let file of uploadedFiles">
+              {{ file.name }} - {{ file.size / 1024 | number: '1.0-2' }} KB
+            </li>
+          </ul>
+        </ng-template>
+      </p-fileupload>
+    </div>
   </div>
-</p-dialog>
+
+  <!-- ✅ Botones -->
+  <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
+    <p-button label="Borrar" severity="secondary" icon="pi pi-times" (click)="formulario.reset()" class="p-button-outlined" />
+    <p-button label="Agregar" icon="pi pi-check" (click)="mostrarResumen()" />
+  </div>
+
+  <!-- ✅ Diálogo resumen -->
+  <p-dialog
+    header="✅ Resumen de la Documentación"
+    [(visible)]="mostrarDialogo"
+    [modal]="true"
+    [style]="{ width: '100%', maxWidth: '640px' }"
+    contentStyleClass="p-5"
+  >
+    <div class="space-y-5 text-sm text-gray-800">
+
+      <!-- 🔎 Información de la incidencia -->
+      <div class="border border-blue-100 bg-blue-50 p-4 rounded-md space-y-1">
+        <h4 class="font-semibold text-blue-800 text-sm mb-2">🧾 Información del incidente</h4>
+        <div *ngIf="incidenciasAsociadas.length > 0">
+          <p><span class="font-medium text-gray-600">Código:</span> {{ incidenciasAsociadas[0].codigo }}</p>
+          <p><span class="font-medium text-gray-600">Título:</span> {{ incidenciasAsociadas[0].titulo }}</p>
+          <p><span class="font-medium text-gray-600">Tipo:</span> {{ incidenciasAsociadas[0].tipo }}</p>
+          <p><span class="font-medium text-gray-600">Estado:</span> {{ incidenciasAsociadas[0].estado }}</p>
+        </div>
+        <div *ngIf="incidenciasAsociadas.length === 0" class="text-red-600 font-medium">
+          ❌ No se ha seleccionado ninguna incidencia.
+        </div>
+      </div>
+
+      <!-- ✅ Causa raíz -->
+      <div>
+        <h4 class="font-semibold text-gray-700 mb-1">Causa raíz</h4>
+        <p class="bg-gray-50 p-3 rounded-md border border-gray-200">{{ formulario.value.causaRaiz || 'No definido'}}</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <h4 class="font-semibold text-gray-700 mb-1">Impacto</h4>
+          <p class="bg-gray-50 p-3 rounded-md border border-gray-200">
+            {{ formulario.value.impacto?.label || 'No definido' }}
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-gray-700 mb-1">Versión afectada</h4>
+          <p class="bg-gray-50 p-3 rounded-md border border-gray-200">{{ formulario.value.version || 'No definido' }}</p>
+        </div>
+      </div>
+
+      <!-- ✅ Recomendaciones -->
+      <div>
+        <h4 class="font-semibold text-gray-700 mb-1">Recomendaciones</h4>
+        <p class="bg-gray-50 p-3 rounded-md border border-gray-200 whitespace-pre-wrap">
+          {{ formulario.value.recomendaciones || 'No definido'}}
+        </p>
+      </div>
+
+      <!-- ✅ Solución -->
+      <div>
+        <h4 class="font-semibold text-gray-700 mb-1">Solución aplicada</h4>
+        <p class="bg-gray-50 p-3 rounded-md border border-gray-200 whitespace-pre-wrap">
+          {{ formulario.value.solucion || 'No definido'}}
+        </p>
+      </div>
+
+      <!-- ✅ Archivos adjuntos -->
+      <div *ngIf="uploadedFiles?.length">
+        <h4 class="font-semibold text-gray-700 mb-1">📎 Archivos adjuntos</h4>
+        <ul class="list-disc list-inside space-y-1 ml-2">
+          <li *ngFor="let archivo of uploadedFiles">
+            {{ archivo.name }} ({{ archivo.size / 1024 | number: '1.0-0' }} KB)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ✅ Botones del diálogo -->
+    <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-200">
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        (click)="mostrarDialogo = false"
+        severity="secondary"
+        class="p-button-outlined"
+      />
+      <p-button
+        label="Confirmar"
+        icon="pi pi-check"
+        (click)="agregarSolucion()"
+        severity="primary"
+        [disabled]="incidenciasAsociadas.length === 0"
+      />
+    </div>
+  </p-dialog>
 
 </section>

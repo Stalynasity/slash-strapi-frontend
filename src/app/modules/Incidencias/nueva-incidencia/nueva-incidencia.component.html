@@ -1,46 +1,55 @@
-<form [formGroup]="formulario" class="card p-6 space-y-6">
-  <div class="text-xl font-semibold text-primary mb-2">Nueva Incidencia</div>
+<form [formGroup]="formulario" class="card p-6 space-y-6 bg-white rounded-lg shadow-md">
+  <!-- Título -->
+  <div class="text-2xl font-bold text-primary mb-4">Registrar Nueva Incidencia</div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <!-- Inputs principales -->
+  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <!-- Título -->
     <div class="flex flex-col">
-      <label for="titulo" class="font-medium text-color mb-1">Título</label>
-      <input id="titulo" pInputText formControlName="titulo" class="w-full" />
+      <label for="titulo" class="mb-1 text-sm font-medium text-gray-700">Título</label>
+      <input id="titulo" pInputText formControlName="titulo" class="w-full"
+        placeholder="Ej. Error al guardar cambios" />
     </div>
 
+    <!-- Prioridad -->
     <div class="flex flex-col">
-      <label for="prioridad" class="font-medium text-color mb-1">Prioridad</label>
+      <label for="prioridad" class="mb-1 text-sm font-medium text-gray-700">Prioridad</label>
       <p-select id="prioridad" [options]="opcionesPrioridad" optionLabel="label" formControlName="prioridad"
-        placeholder="Seleccione" class="w-full" />
+        placeholder="Seleccione prioridad" class="w-full" />
     </div>
 
+    <!-- Tipo -->
     <div class="flex flex-col">
-      <label for="tipoError" class="font-medium text-color mb-1">Tipo de error</label>
-      <input id="tipoError" pInputText formControlName="tipoError" class="w-full" />
+      <label for="tipo" class="mb-1 text-sm font-medium text-gray-700">Tipo de incidencia</label>
+      <p-select id="tipo" formControlName="tipo" [options]="tipos" optionLabel="label" placeholder="Seleccione tipo"
+        class="w-full" />
     </div>
 
+    <!-- Módulo -->
     <div class="flex flex-col">
-      <label for="modulo" class="font-medium text-color mb-1">Módulo afectado</label>
+      <label for="modulo" class="mb-1 text-sm font-medium text-gray-700">Módulo afectado</label>
       <p-select id="modulo" [options]="opcionesModulo" optionLabel="label" formControlName="modulo"
-        placeholder="Seleccione" class="w-full" />
-
+        placeholder="Seleccione módulo" class="w-full" />
     </div>
 
+    <!-- Descripción -->
     <div class="flex flex-col md:col-span-2">
-      <label for="descripcion" class="font-medium text-color mb-1">Descripción</label>
-      <textarea id="descripcion" rows="5" pTextarea formControlName="descripcion" class="w-full"></textarea>
+      <label for="descripcion" class="mb-1 text-sm font-medium text-gray-700">Descripción</label>
+      <textarea id="descripcion" rows="5" pTextarea formControlName="descripcion" class="w-full"
+        placeholder="Describa detalladamente el problema..."></textarea>
     </div>
   </div>
 
-  <div class="mt-6 border border-surface p-5 rounded-md">
-    <label class="block font-medium text-color mb-3">Archivos Adjuntos</label>
-    <p-fileupload name="archivo[]" (onUpload)="onUpload($event)" [multiple]="true"
-      maxFileSize="500000" mode="advanced"
-      chooseLabel="Elegir" uploadLabel="Subir" cancelLabel="Cancelar">
+  <!-- Adjuntos -->
+  <div class="mt-6 border border-gray-200 p-5 rounded-lg bg-gray-50">
+    <label class="block font-medium text-gray-800 mb-3 text-sm">Archivos Adjuntos</label>
+    <p-fileupload name="archivo[]" [multiple]="true" maxFileSize="500000" mode="advanced" chooseLabel="Elegir"
+      uploadLabel="Subir" cancelLabel="Cancelar" (onUpload)="onUpload($event)">
       <ng-template #empty>
-        <div>Arrastra y suelta los archivos aquí para subirlos.</div>
+        <p class="text-gray-500 text-sm">Arrastra y suelta los archivos aquí para subirlos.</p>
       </ng-template>
       <ng-template #content>
-        <ul *ngIf="uploadedFiles.length">
+        <ul *ngIf="uploadedFiles.length" class="text-sm text-gray-700 space-y-1">
           <li *ngFor="let file of uploadedFiles">
             {{ file.name }} - {{ file.size / 1024 | number: '1.0-2' }} KB
           </li>
@@ -49,8 +58,10 @@
     </p-fileupload>
   </div>
 
-  <div class="flex justify-end gap-3 pt-4">
-    <p-button label="Borrar" severity="secondary" icon="pi pi-times" type="button" (click)="formulario.reset()" />
-    <p-button label="Agregar" icon="pi pi-check" type="submit" (click)="agregarIncidencia()" />
+  <!-- Botones -->
+  <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 pt-6">
+    <p-button label="Cancelar" icon="pi pi-times" severity="secondary" class="p-button-outlined" type="button"
+      (click)="formulario.reset()" />
+    <p-button label="Registrar" icon="pi pi-check" type="submit" (click)="agregarIncidencia()" class="p-button" />
   </div>
 </form>

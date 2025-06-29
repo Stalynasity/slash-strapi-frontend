@@ -32,6 +32,12 @@ export class NuevaIncidenciaComponent {
 
   uploadedFiles: any[] = [];
 
+  tipos = [
+    { label: 'Funcionalidad', value: 'Funcionalidad' },
+    { label: 'Error', value: 'Error' },
+    { label: 'Mejora', value: 'Mejora' },
+  ];
+
   opcionesPrioridad = [
     { label: 'Alta', value: 'alta' },
     { label: 'Media', value: 'media' },
@@ -53,7 +59,7 @@ export class NuevaIncidenciaComponent {
     this.formulario = this.fb.group({
       titulo: [''],
       prioridad: [''],
-      tipoError: [''],
+      tipo: [''],
       modulo: [''],
       descripcion: [''],
     });

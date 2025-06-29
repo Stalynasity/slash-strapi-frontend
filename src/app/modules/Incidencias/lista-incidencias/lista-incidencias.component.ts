@@ -24,8 +24,8 @@ import { Router } from '@angular/router';
   ],
   templateUrl: './lista-incidencias.component.html',
   styleUrls: ['./lista-incidencias.component.css'],
-   providers: [
-    
+  providers: [
+
   ],
 })
 export class ListaIncidenciasComponent implements OnInit {
@@ -70,7 +70,7 @@ export class ListaIncidenciasComponent implements OnInit {
     this.cargarIncidencias(this.currentPage);
   }
 
- 
+
 
   getSeveridadEstado(
     estado: string
