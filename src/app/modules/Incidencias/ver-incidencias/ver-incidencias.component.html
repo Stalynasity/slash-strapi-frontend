@@ -115,15 +115,26 @@
   </p-card>
 
   <!-- Modal -->
-  <p-dialog header="{{ archivoSeleccionado?.name }}" [(visible)]="modalVisible" [modal]="true"
-    [style]="{ width: '80vw', height: '80vh' }" [contentStyle]="{ height: '100%' }" [dismissableMask]="true">
-    <iframe *ngIf="archivoSeleccionado?.mime === 'application/pdf'" [src]="pdfSafeUrl"
-      style="width: 100%; height: 100%; border: none;"></iframe>
+ <!-- Modal con soporte para PDF e Imágenes -->
+<p-dialog header="{{ archivoSeleccionado?.name }}" [(visible)]="modalVisible" [modal]="true"
+  [style]="{ width: '80vw', maxWidth: '900px' }"
+  [contentStyle]="{ padding: '0', height: 'calc(80vh - 4rem)' }"
+  [dismissableMask]="true" class="rounded-xl overflow-hidden">
 
-    <ng-template #imagen>
-      <img *ngIf="archivoSeleccionado?.mime.startsWith('image/')" [src]="archivoSeleccionado.urlCompleta"
-        alt="Vista previa" class="w-full h-full object-contain" />
-    </ng-template>
-  </p-dialog>
+  <!-- PDF -->
+  <iframe *ngIf="archivoSeleccionado?.mime === 'application/pdf'" 
+          [src]="pdfSafeUrl"
+          class="w-full h-full border-0 rounded-b-xl">
+  </iframe>
+
+  <!-- Imagen -->
+  <div *ngIf="archivoSeleccionado?.mime?.startsWith('image/')" class="w-full h-full flex items-center justify-center bg-black">
+    <img [src]="archivoSeleccionado?.urlCompleta" 
+         alt="Vista previa"
+         class="max-w-full max-h-full object-contain rounded-b-xl" />
+  </div>
+
+</p-dialog>
+
 
 </div>
