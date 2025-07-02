@@ -8,11 +8,14 @@ import { AuthService } from '../../slash-strapi-frontend/src/app/core/services/a
 
 import { authInterceptor } from './app/core/interceptors/auth.interceptor';
 
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterModule,   // ← aquí importas el módulo HTTP
+    RouterModule,
+// ← aquí importas el módulo HTTP
   ],
   // providers removed; HTTP_INTERCEPTORS is now registered globally in app.config.ts
   template: `<router-outlet></router-outlet>`

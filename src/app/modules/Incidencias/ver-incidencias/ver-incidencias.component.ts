@@ -11,11 +11,18 @@ import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import QRious from 'qrious';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../src/environments/environment'; 
+import { DialogModule } from 'primeng/dialog'; // Asegúrate de que este pipe esté importado si lo usas en tu template
+
+import { SafeUrlPipe } from '../../../core/pipes/safe-url.pipe';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ver-incidencias',
   standalone: true,
   imports: [
+
     CommonModule,
     TagModule,
     CardModule,
@@ -24,21 +31,30 @@ import QRious from 'qrious';
     TimelineModule,
     TextareaModule,
     FormsModule,
+    DialogModule
+   
   ],
   templateUrl: './ver-incidencias.component.html',
   styleUrls: ['./ver-incidencias.component.css'],
 })
 export class VerIncidenciasComponent implements OnInit {
+  pdfBase64: string | null = null;
+  pdfSafeUrl: SafeResourceUrl | null = null;
+
   incidencia?: Incidencia;
   nuevoComentario: string = '';
   urlActual: string = window.location.href;
+  archivosAdjuntos: any[] = [];
+  assetsurl: string = environment.assetsUrl;
 
   @ViewChild('qrCanvas', { static: false }) qrCanvasRef!: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
     private incidenciaService: IncidenciaService,
-    private location: Location
+    private location: Location,
+    private http: HttpClient,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -47,9 +63,24 @@ export class VerIncidenciasComponent implements OnInit {
       this.incidenciaService.getIncidenciaPorId(id).subscribe((data) => {
         this.incidencia = data;
         setTimeout(() => this.generarQRCode(), 100); // Esperar a que canvas se renderice
+
+        // Solo buscar archivos si hay adjuntoincidencia y un título válido
+        if (data) {
+          console.log('Datos de incidencia:', data);
+
+        this.incidenciaService
+          .getArchivosAdjuntosPorIncidencia(data)
+          .subscribe((archivos) => {
+            this.archivosAdjuntos = archivos;
+          });
+      }
+
+      
       });
     }
   }
+
+
 
   generarQRCode(): void {
     if (this.qrCanvasRef) {
@@ -126,4 +157,38 @@ compartirEnlace(): void {
     // Pendiente: integración con el backend o array local
     this.nuevoComentario = '';
   }
+
+  archivoSeleccionado: any = null;
+modalVisible = false;
+
+abrirModal(archivo: any) {
+  this.archivoSeleccionado = archivo;
+  this.modalVisible = true;
+
+  if (archivo.mime === 'application/pdf') {
+
+     this.pdfSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        archivo.urlCompleta
+      );
+
+    this.http
+      .get(archivo.urlCompleta, { responseType: 'blob' })
+      .subscribe((blob) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result as string;
+          this.pdfBase64 = base64; // incluye el data:application/pdf;base64,...
+        };
+        reader.readAsDataURL(blob);
+      });
+  }
+}
+
+cerrarModal() {
+  this.modalVisible = false;
+  this.archivoSeleccionado = null;
+  this.pdfSafeUrl = null; // Limpia la URL segura
+}
+
+
 }
